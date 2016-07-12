@@ -5,7 +5,7 @@
           http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"  
           version="3.0">
 
-    <filter>
+    <!-- <filter>
      <filter-name>encodingFilter</filter-name>
      <filter-class>com.oraclewdp.crm.action.EncodingFilter</filter-class>
      <init-param>
@@ -17,7 +17,7 @@
   <filter-mapping>
    <filter-name>encodingFilter</filter-name>
    <url-pattern>/*</url-pattern>
-  </filter-mapping>
+  </filter-mapping> -->
 
           
  </web-app>
