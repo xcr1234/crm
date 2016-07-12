@@ -44,6 +44,8 @@ public class FileUpload {
                     File savedFile=new File(WebPathUtil.getwebRoot(),name);
                     fileItem.write(savedFile);
 
+                    names.add(name);
+
 
                 }
             }
