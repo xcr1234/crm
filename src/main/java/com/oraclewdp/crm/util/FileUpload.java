@@ -15,23 +15,21 @@ import java.util.List;
 import java.util.UUID;
 
 /**
- * 上传文件的工具类 支持多个文件上传。
- *
- * 主要方法是
- *
- *
- *  FileUpload.upload(request,目录）; //随机生成新的文件名并返回。
- *
  * @author xcr
- *
- *
+ * 上传文件的工具类 支持多个文件上传。
  */
 public class FileUpload {
 
+	/**
+	 * 随机生成新的文件名并返回。
+	 * @author xcr
+	 * @time 2016年7月12日 下午12:55:18
+	 * @tags @param request
+	 * @tags @param path 目录
+	 * @tags @return  List<String>
+	 * @tags @throws Exception
+	 */
     public static List<String> upload(HttpServletRequest request,String path) throws Exception {
-
-
-
         if(ServletFileUpload.isMultipartContent(request)){
             FileItemFactory factory = new DiskFileItemFactory();
             ServletFileUpload servletFileUpload = new ServletFileUpload(factory);
@@ -43,7 +41,7 @@ public class FileUpload {
                 if(fileName!=null){
                     File fullFile=new File(fileItem.getName());
                     String name = getFileName(fullFile.getName());
-                    File savedFile=new File(WebPathUtil.webRoot(),name);
+                    File savedFile=new File(WebPathUtil.getwebRoot(),name);
                     fileItem.write(savedFile);
 
 

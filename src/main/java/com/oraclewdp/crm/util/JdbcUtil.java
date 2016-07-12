@@ -10,20 +10,8 @@ import java.sql.SQLException;
 import java.util.Properties;
 
 /**
- * 提供jdbc数据的连接类
- * 自动读取配置
- *
- *
- *
- * 使用方法是
- * JdbcUtil jdbc = JdbcUtil.getInstance()
- * JdbcUtil jdbc = JdbcUtil.getInstance("db.properties");  //db.properties放在resources下。
- *
- * Connection connection = jdbc.getConnection(); //throws SQLException
- *
- * jdbc.closeConnection();
- *
- *
+ * 提供jdbc数据的连接类， 自动读取配置
+ * @author xcr
  */
 public class JdbcUtil {
 
@@ -41,7 +29,14 @@ public class JdbcUtil {
 
 
     private static JdbcUtil jdbcUtil = null;
-
+    
+    
+/**
+ * 获得一个JdbcUtil实例对象
+ * @author xcr
+ * @time 2016年7月12日 下午1:01:28
+ * @tags @return JdbcUtil
+ */
     public  synchronized  static JdbcUtil getInstance(){
         return getInstance("db.properties");
     }
@@ -78,6 +73,13 @@ public class JdbcUtil {
 
     private ThreadLocal<Connection> threadLocal = new ThreadLocal<>();
 
+    /**
+     * 获得一个connection对象
+     * @author gui
+     * @time 2016年7月12日 下午1:03:47
+     * @tags @return Connection
+     * @tags @throws SQLException
+     */
     public Connection getConnection() throws SQLException{
 
         Connection connection = threadLocal.get();
@@ -90,6 +92,12 @@ public class JdbcUtil {
 
     }
 
+    /**
+     * 关闭connection对象
+     * @author xcr
+     * @time 2016年7月12日 下午1:05:21
+     * @tags @throws SQLException
+     */
     public void closeConnection() throws SQLException{
         Connection connection = threadLocal.get();
         if(connection!=null){
