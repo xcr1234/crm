@@ -7,15 +7,15 @@ public class User {
 
     private Integer workposition;
 
-    private String username;
+    private String userName;
 
     private String sex;
 
     private String oldpassword;
 
-    private String nickname;
+    private String nickName;
 
-    private String userpic;
+    private String userPic;
 
     private String phone;
 
@@ -23,7 +23,7 @@ public class User {
 
     private String address;
 
-    private Integer userdetailid;
+    private Integer userDetailId;
 
     private String password;
 
@@ -53,12 +53,12 @@ public class User {
         this.workposition = workposition;
     }
 
-    public String getUsername() {
-        return username;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public String getSex() {
@@ -77,20 +77,20 @@ public class User {
         this.oldpassword = oldpassword;
     }
 
-    public String getNickname() {
-        return nickname;
+    public String getNickName() {
+        return nickName;
     }
 
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
+    public void setNickName(String nickName) {
+        this.nickName = nickName;
     }
 
-    public String getUserpic() {
-        return userpic;
+    public String getUserPic() {
+        return userPic;
     }
 
-    public void setUserpic(String userpic) {
-        this.userpic = userpic;
+    public void setUserPic(String userPic) {
+        this.userPic = userPic;
     }
 
     public String getPhone() {
@@ -117,12 +117,12 @@ public class User {
         this.address = address;
     }
 
-    public Integer getUserdetailid() {
-        return userdetailid;
+    public Integer getUserDetailId() {
+        return userDetailId;
     }
 
-    public void setUserdetailid(Integer userdetailid) {
-        this.userdetailid = userdetailid;
+    public void setUserDetailId(Integer userDetailId) {
+        this.userDetailId = userDetailId;
     }
 
     public String getPassword() {

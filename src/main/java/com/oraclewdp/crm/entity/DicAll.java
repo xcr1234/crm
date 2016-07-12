@@ -1,6 +1,6 @@
 package com.oraclewdp.crm.entity;
 
-public class Dic {
+public class DicAll {
     private Integer id;
 
     private String type;

@@ -19,12 +19,12 @@ public class RoleauthorityDAOImpl implements IRoleauthorityDAO {
         this.conn = conn;
     }
 
-    public boolean create(Roleauthority roleauthority) {
+    public boolean create(RoleAuthority roleauthority) {
         String sql = "INSERT INTO ROLEAUTHORITY(roleId,authorityId) values (?,?) ";
         try {
             PreparedStatement pstmt = this.conn.prepareStatement(sql);
-            pstmt.setInt(1, roleauthority.getRoleId());
-            pstmt.setInt(2, roleauthority.getAuthorityId());
+            pstmt.setInt(1, roleauthority.getRoleid());
+            pstmt.setInt(2, roleauthority.getAuthorityid());
             if (pstmt.executeUpdate() == 1) {
                 pstmt.close();
                 return true;
@@ -49,13 +49,13 @@ public class RoleauthorityDAOImpl implements IRoleauthorityDAO {
         return result;
     }
 
-    public int updateByID(Roleauthority roleauthority) {
+    public int updateByID(RoleAuthority roleauthority) {
         String sql = "UPDATE ROLEAUTHORITY SET roleId=?,authorityId=? WHERE id = ? ";
         int result = 0;
         try {
             PreparedStatement pstmt = this.conn.prepareStatement(sql);
-            pstmt.setInt(1, roleauthority.getRoleId());
-            pstmt.setInt(2, roleauthority.getAuthorityId());
+            pstmt.setInt(1, roleauthority.getRoleid());
+            pstmt.setInt(2, roleauthority.getAuthorityid());
             pstmt.setInt(3, roleauthority.getId());
             result = pstmt.executeUpdate();
             pstmt.close();
@@ -65,18 +65,18 @@ public class RoleauthorityDAOImpl implements IRoleauthorityDAO {
         return result;
     }
 
-    public Roleauthority findByID(Integer id) {
+    public RoleAuthority findByID(Integer id) {
         String sql = " SELECT * FROM ROLEAUTHORITY WHERE id = ? ";
         try {
             PreparedStatement pstmt = this.conn.prepareStatement(sql);
             pstmt.setInt(1, id);
             ResultSet rs = pstmt.executeQuery();
-            Roleauthority roleauthority = null;
+            RoleAuthority roleauthority = null;
             while (rs.next()) {
-                roleauthority = new Roleauthority();
+                roleauthority = new RoleAuthority();
                 roleauthority.setId(rs.getInt("id"));
-                roleauthority.setRoleId(rs.getInt("roleId"));
-                roleauthority.setAuthorityId(rs.getInt("authorityId"));
+                roleauthority.setRoleid(rs.getInt("roleId"));
+                roleauthority.setAuthorityid(rs.getInt("authorityId"));
             }
             pstmt.close();
             rs.close();
@@ -87,17 +87,17 @@ public class RoleauthorityDAOImpl implements IRoleauthorityDAO {
         return null;
     }
 
-    public List<Roleauthority> findAll() {
-        List<Roleauthority> all = new ArrayList<Roleauthority>();
+    public List<RoleAuthority> findAll() {
+        List<RoleAuthority> all = new ArrayList<RoleAuthority>();
         String sql = " SELECT * FROM ROLEAUTHORITY";
         try {
             PreparedStatement pstmt = this.conn.prepareStatement(sql);
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
-                Roleauthority roleauthority = new Roleauthority();
+                RoleAuthority roleauthority = new RoleAuthority();
                 roleauthority.setId(rs.getInt("id"));
-                roleauthority.setRoleId(rs.getInt("roleId"));
-                roleauthority.setAuthorityId(rs.getInt("authorityId"));
+                roleauthority.setRoleid(rs.getInt("roleId"));
+                roleauthority.setAuthorityid(rs.getInt("authorityId"));
                 all.add(roleauthority);
             }
             pstmt.close();
@@ -108,18 +108,18 @@ public class RoleauthorityDAOImpl implements IRoleauthorityDAO {
         return all;
     }
 
-    public List<Roleauthority> findAll(String column, String kw) {
-        List<Roleauthority> all = new ArrayList<Roleauthority>();
+    public List<RoleAuthority> findAll(String column, String kw) {
+        List<RoleAuthority> all = new ArrayList<RoleAuthority>();
         String sql = " SELECT * FROM ROLEAUTHORITY WHERE " + column + " LIKE ?  ";
         try {
             PreparedStatement pstmt = this.conn.prepareStatement(sql);
             pstmt.setString(1, "%" + kw + "%");
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
-                Roleauthority roleauthority = new Roleauthority();
+                RoleAuthority roleauthority = new RoleAuthority();
                 roleauthority.setId(rs.getInt("id"));
-                roleauthority.setRoleId(rs.getInt("roleId"));
-                roleauthority.setAuthorityId(rs.getInt("authorityId"));
+                roleauthority.setRoleid(rs.getInt("roleId"));
+                roleauthority.setAuthorityid(rs.getInt("authorityId"));
                 all.add(roleauthority);
             }
             pstmt.close();
@@ -130,8 +130,8 @@ public class RoleauthorityDAOImpl implements IRoleauthorityDAO {
         return all;
     }
 
-    public List<Roleauthority> findAll(int cp, int ls, String column, String kw) {
-        List<Roleauthority> all = new ArrayList<Roleauthority>();
+    public List<RoleAuthority> findAll(int cp, int ls, String column, String kw) {
+        List<RoleAuthority> all = new ArrayList<RoleAuthority>();
         String sql = " SELECT * FROM ROLEAUTHORITY WHERE " + column + " LIKE ? limit ?,?  ";
         try {
             PreparedStatement pstmt = this.conn.prepareStatement(sql);
@@ -140,10 +140,10 @@ public class RoleauthorityDAOImpl implements IRoleauthorityDAO {
             pstmt.setInt(3, ls);
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
-                Roleauthority roleauthority = new Roleauthority();
+                RoleAuthority roleauthority = new RoleAuthority();
                 roleauthority.setId(rs.getInt("id"));
-                roleauthority.setRoleId(rs.getInt("roleId"));
-                roleauthority.setAuthorityId(rs.getInt("authorityId"));
+                roleauthority.setRoleid(rs.getInt("roleId"));
+                roleauthority.setAuthorityid(rs.getInt("authorityId"));
                 all.add(roleauthority);
             }
             pstmt.close();

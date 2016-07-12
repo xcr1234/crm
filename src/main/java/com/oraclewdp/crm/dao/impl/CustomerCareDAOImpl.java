@@ -1,11 +1,8 @@
 package com.oraclewdp.crm.dao.impl;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.sql.SQLException;
 
 import com.oraclewdp.crm.dao.*;
 
@@ -25,7 +22,7 @@ public class CustomerCareDAOImpl implements ICustomerCareDAO {
             PreparedStatement pstmt = this.conn.prepareStatement(sql);
             pstmt.setInt(1, customerCare.getId());
             pstmt.setInt(2, customerCare.getCustomerId());
-            pstmt.setTimestamp(3, customerCare.getDate());
+            pstmt.setTimestamp(3,new Timestamp(customerCare.getDate().getTime()));
             pstmt.setString(4, customerCare.getPhone());
             pstmt.setString(5, customerCare.getPhone2());
             pstmt.setInt(6, customerCare.getCreator());
@@ -62,7 +59,7 @@ public class CustomerCareDAOImpl implements ICustomerCareDAO {
         try {
             PreparedStatement pstmt = this.conn.prepareStatement(sql);
             pstmt.setInt(1, customerCare.getCustomerId());
-            pstmt.setTimestamp(2, customerCare.getDate());
+            pstmt.setTimestamp(2, new Timestamp(customerCare.getDate().getTime()));
             pstmt.setString(3, customerCare.getPhone());
             pstmt.setString(4, customerCare.getPhone2());
             pstmt.setInt(5, customerCare.getCreator());

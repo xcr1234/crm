@@ -1,6 +1,6 @@
 package com.oraclewdp.crm.entity;
 
-public class CustomerChance {
+public class CustomChance {
     private Integer id;
 
     private String code;
