@@ -150,7 +150,7 @@ input[type=checkbox]{
           <td></td>
           <td></td>
           <td></td>
-          <td><a href="#">查看</a>&nbsp;<a href="#">编辑</a>&nbsp;<a href="#">删除</a>&nbsp;</td>
+          <td><a href="#">查看</a>&nbsp;<a href="#">编辑</a>&nbsp;<a href="#">删除</a>&nbsp;<a href="#">转移</a>&nbsp;</td>
         </tr>
         </tbody>
     </table>
