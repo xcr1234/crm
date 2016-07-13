@@ -17,7 +17,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 	<meta http-equiv="description" content="This is my page">
 	<link href="${pageContext.servletContext.contextPath}/css/style.css" rel="stylesheet" type="text/css" />
+	<link href="${pageContext.servletContext.contextPath}/css/select.css" rel="stylesheet" type="text/css" />
 	<script type="text/javascript" src="${pageContext.servletContext.contextPath}/js/jquery.js"></script>
+	<script type="text/javascript" src="${pageContext.servletContext.contextPath}/js/select-ui.min.js"></script>
+	<script type="text/javascript" src="${pageContext.servletContext.contextPath}/js/jquery.idTabs.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
   $(".click").click(function(){
@@ -42,7 +45,10 @@ $(document).ready(function(){
 <style type="text/css">
 	body{
 		/*background-color: red;*/
-		font-size:"100";
+		font-size:"200";
+	}
+	th{
+	  text-align:center;
 	}
 	td{
 		width: 400px;
@@ -55,7 +61,24 @@ $(document).ready(function(){
 	.td_left{
 		width: 100px;
 		}
-		.tip{width:1400px; height:600px; position:absolute;top:10%; left:10%;background:#fcfdfd;box-shadow:1px 8px 10px 1px #9b9b9b;border-radius:1px;behavior:url(js/pie.htc); display:none; z-index:111111;}
+	.tip{width:1400px; height:600px; position:absolute;top:10%; left:10%;background:#fcfdfd;box-shadow:1px 8px 10px 1px #9b9b9b;border-radius:1px;behavior:url(js/pie.htc); display:none; z-index:111111;}
+    option {
+	font-size: 25px;
+}
+ select {
+   opacity: 1;
+    display:block;
+    width: 150px;
+	height: 32px;
+	border-width: 1px;
+    border-style: solid;
+    border-color: rgb(195, 171, 125) rgb(231, 213, 186) rgb(231, 213, 186) rgb(195, 171, 125);
+}
+
+input[type=checkbox]{
+	width:25px;
+	height:18px;
+} 
 </style>
 
 <body>
@@ -63,7 +86,7 @@ $(document).ready(function(){
 	<div class="place">
     <span>位置：</span>
     <ul class="placeul">
-    <li><a href="#">首页</a></li>
+    <li><a href="#">CRM</a></li>
      <li><a href="#">客户管理</a></li>
     <li><a href="#">公共客户池</a></li>
    
@@ -77,64 +100,59 @@ $(document).ready(function(){
     	<ul class="toolbar">
         <li class="click"><span><img src="images/t01.png" /></span>新建客户</li>
         <li class="click"><span><img src="images/ico06.png" /></span>查询</li>
-        <li><span><img src="images/t03.png" /></span>重置</li>     
+        <li><span><img src="images/t05.png" /></span>重置</li>     
         </ul>
-		</br>
     </div>
     
-     <table border=0><tr height="10"><td></td></tr></table><!--行高占位-->      
-  	<div style='height:25px;text-align:left;overflow:hidden;'>
-     <table  width="1355">
-    	<tr>
-    		<td width="180">
-    				客户姓名&nbsp;&nbsp;&nbsp;: <input name="khxm" type="text" size=12 class="dfinput"></td>
-    		<td width="180" >
-        		客户性别&nbsp;&nbsp;&nbsp;：<input  name = "khxb" type="text" size=12 class="dfinput"></td>
-        <td width="180">
-        		客户编码&nbsp;&nbsp;&nbsp;：<input  name = "khbm" type="text" size=12 class="dfinput"></td>
-    		<td width="180">
-    			客户类型&nbsp;&nbsp;&nbsp;：
-        		<select name="khlx"  style="width:94px;position:relative;top:-2">
-        			<option value="-1">请选择</option>
-	   				<option value="0">一般客户</option>
-	   				<option value="1">VIP客户</option>
-	   				<option value="2">潜在客户</option>
-	   				<option value="4">重要客户</option>
-	   				<option value="5">已流失客户</option>
-				 </select>
-    		</td>
-    	</tr>
-    	<!--<tr>
-    		<td>所在省:<input name="" type="text"></td>
-    		<td>所在市:<input name="" type="text"></td>
-    		<td>所在县:<input name="" type="text"></td>
-    	</tr>
-    	<tr>
-    		<td>创建人:<input name="" type="text"></td>
-    		<td colspan="2">创建日期：<input name ="" type="datetime">——<input name="" type="datetime"></td>
-    	</tr>
-    	<tr>
-    		<td>客户电话:<input name="khdh" type="text"></td>
-    		<td>联系人电话:<input name="" type="text"></td>
-    		<td>联系人手机:<input name="" type="text"></td>
-    	</tr>-->
-    </table>
- 	</div>
-      <table border=0><tr height="10"><td></td></tr></table><!--行高占位-->  
+    <ul class="seachform">
+    <li><label>客户名称</label><input name="" type="text" class="scinput" /></li>
+    <li><label>客户编码</label><input name="" type="text" class="scinput" /></li>
+    <li><label>客户类型</label>  
+	<select>
+		<option selected="selected">请选择</option>
+		<option>一</option>
+		<option>二</option>
+	</select>
+ 
+   </li>
+    <li><label>客户来源</label>  
+    <div class="vocation">
+	<select>
+		<option selected="selected">请选择</option>
+		<option>一</option>
+		<option>二</option>
+	</select>
+   </li>
+    
+    </ul>
+    
     <table class="tablelist">
     	<thead>
     	<tr>
-        <th><input name="" type="checkbox" value="" checked="checked"/></th>
-        <th>客户姓名</th>
-        <th>省</th>
-        <th>市</th>
-        <th>县</th>
+        <th style="width: 150px"><input name="" type="checkbox" value="" checked="checked"/>全选</th>
+        <th>客户名称</th>
+        <th>省份</th>
+        <th>城市</th>
+        <th>区/县</th>
         <th>电话</th>
-	  		<th>创建人</th>
-	  		<th>创建日期</th>
-	  		<th>操作</th>
+	  	<th>创建人</th>
+	  	<th>创建日期</th>
+	  	<th>操作</th>
         </tr>
         </thead>
+        <tbody>
+        <tr>
+          <td style="width: 150px"><input name="" type="checkbox" value="" checked="checked"/></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td><a href="#">查看</a>&nbsp;<a href="#">编辑</a>&nbsp;<a href="#">删除</a>&nbsp;</td>
+        </tr>
+        </tbody>
     </table>
     
     <div class="pagin">
