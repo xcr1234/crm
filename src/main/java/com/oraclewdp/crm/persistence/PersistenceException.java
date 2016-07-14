@@ -1,7 +1,7 @@
 package com.oraclewdp.crm.persistence;
 
 
-import java.security.PrivilegedActionException;
+
 
 public class PersistenceException extends RuntimeException {
     public PersistenceException() {

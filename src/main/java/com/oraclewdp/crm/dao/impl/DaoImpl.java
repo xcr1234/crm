@@ -198,7 +198,7 @@ public class DaoImpl<E> implements Dao<E> {
                     if(m>=maxRecursion){
                         FieldInvoker.set(columnMeta.getField(),e,null);
                     }else{
-                        Object obj = find0((Integer) objId,columnMeta.getField().getType(),1);
+                        Object obj = find0((Integer) objId,columnMeta.getField().getType(),m+1);
                         FieldInvoker.set(columnMeta.getField(),e,obj);
                     }
 

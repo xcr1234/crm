@@ -123,7 +123,7 @@ public class SQLBuilder {
         return stringBuilder.toString();
     }
 
-    private static HashMap<Class,String> selectMap = new HashMap();
+    private static HashMap<Class,String> selectMap = new HashMap<>();
 
     public static String select(Meta meta){
         String sql = selectMap.get(meta.getClazz());
