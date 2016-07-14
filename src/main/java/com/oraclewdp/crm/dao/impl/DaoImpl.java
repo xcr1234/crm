@@ -260,7 +260,8 @@ public class DaoImpl<E> implements Dao<E> {
                 }
 
             }
-
+            Object id = resultSet.getObject(Meta.getColumnName(meta.getIdField()));
+            FieldInvoker.set(meta.getIdField(),e,id);
 
             return e;
         } catch (SQLException ex) {
@@ -321,6 +322,11 @@ public class DaoImpl<E> implements Dao<E> {
                     }
 
                 }
+
+                Object id = resultSet.getObject(Meta.getColumnName(meta.getIdField()));
+                FieldInvoker.set(meta.getIdField(),e,id);
+
+
                 list.add(e);
 
 
@@ -392,6 +398,10 @@ public class DaoImpl<E> implements Dao<E> {
                     }
 
                 }
+
+                Object id = resultSet.getObject(Meta.getColumnName(meta.getIdField()));
+                FieldInvoker.set(meta.getIdField(),e,id);
+
                 list.add(e);
 
 
