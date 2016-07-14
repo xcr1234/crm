@@ -13,7 +13,7 @@ public class CustomerCare {
     @Column(value = "customer_id",foreign = "customer",target = "id")
     private Customer customer;
 
-    private Date date;
+    private String date;
 
     private String phone;
 
@@ -36,12 +36,11 @@ public class CustomerCare {
     }
 
 
-
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
