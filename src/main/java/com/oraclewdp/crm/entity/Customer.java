@@ -1,13 +1,18 @@
 package com.oraclewdp.crm.entity;
 
+import com.oraclewdp.crm.persistence.Column;
+import com.oraclewdp.crm.persistence.Id;
+
 public class Customer {
+    @Id
     private Integer id;
 
     private String code;
 
-    private Integer customerType;
+    @Column(value = "customer_type",foreign = "dic_all",target = "id")
+    private DicAll type;
 
-    private Boolean sex;
+
 
     private String name;
 
@@ -47,20 +52,12 @@ public class Customer {
         this.code = code;
     }
 
-    public Integer getCustomerType() {
-        return customerType;
+    public DicAll getType() {
+        return type;
     }
 
-    public void setCustomerType(Integer customerType) {
-        this.customerType = customerType;
-    }
-
-    public Boolean getSex() {
-        return sex;
-    }
-
-    public void setSex(Boolean sex) {
-        this.sex = sex;
+    public void setType(DicAll type) {
+        this.type = type;
     }
 
     public String getName() {

@@ -1,6 +1,13 @@
 package com.oraclewdp.crm.entity;
 
+
+import com.oraclewdp.crm.persistence.Column;
+import com.oraclewdp.crm.persistence.Id;
+import com.oraclewdp.crm.persistence.Table;
+
+@Table("customer_link")
 public class CustomerLink {
+    @Id
     private Integer id;
 
     private Boolean sex;
@@ -14,8 +21,18 @@ public class CustomerLink {
     private String phone2;
 
     private String content;
+    @Column(value = "customer_id",target = "id",foreign = "customer")
+    private Customer customer;
 
-    private Integer customerId;
+    private String birthday;
+
+    public String getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(String birthday) {
+        this.birthday = birthday;
+    }
 
     public Integer getId() {
         return id;
@@ -73,11 +90,11 @@ public class CustomerLink {
         this.content = content;
     }
 
-    public Integer getCustomerId() {
-        return customerId;
+    public Customer getCustomer() {
+        return customer;
     }
 
-    public void setCustomerId(Integer customerId) {
-        this.customerId = customerId;
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 }

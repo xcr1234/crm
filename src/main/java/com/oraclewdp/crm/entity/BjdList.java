@@ -1,11 +1,19 @@
 package com.oraclewdp.crm.entity;
 
+import com.oraclewdp.crm.persistence.Column;
+import com.oraclewdp.crm.persistence.Id;
+import com.oraclewdp.crm.persistence.Table;
+
+import static javafx.scene.input.KeyCode.V;
+
+@Table("bjd_list")
 public class BjdList {
+    @Id
     private Integer id;
-
-    private Integer goodsId;
-
-    private Integer bjdId;
+    @Column(value = "goods_id",target = "id",foreign = "goods")
+    private Goods goods;
+    @Column(value = "bjd_id",target = "bjd",foreign = "id")
+    private Bjd bjd;
 
     private Integer count;
 
@@ -29,20 +37,20 @@ public class BjdList {
         this.id = id;
     }
 
-    public Integer getGoodsId() {
-        return goodsId;
+    public Goods getGoods() {
+        return goods;
     }
 
-    public void setGoodsId(Integer goodsId) {
-        this.goodsId = goodsId;
+    public void setGoods(Goods goods) {
+        this.goods = goods;
     }
 
-    public Integer getBjdId() {
-        return bjdId;
+    public Bjd getBjd() {
+        return bjd;
     }
 
-    public void setBjdId(Integer bjdId) {
-        this.bjdId = bjdId;
+    public void setBjd(Bjd bjd) {
+        this.bjd = bjd;
     }
 
     public Integer getCount() {

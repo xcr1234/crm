@@ -1,11 +1,17 @@
 package com.oraclewdp.crm.entity;
 
+import com.oraclewdp.crm.persistence.Column;
+import com.oraclewdp.crm.persistence.Id;
+
 public class Bjd {
+    @Id
     private Integer id;
 
-    private Integer sskh;
 
-    private Integer bjr;
+    @Column(foreign = "customer" ,target = "id")
+    private Customer sskh;
+    @Column(foreign = "user",target = "id")
+    private User bjr;
 
     private String yxrq;
 
@@ -14,8 +20,11 @@ public class Bjd {
     private String phone;
 
     private String creator;
+    @Column("bjd_code")
+    private String code;
 
-    private Integer customChanceId;
+    @Column(value = "custom_chance_id",foreign = "custom_chance",target = "id")
+    private CustomChance customChance;
 
     private String createdate;
 
@@ -41,19 +50,27 @@ public class Bjd {
         this.id = id;
     }
 
-    public Integer getSskh() {
+    public Customer getSskh() {
         return sskh;
     }
 
-    public void setSskh(Integer sskh) {
+    public void setSskh(Customer sskh) {
         this.sskh = sskh;
     }
 
-    public Integer getBjr() {
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public User getBjr() {
         return bjr;
     }
 
-    public void setBjr(Integer bjr) {
+    public void setBjr(User bjr) {
         this.bjr = bjr;
     }
 
@@ -89,12 +106,12 @@ public class Bjd {
         this.creator = creator;
     }
 
-    public Integer getCustomChanceId() {
-        return customChanceId;
+    public CustomChance getCustomChance() {
+        return customChance;
     }
 
-    public void setCustomChanceId(Integer customChanceId) {
-        this.customChanceId = customChanceId;
+    public void setCustomChance(CustomChance customChance) {
+        this.customChance = customChance;
     }
 
     public String getCreatedate() {

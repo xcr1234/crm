@@ -1,11 +1,15 @@
 package com.oraclewdp.crm.entity;
 
+import com.oraclewdp.crm.persistence.Column;
+import com.oraclewdp.crm.persistence.Id;
+
 public class User {
+    @Id
     private Integer id;
 
     private String workno;
-
-    private Integer workposition;
+    @Column(value = "workposition",foreign = "dic_all",target = "id")
+    private DicAll workposition;
 
     private String userName;
 
@@ -45,11 +49,11 @@ public class User {
         this.workno = workno;
     }
 
-    public Integer getWorkposition() {
+    public DicAll getWorkposition() {
         return workposition;
     }
 
-    public void setWorkposition(Integer workposition) {
+    public void setWorkposition(DicAll workposition) {
         this.workposition = workposition;
     }
 
@@ -135,6 +139,26 @@ public class User {
 
     public Integer getStatus() {
         return status;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", workno='" + workno + '\'' +
+                ", workposition=" + workposition +
+                ", userName='" + userName + '\'' +
+                ", sex='" + sex + '\'' +
+                ", oldpassword='" + oldpassword + '\'' +
+                ", nickName='" + nickName + '\'' +
+                ", userPic='" + userPic + '\'' +
+                ", phone='" + phone + '\'' +
+                ", email='" + email + '\'' +
+                ", address='" + address + '\'' +
+                ", userDetailId=" + userDetailId +
+                ", password='" + password + '\'' +
+                ", status=" + status +
+                '}';
     }
 
     public void setStatus(Integer status) {

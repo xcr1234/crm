@@ -1,6 +1,9 @@
 package com.oraclewdp.crm.entity;
 
+import com.oraclewdp.crm.persistence.Id;
+
 public class Menu {
+    @Id
     private Integer id;
 
     private Integer level;

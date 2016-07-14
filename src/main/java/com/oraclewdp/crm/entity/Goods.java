@@ -1,6 +1,9 @@
 package com.oraclewdp.crm.entity;
 
+import com.oraclewdp.crm.persistence.Id;
+
 public class Goods {
+    @Id
     private Integer id;
 
     private String name;

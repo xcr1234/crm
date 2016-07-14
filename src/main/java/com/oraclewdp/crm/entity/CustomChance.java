@@ -1,5 +1,9 @@
 package com.oraclewdp.crm.entity;
 
+import com.oraclewdp.crm.persistence.Column;
+import com.oraclewdp.crm.persistence.Table;
+
+@Table("custom_chance")
 public class CustomChance {
     private Integer id;
 
@@ -7,17 +11,19 @@ public class CustomChance {
 
     private String name;
 
-    private Integer type;
+    private DicAll type;
 
-    private Integer creator;
+    private User creator;
 
     private String createdate;
 
-    private Integer attachId;
+    private Attach attach;
 
-    private Integer chanceStage;
+    private DicAll chanceStage;
 
     private String possibility;
+    @Column(value = "customer_id",foreign = "customer",target = "id")
+    private Customer customer;
 
     public Integer getId() {
         return id;
@@ -29,6 +35,14 @@ public class CustomChance {
 
     public String getCode() {
         return code;
+    }
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 
     public void setCode(String code) {
@@ -43,19 +57,19 @@ public class CustomChance {
         this.name = name;
     }
 
-    public Integer getType() {
+    public DicAll getType() {
         return type;
     }
 
-    public void setType(Integer type) {
+    public void setType(DicAll type) {
         this.type = type;
     }
 
-    public Integer getCreator() {
+    public User getCreator() {
         return creator;
     }
 
-    public void setCreator(Integer creator) {
+    public void setCreator(User creator) {
         this.creator = creator;
     }
 
@@ -67,19 +81,19 @@ public class CustomChance {
         this.createdate = createdate;
     }
 
-    public Integer getAttachId() {
-        return attachId;
+    public Attach getAttach() {
+        return attach;
     }
 
-    public void setAttachId(Integer attachId) {
-        this.attachId = attachId;
+    public void setAttach(Attach attach) {
+        this.attach = attach;
     }
 
-    public Integer getChanceStage() {
+    public DicAll getChanceStage() {
         return chanceStage;
     }
 
-    public void setChanceStage(Integer chanceStage) {
+    public void setChanceStage(DicAll chanceStage) {
         this.chanceStage = chanceStage;
     }
 

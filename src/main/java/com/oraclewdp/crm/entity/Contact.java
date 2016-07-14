@@ -1,9 +1,13 @@
 package com.oraclewdp.crm.entity;
 
-public class Contact {
-    private Integer id;
+import com.oraclewdp.crm.persistence.Column;
+import com.oraclewdp.crm.persistence.Id;
 
-    private Integer contactor;
+public class Contact {
+    @Id
+    private Integer id;
+    @Column(value = "contactor",foreign = "user",target = "id")
+    private User contact;
 
     private String creator;
 
@@ -27,12 +31,13 @@ public class Contact {
         this.id = id;
     }
 
-    public Integer getContactor() {
-        return contactor;
+
+    public User getContact() {
+        return contact;
     }
 
-    public void setContactor(Integer contactor) {
-        this.contactor = contactor;
+    public void setContact(User contact) {
+        this.contact = contact;
     }
 
     public String getCreator() {

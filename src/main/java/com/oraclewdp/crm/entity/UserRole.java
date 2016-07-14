@@ -1,11 +1,17 @@
 package com.oraclewdp.crm.entity;
 
+import com.oraclewdp.crm.persistence.Column;
+import com.oraclewdp.crm.persistence.Id;
+
 public class UserRole {
+
+
+    @Id
     private Integer id;
-
-    private Integer userid;
-
-    private Integer roleid;
+    @Column(value = "userId",foreign = "user",target = "id")
+    private User user;
+    @Column(value = "roleId",foreign = "role",target = "id")
+    private Role role;
 
     public Integer getId() {
         return id;
@@ -15,19 +21,28 @@ public class UserRole {
         this.id = id;
     }
 
-    public Integer getUserid() {
-        return userid;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserid(Integer userid) {
-        this.userid = userid;
+    public void setUser(User user) {
+        this.user = user;
     }
 
-    public Integer getRoleid() {
-        return roleid;
+    public Role getRole() {
+        return role;
     }
 
-    public void setRoleid(Integer roleid) {
-        this.roleid = roleid;
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
+    @Override
+    public String toString() {
+        return "UserRole{" +
+                "id=" + id +
+                ", user=" + user +
+                ", role=" + role +
+                '}';
     }
 }

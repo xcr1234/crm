@@ -1,19 +1,25 @@
 package com.oraclewdp.crm.entity;
 
+import com.oraclewdp.crm.persistence.Column;
+import com.oraclewdp.crm.persistence.Id;
+import com.oraclewdp.crm.persistence.Table;
+
 import java.util.Date;
 
+@Table("custom_care")
 public class CustomerCare {
+    @Id
     private Integer id;
-
-    private Integer customerId;
+    @Column(value = "customer_id",foreign = "customer",target = "id")
+    private Customer customer;
 
     private Date date;
 
     private String phone;
 
     private String phone2;
-
-    private Integer creator;
+    @Column(value = "creator",foreign = "user",target = "id")
+    private User creator;
 
     private String creatdate;
 
@@ -29,13 +35,7 @@ public class CustomerCare {
         this.id = id;
     }
 
-    public Integer getCustomerId() {
-        return customerId;
-    }
 
-    public void setCustomerId(Integer customerId) {
-        this.customerId = customerId;
-    }
 
     public Date getDate() {
         return date;
@@ -61,11 +61,19 @@ public class CustomerCare {
         this.phone2 = phone2;
     }
 
-    public Integer getCreator() {
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
+
+    public User getCreator() {
         return creator;
     }
 
-    public void setCreator(Integer creator) {
+    public void setCreator(User creator) {
         this.creator = creator;
     }
 

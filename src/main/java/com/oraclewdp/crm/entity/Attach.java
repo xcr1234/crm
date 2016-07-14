@@ -1,11 +1,16 @@
 package com.oraclewdp.crm.entity;
 
+import com.oraclewdp.crm.persistence.Column;
+import com.oraclewdp.crm.persistence.Id;
+
 public class Attach {
+    @Id
     private Integer id;
 
     private String name;
 
-    private Integer type;
+    @Column(foreign = "dic_all",target = "id")
+    private DicAll type;
 
     private String path;
 
@@ -25,11 +30,11 @@ public class Attach {
         this.name = name;
     }
 
-    public Integer getType() {
+    public DicAll getType() {
         return type;
     }
 
-    public void setType(Integer type) {
+    public void setType(DicAll type) {
         this.type = type;
     }
 

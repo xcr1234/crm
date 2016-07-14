@@ -1,9 +1,13 @@
 package com.oraclewdp.crm.entity;
 
-public class Authority {
-    private Integer id;
+import com.oraclewdp.crm.persistence.Column;
+import com.oraclewdp.crm.persistence.Id;
 
-    private Integer menuId;
+public class Authority {
+    @Id
+    private Integer id;
+    @Column(value = "menu_id",foreign = "menu",target = "id")
+    private Menu menu;
 
     public Integer getId() {
         return id;
@@ -13,11 +17,11 @@ public class Authority {
         this.id = id;
     }
 
-    public Integer getMenuId() {
-        return menuId;
+    public Menu getMenu() {
+        return menu;
     }
 
-    public void setMenuId(Integer menuId) {
-        this.menuId = menuId;
+    public void setMenu(Menu menu) {
+        this.menu = menu;
     }
 }
