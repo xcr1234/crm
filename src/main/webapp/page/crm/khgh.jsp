@@ -4,8 +4,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>无标题文档</title>
-<link href="css/style.css" rel="stylesheet" type="text/css" />
-<script type="text/javascript" src="js/jquery.js"></script>
+<link href="${pageContext.servletContext.contextPath}/css/style.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="${pageContext.servletContext.contextPath}/js/jquery.js"></script>
 <script language="javascript">
 $(function(){
 	//导航切换
@@ -53,14 +53,14 @@ $(document).ready(function(){
     <div class="tools">
     
     	<ul class="toolbar">
-        <li class="click"><span><img src="images/t01.png" /></span>新建关怀信息</li>       
-        <li><span><img src="images/ico06.png" /></span>查询</li>
-        <li><span><img src="images/t03.png" /></span>重置</li>
+        <li class="click"><span><img src="${pageContext.servletContext.contextPath}/images/t01.png" /></span>新建关怀信息</li>       
+        <li><span><img src="${pageContext.servletContext.contextPath}/images/ico06.png" /></span>查询</li>
+        <li><span><img src="${pageContext.servletContext.contextPath}/images/t03.png" /></span>重置</li>
         </ul>
         
         
         <ul class="toolbar1">
-        <li><span><img src="images/t05.png" /></span>设置</li>
+        <li><span><img src="${pageContext.servletContext.contextPath}/images/t05.png" /></span>设置</li>
         </ul>
     
     </div>
@@ -93,7 +93,7 @@ $(document).ready(function(){
     <tbody>
 
 					<tr>
-						<td class="imgtd"><img src="images/img11.png" /></td>
+						<td></td>
 						<td><a href="#">非常不错的国外后台模板，支持HTML5</a>
 							<p>发布时间：2013-10-12 09:25:18</p>
 						</td>

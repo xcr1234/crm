@@ -4,8 +4,6 @@ import com.oraclewdp.crm.persistence.Column;
 import com.oraclewdp.crm.persistence.Id;
 import com.oraclewdp.crm.persistence.Table;
 
-import static javafx.scene.input.KeyCode.V;
-
 @Table("bjd_list")
 public class BjdList {
     @Id

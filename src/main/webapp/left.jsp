@@ -82,16 +82,15 @@ $(function(){
         <li>
             <div class="header">
             <cite></cite>
-            <a href="right_khxxgl.html" target="rightFrame">客户信息管理</a>
+            <a href="${pageContext.servletContext.contextPath}/page/crm/khxxgl.jsp" target="rightFrame">客户信息管理</a>
             <i></i>
             </div>                      
         </li>       
-        <li class="active"><cite></cite><a href="right.html" target="rightFrame">交往记录管理</a><i></i></li>
+        <li class="active"><cite></cite><a href="${pageContext.servletContext.contextPath}/page/crm/jwjlgl.jsp" target="rightFrame">交往记录管理</a><i></i></li>
         <li><cite></cite><a href="imgtable.html" target="rightFrame">客户漏斗图</a><i></i></li>
-        <li><cite></cite><a href="form.html" target="rightFrame">超期客户预警</a><i></i></li>
         <li><cite></cite><a href="${pageContext.servletContext.contextPath}/page/crm/khsrcx.jsp" target="rightFrame">客户生日查询</a><i></i></li>
-        <li><cite></cite><a href="imglist1.html" target="rightFrame">客户关怀</a><i></i></li>
-        <li><cite></cite><a href="tools.html" target="rightFrame">客户转移</a><i></i></li>    
+        <li><cite></cite><a href="${pageContext.servletContext.contextPath}/page/crm/khgh.jsp" target="rightFrame">客户关怀</a><i></i></li>
+        <li><cite></cite><a href="${pageContext.servletContext.contextPath}/page/crm/khzy.jsp" target="rightFrame">客户转移</a><i></i></li>    
         </ul>    
     </dd>
         
@@ -101,7 +100,7 @@ $(function(){
     <span><img src="images/leftico02.png" /></span>销售计划管理
     </div>
     <ul class="menuson">
-        <li><cite></cite><a href="flow.html" target="rightFrame">项目机会</a><i></i></li>
+        <li><cite></cite><a href="${pageContext.servletContext.contextPath}/page/crm/xmjh.jsp" target="rightFrame">项目机会</a><i></i></li>
         <li><cite></cite><a href="project.html" target="rightFrame">机会漏斗图</a><i></i></li>
         <li><cite></cite><a href="search.html" target="rightFrame">销售标价表</a><i></i></li>
         <li><cite></cite><a href="tech.html" target="rightFrame">解决方案</a><i></i></li>

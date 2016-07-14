@@ -9,7 +9,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">
     
-    <title>公共客户池</title>
+    <title>项目机会</title>
     
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
@@ -52,16 +52,17 @@ $(document).ready(function(){
 	}
 	td{
 		width: 400px;
+		height:40px;
 		border:solid 1px #d7a372;
 	}
 	.dfinput{
 		width: 250px;
-		height: 25px;
+		height: 40px;
 	}
 	.td_left{
 		width: 100px;
 		}
-	.tip{width:1400px; height:600px; position:absolute;top:10%; left:10%;background:#fcfdfd;box-shadow:1px 8px 10px 1px #9b9b9b;border-radius:1px;behavior:url(js/pie.htc); display:none; z-index:111111;}
+	.tip{width:1400px; height:400px; position:absolute;top:10%; left:10%;background:#fcfdfd;box-shadow:1px 8px 10px 1px #9b9b9b;border-radius:1px;behavior:url(js/pie.htc); display:none; z-index:111111;}
     option {
 	font-size: 25px;
 }
@@ -87,8 +88,8 @@ input[type=checkbox]{
     <span>位置：</span>
     <ul class="placeul">
     <li><a href="#">CRM</a></li>
-     <li><a href="#">客户管理</a></li>
-    <li><a href="#">公共客户池</a></li>
+     <li><a href="#">销售机会管理</a></li>
+    <li><a href="#">项目机会</a></li>
    
     </ul>
     </div>
@@ -98,16 +99,16 @@ input[type=checkbox]{
     <div class="tools">
     
     	<ul class="toolbar">
-        <li class="click"><span><img src="images/t01.png" /></span>新建客户</li>
+        <li class="click"><span><img src="images/t01.png" /></span>新建销售机会</li>
         <li class="click"><span><img src="images/ico06.png" /></span>查询</li>
         <li><span><img src="images/t05.png" /></span>重置</li>     
         </ul>
     </div>
     
     <ul class="seachform">
-    <li><label>客户名称</label><input name="" type="text" class="scinput" /></li>
-    <li><label>客户编码</label><input name="" type="text" class="scinput" /></li>
-    <li><label>客户类型</label>  
+    <li><label>机会编号</label><input name="" type="text" class="scinput" /></li>
+    <li><label>机会名称</label><input name="" type="text" class="scinput" /></li>
+    <li><label>机会类型</label>  
 	<select>
 		<option selected="selected">请选择</option>
 		<option>一</option>
@@ -115,7 +116,7 @@ input[type=checkbox]{
 	</select>
  
    </li>
-    <li><label>客户来源</label>  
+    <li><label>成交可能性</label>  
     <div class="vocation">
 	<select>
 		<option selected="selected">请选择</option>
@@ -130,13 +131,15 @@ input[type=checkbox]{
     	<thead>
     	<tr>
         <th style="width: 150px"><input name="" type="checkbox" value="" checked="checked"/>全选</th>
-        <th>客户名称</th>
-        <th>省份</th>
-        <th>城市</th>
-        <th>区/县</th>
-        <th>电话</th>
-	  	<th>创建人</th>
-	  	<th>创建日期</th>
+        <th>机会编号</th>
+        <th>机会名称</th>
+        <th>创建人</th>
+        <th>创建日期</th>
+        <th>机会类型</th>
+	  	<th>客户名称</th>
+	  	<th>机会阶段</th>
+	  	<th>成交可能性</th>
+	  	<th>附件</th>
 	  	<th>操作</th>
         </tr>
         </thead>
@@ -150,7 +153,9 @@ input[type=checkbox]{
           <td></td>
           <td></td>
           <td></td>
-          <td><a href="#">查看</a>&nbsp;<a href="#">编辑</a>&nbsp;<a href="#">删除</a>&nbsp;<a href="#">转移</a>&nbsp;</td>
+          <td></td>
+          <td></td>
+          <td><a href="#">查看</a>&nbsp;<a href="#">编辑</a>&nbsp;<a href="#">删除</a>&nbsp;</td>
         </tr>
         </tbody>
     </table>
@@ -175,105 +180,57 @@ input[type=checkbox]{
      <!--添加用户对话框开始-->
     <div class="tip">
     	<div class="ke-dialog-body">
-    	 <div class="formtitle"><span>客户基本信息</span></div>
+    	 <div class="formtitle"><span>销售机会</span></div>
     <form action="" method="post">
     	<table>
     		<tr>
+    			<td class="td_left">机会编号:</td>
+    			<td><input name="" type="text" class="dfinput"/><i></i></td>
+    			<td class="td_left">机会名称:</td>
+    			<td><input name="" type="text" class="dfinput"/><i></i></td>
     			<td class="td_left">客户名称:</td>
     			<td><input name="" type="text" class="dfinput"/><i></i></td>
-    			<td class="td_left">客户编码:</td>
+    		</tr>
+    		
+    		<tr>
+    			<td class="td_left">机会类型</td>
+    			<td style="text-align: center;">
+      					<select style="font-size: 25px;width: 100px;">
+      					<option value="1" style="font-size: 25px;">男</option>
+      					<option value="0" style="font-size: 25px;">女</option>
+      				</select>	
+      			</td>
+    			<td class="td_left">机会阶段:</td>
+    			<td style="text-align: center;">
+      					<select style="font-size: 25px;width: 100px;">
+      					<option value="1" style="font-size: 25px;">男</option>
+      					<option value="0" style="font-size: 25px;">女</option>
+      				</select>	
+      			</td>
+    			<td class="td_left">成交可能性:</td>
+    			<td style="text-align: center;">
+      					<select style="font-size: 25px;width: 300px;">
+      					<option value="1" style="font-size: 25px;">男</option>
+      					<option value="0" style="font-size: 25px;">女</option>
+      				</select>	
+      			</td>
+    		</tr>
+    		
+    		<tr>
+    			<td class="td_left">附件信息:</td>
     			<td><input name="" type="text" class="dfinput"/><i></i></td>
     			<td class="td_left">创建人:</td>
     			<td><input name="" type="text" class="dfinput"/><i></i></td>
-    		</tr>
-    		
-    		<tr>
-    			<td class="td_left">联系方式:</td>
-    			<td><input name="" type="text" class="dfinput"/><i></i></td>
-    			<td class="td_left">邮箱:</td>
-    			<td><input name="" type="text" class="dfinput"/><i></i></td>
-    			<td class="td_left">详细地址:</td>
+    			<td class="td_left">创建日期:</td>
     			<td><input name="" type="text" class="dfinput"/><i></i></td>
     		</tr>
-    		
-    		<tr>
-    			<td class="td_left">QQ:</td>
-    			<td><input name="" type="text" class="dfinput"/><i></i></td>
-    			<td class="td_left">省:</td>
-    			<td><input name="" type="text" class="dfinput"/><i></i></td>
-    			<td class="td_left">市:</td>
-    			<td><input name="" type="text" class="dfinput"/><i></i></td>
-    		</tr>
-    		
-    		<tr>
-    			<td class="td_left">县:</td>
-    			<td><input name="" type="text" class="dfinput"/><i></i></td>
-    			<td class="td_left">销售负责人:</td>
-    			<td><input name="" type="text" class="dfinput"/><i></i></td>
-    			<td class="td_left">客户类型:</td>
-    			<td><input name="" type="text" class="dfinput"/><i></i></td>
-    		</tr>
-    		
     	</table>
     	
     	<input type="submit" value=""/>
     </form>
     
-     <div class="formtitle"><span>客户联系人</span></div>
-      <table class="tableform">
-      	<thead>
-      		<tr>
-      			<th>姓名</th>
-      			<th>性别</th>
-      			<th>职位</th>
-      			<th>手机</th>
-      			<th>工作电话</th>
-      			<th>E-mail</th>	
-      			<th>生日</th>
-      			<th>备注</th>
-      			<th>操作</th>
-      		</tr>	
-      	</thead>
-      	<tbody>
-      		<tr>
-      			<td><input type="text"/></td>
-      			<td style="text-align: center;">
-      					<select style="font-size: 25px;width: 100px;">
-      					<option value="1" style="font-size: 25px;">男</option>
-      					<option value="0" style="font-size: 25px;">女</option>
-      				</select>	
-      			</td>
-      				
-      			</td>
-      			<td><input type="text" name=""/></td>
-      			<td><input type="text" name=""/></td>
-      			<td><input type="text" name=""/></td>
-      			<td><input type="text" name=""/></td>
-      			<td><input type="text" name=""/></td>
-      			<td><input type="text" name=""/></td>
-      			<td style="text-align: center;"><a href="#">删除</a></td>
-      		</tr>
-      		<tr>
-      			<td><input type="text"/></td>
-      			<td style="text-align: center;">
-      					<select style="font-size: 25px;width: 100px;">
-      					<option value="1" style="font-size: 25px;">男</option>
-      					<option value="0" style="font-size: 25px;">女</option>
-      				</select>	
-      			</td>
-      			<td><input type="text" name=""/></td>
-      			<td><input type="text" name=""/></td>
-      			<td><input type="text" name=""/></td>
-      			<td><input type="text" name=""/></td>
-      			<td><input type="text" name=""/></td>
-      			<td><input type="text" name=""/></td>
-      			<td style="text-align: center;"><a href="#">删除</a></td>
-      		</tr>
-      </tbody>
-      </table>
+    
     <div style="text-align: center;margin-top: 5px;">
-    	
-    	<button type="button" class="scbtn">添加一行</button>
     	<button type="button" class="scbtn sure">保存</button>
     	<button type="button" class="scbtn cancel">关闭</button>
     </div>

@@ -1,15 +1,9 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
-<%
-String path = request.getContextPath();
-String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
-%>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <base href="<%=basePath%>">
-    
-    <title>公共客户池</title>
+    <title>销售报价单</title>
     
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
@@ -87,8 +81,8 @@ input[type=checkbox]{
     <span>位置：</span>
     <ul class="placeul">
     <li><a href="#">CRM</a></li>
-     <li><a href="#">客户管理</a></li>
-    <li><a href="#">公共客户池</a></li>
+     <li><a href="#">销售机会管理</a></li>
+    <li><a href="#">销售报价单</a></li>
    
     </ul>
     </div>
@@ -98,31 +92,16 @@ input[type=checkbox]{
     <div class="tools">
     
     	<ul class="toolbar">
-        <li class="click"><span><img src="images/t01.png" /></span>新建客户</li>
+        <li class="click"><span><img src="images/t01.png" /></span>新建报价单</li>
         <li class="click"><span><img src="images/ico06.png" /></span>查询</li>
         <li><span><img src="images/t05.png" /></span>重置</li>     
         </ul>
     </div>
     
     <ul class="seachform">
+    <li><label>报价单编号</label><input name="" type="text" class="scinput" /></li>
     <li><label>客户名称</label><input name="" type="text" class="scinput" /></li>
-    <li><label>客户编码</label><input name="" type="text" class="scinput" /></li>
-    <li><label>客户类型</label>  
-	<select>
-		<option selected="selected">请选择</option>
-		<option>一</option>
-		<option>二</option>
-	</select>
- 
-   </li>
-    <li><label>客户来源</label>  
-    <div class="vocation">
-	<select>
-		<option selected="selected">请选择</option>
-		<option>一</option>
-		<option>二</option>
-	</select>
-   </li>
+    <li><label>创建日期 </label><input name="" type="text" class="scinput" /></li>
     
     </ul>
     
@@ -130,13 +109,14 @@ input[type=checkbox]{
     	<thead>
     	<tr>
         <th style="width: 150px"><input name="" type="checkbox" value="" checked="checked"/>全选</th>
-        <th>客户名称</th>
-        <th>省份</th>
-        <th>城市</th>
-        <th>区/县</th>
-        <th>电话</th>
-	  	<th>创建人</th>
-	  	<th>创建日期</th>
+        <th>报价单编号</th>
+        <th>创建人</th>
+        <th>报价日期</th>
+        <th>创建日期</th>
+        <th>报价有效期</th>
+	  	<th>所属客户</th>
+	  	<th>报价人</th>
+	  	<th>总金额</th>
 	  	<th>操作</th>
         </tr>
         </thead>
@@ -150,7 +130,8 @@ input[type=checkbox]{
           <td></td>
           <td></td>
           <td></td>
-          <td><a href="#">查看</a>&nbsp;<a href="#">编辑</a>&nbsp;<a href="#">删除</a>&nbsp;<a href="#">转移</a>&nbsp;</td>
+          <td></td>
+          <td><a href="#">查看</a>&nbsp;<a href="#">编辑</a>&nbsp;</td>
         </tr>
         </tbody>
     </table>
@@ -170,47 +151,42 @@ input[type=checkbox]{
         </ul>
     </div>
      
-     
+      <th>报价单编号</th>
+        <th>创建人</th>
+        <th>报价日期</th>
+        <th>创建日期</th>
+        <th>报价有效期</th>
+	  	<th>所属客户</th>
+	  	<th>报价人</th>
+	  	<th>总金额</th>
+	  	<th>操作</th>
      	
      <!--添加用户对话框开始-->
     <div class="tip">
     	<div class="ke-dialog-body">
-    	 <div class="formtitle"><span>客户基本信息</span></div>
+    	 <div class="formtitle"><span>新建报价信息</span></div>
     <form action="" method="post">
     	<table>
     		<tr>
-    			<td class="td_left">客户名称:</td>
+    			<td class="td_left">报价单编号:</td>
     			<td><input name="" type="text" class="dfinput"/><i></i></td>
-    			<td class="td_left">客户编码:</td>
+    			<td class="td_left">报价人:</td>
     			<td><input name="" type="text" class="dfinput"/><i></i></td>
     			<td class="td_left">创建人:</td>
     			<td><input name="" type="text" class="dfinput"/><i></i></td>
     		</tr>
     		
     		<tr>
-    			<td class="td_left">联系方式:</td>
+    			<td class="td_left">报价日期:</td>
     			<td><input name="" type="text" class="dfinput"/><i></i></td>
-    			<td class="td_left">邮箱:</td>
+    			<td class="td_left">创建日期:</td>
     			<td><input name="" type="text" class="dfinput"/><i></i></td>
-    			<td class="td_left">详细地址:</td>
-    			<td><input name="" type="text" class="dfinput"/><i></i></td>
-    		</tr>
-    		
-    		<tr>
-    			<td class="td_left">QQ:</td>
-    			<td><input name="" type="text" class="dfinput"/><i></i></td>
-    			<td class="td_left">省:</td>
-    			<td><input name="" type="text" class="dfinput"/><i></i></td>
-    			<td class="td_left">市:</td>
+    			<td class="td_left">报价有效日期:</td>
     			<td><input name="" type="text" class="dfinput"/><i></i></td>
     		</tr>
     		
     		<tr>
-    			<td class="td_left">县:</td>
-    			<td><input name="" type="text" class="dfinput"/><i></i></td>
-    			<td class="td_left">销售负责人:</td>
-    			<td><input name="" type="text" class="dfinput"/><i></i></td>
-    			<td class="td_left">客户类型:</td>
+    			<td class="td_left">所属客户:</td>
     			<td><input name="" type="text" class="dfinput"/><i></i></td>
     		</tr>
     		
