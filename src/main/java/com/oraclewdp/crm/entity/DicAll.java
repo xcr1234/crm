@@ -1,9 +1,11 @@
 package com.oraclewdp.crm.entity;
 
+import com.oraclewdp.crm.persistence.Id;
 import com.oraclewdp.crm.persistence.Table;
 
 @Table("dic_all")
 public class DicAll {
+    @Id
     private Integer id;
 
     private String type;
