@@ -155,5 +155,34 @@ public class SQLBuilder {
 
     }
 
+    private static HashMap<Class,String> allMap = new HashMap<>();
+    public static String findAll(Meta meta){
+        String sql = allMap.get(meta.getClazz());
+        if(sql==null){
+            sql = findAll0(meta);
+            allMap.put(meta.getClazz(),sql);
+
+        }
+        return sql;
+
+
+    }
+    private static String findAll0(Meta meta) {
+        StringBuilder stringBuilder = new StringBuilder("select ");
+        for(int i=0;i<meta.getColumnMetas().size();i++){
+            ColumnMeta columnMeta = meta.getColumnMetas().get(i);
+            stringBuilder.append(columnMeta.getName());
+            if(i<meta.getColumnMetas().size()-1){
+                stringBuilder.append(",");
+            }
+        }
+        stringBuilder.append(',');
+        stringBuilder.append(Meta.getColumnName(meta.getIdField()));
+        stringBuilder.append(" from ");
+        stringBuilder.append(meta.getTableName());
+
+        return stringBuilder.toString();
+    }
+
 
 }

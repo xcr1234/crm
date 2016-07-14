@@ -130,9 +130,7 @@ public class JspPageTag extends SimpleTagSupport {
             }else{
 
                 out.print("<li><a href=\"");
-                out.print(link);
-                out.print("?page=");
-                out.print(pages.getCurrentPage()-1);
+                out.print(pageLink(pages.getCurrentPage()-1));
                 out.print("\">");
                 out.print(prev);
                 out.println("</a></li>");
@@ -161,9 +159,7 @@ public class JspPageTag extends SimpleTagSupport {
                     out.print("</a>");
                 }else{
                     out.print("<a href=\"");
-                    out.print(link);
-                    out.print("?page=");
-                    out.print(i);
+                    out.print(pageLink(i));
                     out.print("\">");
                     out.print(i);
                     out.print("</a>");
@@ -182,15 +178,11 @@ public class JspPageTag extends SimpleTagSupport {
                 out.println("</a></li>");
             }else{
                 out.print("<li><a href=\"");
-                out.print(link);
-                out.print("?page=" );
-                out.print(pages.getCurrentPage()+1);
+                out.print(pageLink(pages.getCurrentPage()+1));
                 out.println("\">下一页</a></li>");
 
                 out.print("<li><a href=\"");
-                out.print(link);
-                out.print("?page=");
-                out.print(pages.getPageCount());
+                out.print(pageLink(pages.getPageCount()));
                 out.println("\">尾页</a></li>");
             }
 
@@ -207,6 +199,21 @@ public class JspPageTag extends SimpleTagSupport {
 
 
     }
+
+    private String pageLink(int page){
+        StringBuilder stringBuilder = new StringBuilder(link);
+        int i = link.lastIndexOf('?');
+        int j = link.lastIndexOf('/');
+        if(i!=-1&&i>=j){
+            stringBuilder.append('&');
+        }else{
+            stringBuilder.append('?');
+        }
+        stringBuilder.append("page=");
+        stringBuilder.append(page);
+        return stringBuilder.toString();
+    }
+
 
 
 }

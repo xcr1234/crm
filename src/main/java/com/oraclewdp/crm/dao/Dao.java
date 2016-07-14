@@ -28,9 +28,13 @@ public interface Dao<E> {
     public E find(String sql,Class<E> clazz);
 
 
-    public Pages<E> findAll(Class<E> clazz,int size, int offset);
+    public Pages<E> findAll(Class<E> clazz);
 
-    public Pages<E> findAll(Class<E> clazz,String sql,int size, int offset);
+    public Pages<E> findAll(Class<E> clazz,String sql,Object ... params);
+
+    public Pages<E> findAll(Class<E> clazz,int size, int num);
+
+    public Pages<E> findAll(Class<E> clazz,String sql,int size, int num,Object ... params);
 
 
 }
