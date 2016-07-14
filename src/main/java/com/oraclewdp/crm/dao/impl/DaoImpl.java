@@ -58,7 +58,9 @@ public class DaoImpl<E> implements Dao<E> {
             resultSet = preparedStatement.getGeneratedKeys();
             if (resultSet.next()) {
 
-                return resultSet.getInt(1);
+                Integer id = resultSet.getInt(1);
+                FieldInvoker.set(meta.getIdField(),elem,id);
+                return id;
             } else {
                 return null;
             }
