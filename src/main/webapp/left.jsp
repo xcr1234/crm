@@ -48,6 +48,8 @@ $(function(){
 			$(this).next('.menuson').slideDown();
 		}
 	});
+	
+	//框架页面从后台获取值
 })	
 </script>
 
@@ -58,8 +60,8 @@ $(function(){
 	
     
     <dl class="leftmenu">
-       ${menu}
-    <%-- <dd>
+     <%--   ${menu} --%>
+    <dd>
     <div class="title">
     <span><img src="images/leftico01.png" /></span>客户管理
     </div>
@@ -116,7 +118,7 @@ $(function(){
         </ul>
     
     </dd>   
-     --%>
+    
     </dl>
     
 </body>

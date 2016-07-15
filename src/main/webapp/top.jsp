@@ -25,6 +25,7 @@ $(function(){
 		$(".nav li a.selected").removeClass("selected")
 		$(this).addClass("selected");
 	})	
+	
 })	
 </script>
 
