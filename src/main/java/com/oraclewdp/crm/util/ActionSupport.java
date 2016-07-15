@@ -119,6 +119,23 @@ public class ActionSupport extends HttpServlet {
 		return o;
 	}
 
+	/**
+	 * 如果是返回到page/crm内的jsp页面可以用这个方法
+	 * @author gui
+	 * @time 2016年7月14日 下午10:24:58
+	 * @tags @param viewName
+	 * @tags @param request
+	 * @tags @param response
+	 */
+	public void returnView(String viewName,HttpServletRequest request,HttpServletResponse response){
+		try {
+			request.getRequestDispatcher("page/crm/"+viewName+".jsp").forward(request, response);
+		} catch (ServletException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 	
 	
 }
