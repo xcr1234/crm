@@ -1,9 +1,11 @@
 package com.oraclewdp.crm.entity;
 
+import java.io.Serializable;
+
 import com.oraclewdp.crm.persistence.Column;
 import com.oraclewdp.crm.persistence.Id;
 
-public class User {
+public class User implements Serializable{
     @Id
     private Integer id;
 
