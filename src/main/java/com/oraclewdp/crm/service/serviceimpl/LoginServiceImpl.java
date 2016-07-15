@@ -1,0 +1,94 @@
+package com.oraclewdp.crm.service.serviceimpl;
+
+import java.sql.Connection;
+import java.util.List;
+
+import javax.servlet.http.HttpSession;
+
+import com.oraclewdp.crm.dao.RoleAuthorityDao;
+import com.oraclewdp.crm.dao.UserDao;
+import com.oraclewdp.crm.dao.UserRoleDao;
+import com.oraclewdp.crm.dao.impl.RoleAuthorityDaoImpl;
+import com.oraclewdp.crm.dao.impl.UserDaoImpl;
+import com.oraclewdp.crm.dao.impl.UserRoleDaoImpl;
+import com.oraclewdp.crm.entity.Menu;
+import com.oraclewdp.crm.entity.RoleAuthority;
+import com.oraclewdp.crm.entity.User;
+import com.oraclewdp.crm.entity.UserRole;
+import com.oraclewdp.crm.service.LoginService;
+import com.oraclewdp.crm.util.JdbcUtil;
+import com.oraclewdp.crm.util.PageUtil;
+import com.oraclewdp.crm.util.Pages;
+import com.oraclewdp.crm.util.ResultUtil;
+
+public class LoginServiceImpl implements LoginService{
+	private Connection connection=JdbcUtil.getInstance().getConnection();
+	private UserDao userDao=new UserDaoImpl(connection);
+	private UserRoleDao userRoleDao=new UserRoleDaoImpl(connection);
+	private RoleAuthorityDao roleAuthorityDao=new RoleAuthorityDaoImpl(connection);
+	
+	@Override
+	public ResultUtil Login(String username,String password,String validate,HttpSession session){
+		ResultUtil result1=new ResultUtil();	
+		if(!validate.equals((String)session.getAttribute("validateCode"))){
+			result1.setInfo("验证码错误");
+			return result1;
+		}else{
+			ResultUtil result=validate(username, password);
+			return result;
+		}
+		
+	   
+	}
+
+
+	/**
+	 * 验证用户名和密码
+	 * @author gui
+	 * @time 2016年7月14日 下午9:55:17
+	 * @tags @param username
+	 * @tags @param password
+	 * @tags @return
+	 */
+private ResultUtil validate(String username,String password){
+	ResultUtil result=new ResultUtil();
+	String sql="select * from user where userName=? and password=?";
+	Pages<User> pages=new PageUtil();
+	Object[] params={username,password};
+	pages=userDao.findAll(User.class, sql, params);
+	if(pages.getItems()!=null&&pages.getItems().size()>0){
+		System.out.println("user:"+pages.getItems().get(0));
+		result.setFlag(true);
+		result.setO(pages.getItems().get(0));
+		return result;
+	}else{
+		result.setFlag(false);
+		result.setInfo("用户名或密码不正确");
+	}	
+	
+	return result;
+}
+
+
+	@Override
+	public String getAuthority(User user) {
+		String sql=null;
+		UserRole userRole=null;
+		RoleAuthority roleAuthority=null;
+		Menu menu=null;
+		Pages<UserRole> page=null;
+		Pages<RoleAuthority> page2=null;
+		
+		sql="select * from userrole where userId=?";
+	    page=userRoleDao.findAll(UserRole.class, sql, user.getId());
+		userRole=page.getItems().get(0);
+		
+		sql="select * from roleauthority where roleId=?";
+		page2=roleAuthorityDao.findAll(RoleAuthority.class, sql, userRole.getRole().getId());
+		roleAuthority=page2.getItems().get(0);
+		menu=roleAuthority.getAuthority().getMenu();
+		
+		return menu.getContext();
+	}
+
+}
