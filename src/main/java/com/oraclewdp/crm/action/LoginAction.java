@@ -1,5 +1,4 @@
 package com.oraclewdp.crm.action;
-
 import java.io.IOException;
 import java.sql.Connection;
 
@@ -29,6 +28,9 @@ import com.oraclewdp.crm.util.ResultUtil;
 @WebServlet("/loginAction.do")
 public class LoginAction extends ActionSupport{
   private LoginService loginService=new LoginServiceImpl();
+  private ResultUtil result=null;
+  private User user=null;
+  private String menu=null;
  
   /**
    * 登陆方法
@@ -44,20 +46,45 @@ public class LoginAction extends ActionSupport{
 		  String username=req.getParameter("username");
 		  String password=req.getParameter("password");
 		  String validate=req.getParameter("validate").toUpperCase();
-		  ResultUtil result=null;
 		  result=loginService.Login(username, password, validate, session);
 		  if(result.isFlag()){
-			  //得到权限所属的菜单，返回前台。
-			  String menu= loginService.getAuthority((User)result.getO());
-			  req.setAttribute("menu", menu);
-			  System.out.println("menu:"+menu);
 			  //返回登陆的用户
 			  session.setAttribute("user", (User)result.getO());
 			  req.getRequestDispatcher("main.jsp").forward(req, resp);
 		  }
 		  else{
 			  req.setAttribute("info", result.getInfo());
-			  req.getRequestDispatcher("login.jsp").forward(req, resp);	  
+			  req.getRequestDispatcher("login.jsp").forward(req, resp); 
 		  }
 	}
+  
+  /**
+   * left.jsp框架取值的请求方法
+   * @author gui
+   * @time 2016年7月15日 上午11:33:51
+   * @tags @param req
+   * @tags @param resp
+   * @tags @throws ServletException
+   * @tags @throws IOException
+   */
+  public void getLeftAttr(HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException{
+	   int id=Integer.parseInt(req.getParameter("userid"));
+	   user=loginService.getUser(id);
+	   //得到权限所属的菜单，返回前台。
+	    menu= loginService.getAuthority(user);
+		System.out.println("menu:"+menu);
+	   req.setAttribute("menu", menu);
+	   req.getRequestDispatcher("left.jsp").forward(req, resp);
+  }
+  
+  /**
+   * top.jsp框架取值的请求方法
+   * @author gui
+   * @time 2016年7月15日 上午11:37:40
+   * @tags @param req
+   * @tags @param resp
+   * @tags @throws ServletException
+   * @tags @throws IOException
+   */
 }

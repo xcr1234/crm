@@ -26,7 +26,7 @@ public class LoginServiceImpl implements LoginService{
 	private UserDao userDao=new UserDaoImpl(connection);
 	private UserRoleDao userRoleDao=new UserRoleDaoImpl(connection);
 	private RoleAuthorityDao roleAuthorityDao=new RoleAuthorityDaoImpl(connection);
-	
+	private User user=null;
 	@Override
 	public ResultUtil Login(String username,String password,String validate,HttpSession session){
 		ResultUtil result1=new ResultUtil();	
@@ -90,5 +90,13 @@ private ResultUtil validate(String username,String password){
 		
 		return menu.getContext();
 	}
+	
+	
+    public User getUser(int id){
+       user=userDao.find(id,User.class);
+	   
+       return user;
+	
+    }
 
 }

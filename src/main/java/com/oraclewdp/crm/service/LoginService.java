@@ -29,6 +29,13 @@ public ResultUtil Login(String username,String password,String validate,HttpSess
  * @tags @return
  */
 public String getAuthority(User user);		
-
-		
+	
+/**
+ * 获得User
+ * @author gui
+ * @time 2016年7月15日 下午12:11:07
+ * @tags @param id
+ * @tags @return
+ */
+public User getUser(int id);
 }
