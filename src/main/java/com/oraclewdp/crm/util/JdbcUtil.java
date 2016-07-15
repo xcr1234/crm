@@ -80,12 +80,18 @@ public class JdbcUtil {
      * @tags @return Connection
      * @tags @throws SQLException
      */
-    public Connection getConnection() throws SQLException{
+    public Connection getConnection(){
 
         Connection connection = threadLocal.get();
         if(connection==null){
-            connection = DriverManager.getConnection(url,user,pwd);
-            threadLocal.set(connection);
+            try {
+				connection = DriverManager.getConnection(url,user,pwd);
+				threadLocal.set(connection);
+            } catch (SQLException e) {
+			
+				e.printStackTrace();
+			}
+            
         }
 
         return connection;
