@@ -18,6 +18,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<meta http-equiv="description" content="This is my page">
 	<link href="${pageContext.servletContext.contextPath}/css/style.css" rel="stylesheet" type="text/css" />
    <script language="JavaScript" src="${pageContext.servletContext.contextPath}/js/jquery.js"></script>
+   <script type="text/javascript" src="${pageContext.servletContext.contextPath}/js/MD5.js"></script>
    <script src="${pageContext.servletContext.contextPath}/js/cloud.js" type="text/javascript"></script>
 
 <script language="javascript">
@@ -26,6 +27,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	$(window).resize(function(){  
     $('.loginbox').css({'position':'absolute','left':($(window).width()-692)/2});
     })  
+    
+    $("input[name=login]").click(function(){
+       var username=$("input[name=username]").val();
+       var password=$.md5($("input[name=password]").val());
+       var validate=$("input[name=validate]").val();
+      /* alert(username+password+validate); */
+      window.location.href="${pageContext.servletContext.contextPath}/loginAction.do?method=login&username="+username+"&password="+password+"&validate="+validate;
+    })
+    
+    $("img").click(function(){
+    console.log(this);
+    $(this).attr("src","${pageContext.servletContext.contextPath}/validateCode.do?randow="+new Date);
+    })
 });  
 </script> 
 
@@ -57,12 +71,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <div class="loginbox loginbox2">
     
     <ul>
-    <li><input name="" type="text" class="loginuser" value="admin" onclick="JavaScript:this.value=''"/></li>
-    <li><input name="" type="text" class="loginpwd" value="密码" onclick="JavaScript:this.value=''"/></li>
+    <li><input name="username" type="text" class="loginuser" value="admin" onclick="JavaScript:this.value=''"/></li>
+    <li><input name="password" type="text" class="loginpwd" value="admin" onclick="JavaScript:this.value=''"/></li>
     <li class="yzm">
-    <span><input name="" type="text" value="验证码" onclick="JavaScript:this.value=''"/></span><cite>X3D5S</cite> 
+    <span><input name="validate" type="text" value="" onclick="JavaScript:this.value=''"/></span><cite><img src="${pageContext.servletContext.contextPath}/validateCode.do" alt="" width="100%" height="100%"/></cite> 
     </li>
-    <li><input name="" type="button" class="loginbtn" value="登录"  onclick="javascript:window.location='main.jsp'"  /><label><input name="" type="checkbox" value="" checked="checked" />记住密码</label><label><a href="#">忘记密码？</a></label></li>
+    <li><input name="login" type="button" class="loginbtn" value="登陆"  onclick="javascript:window.location='main.jsp'"  /><label>${info}</label></li>
     </ul>
     
     

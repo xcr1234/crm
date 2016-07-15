@@ -1,13 +1,8 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
-<%
-String path = request.getContextPath();
-String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
-%>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <base href="<%=basePath%>">
     
     <title>left</title>
     
@@ -63,8 +58,8 @@ $(function(){
 	
     
     <dl class="leftmenu">
-        
-    <dd>
+       ${menu}
+    <%-- <dd>
     <div class="title">
     <span><img src="images/leftico01.png" /></span>客户管理
     </div>
@@ -114,14 +109,14 @@ $(function(){
     </dd>  
     
     
-    <dd><div class="title"><span><img src="images/leftico04.png" /></span>供应商管理</div>
+    <dd><div class="title"><span><img src="images/leftico04.png" /></span>用户管理</div>
     <ul class="menuson">
         <li><cite></cite><a href="flow.html" target="rightFrame">点不开就是点不开</a><i></i></li>
        
         </ul>
     
     </dd>   
-    
+     --%>
     </dl>
     
 </body>

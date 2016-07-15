@@ -9,7 +9,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">
     
-    <title>My JSP 'top.jsp' starting page</title>
+    <title>top</title>
     
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
@@ -38,18 +38,18 @@ $(function(){
     </div>
         
     <ul class="nav">
-    <li><a href="default.html" target="rightFrame" class="selected"><img src="${pageContext.servletContext.contextPath}/images/icon01.png" title="CRM管理" /><h2>CRM管理</h2></a></li>
-    <li><a href="imgtable.html" target="rightFrame"><img src="${pageContext.servletContext.contextPath}/images/icon02.png" title="进销存" /><h2>进销存</h2></a></li>
-    <li><a href="imglist.html"  target="rightFrame"><img src="${pageContext.servletContext.contextPath}/images/icon03.png" title="生产管理" /><h2>生产管理</h2></a></li>
-    <li><a href="tools.html"  target="rightFrame"><img src="images/icon04.png" title="财务管理" /><h2>财务管理</h2></a></li>
-    <li><a href="computer.html" target="rightFrame"><img src="images/icon05.png" title="图表分析" /><h2>图表分析</h2></a></li>
-    <li><a href="tab.html"  target="rightFrame"><img src="images/icon06.png" title="人事管理" /><h2>人事管理</h2></a></li>
-	<li><a href="tab.html"  target="rightFrame"><img src="images/icon06.png" title="办公管理" /><h2>办公管理</h2></a></li>
-    <li><a href="tab.html"  target="rightFrame"><img src="images/icon06.png" title="信息中心" /><h2>信息中心</h2></a></li>
-	<li><a href="tab.html"  target="rightFrame"><img src="images/icon06.png" title="流程管理" /><h2>流程管理</h2></a></li>
-	<li><a href="tab.html"  target="rightFrame"><img src="images/icon06.png" title="人事管理" /><h2>人事管理</h2></a></li>
-	<li><a href="tab.html"  target="rightFrame"><img src="images/icon06.png" title="通讯管理" /><h2>通讯管理</h2></a></li>
-    <li><a href="tab.html"  target="rightFrame"><img src="images/icon06.png" title="综合事务" /><h2>综合事务</h2></a></li>
+    <li><a href="#" target="rightFrame" class="selected"><img src="${pageContext.servletContext.contextPath}/images/icon01.png" title="CRM管理" /><h2>CRM管理</h2></a></li>
+    <li><a href="${pageContext.servletContext.contextPath}/error/jqqd.jsp" target="rightFrame"><img src="${pageContext.servletContext.contextPath}/images/icon02.png" title="进销存" /><h2>进销存</h2></a></li>
+    <li><a href="${pageContext.servletContext.contextPath}/error/jqqd.jsp"  target="rightFrame"><img src="${pageContext.servletContext.contextPath}/images/icon03.png" title="生产管理" /><h2>生产管理</h2></a></li>
+    <li><a href="${pageContext.servletContext.contextPath}/error/jqqd.jsp"  target="rightFrame"><img src="images/icon04.png" title="财务管理" /><h2>财务管理</h2></a></li>
+    <li><a href="${pageContext.servletContext.contextPath}/error/jqqd.jsp" target="rightFrame"><img src="images/icon05.png" title="图表分析" /><h2>图表分析</h2></a></li>
+    <li><a href="${pageContext.servletContext.contextPath}/error/jqqd.jsp"  target="rightFrame"><img src="images/icon06.png" title="人事管理" /><h2>人事管理</h2></a></li>
+	<li><a href="${pageContext.servletContext.contextPath}/error/jqqd.jsp"  target="rightFrame"><img src="images/icon06.png" title="办公管理" /><h2>办公管理</h2></a></li>
+    <li><a href="${pageContext.servletContext.contextPath}/error/jqqd.jsp"  target="rightFrame"><img src="images/icon06.png" title="信息中心" /><h2>信息中心</h2></a></li>
+	<li><a href="${pageContext.servletContext.contextPath}/error/jqqd.jsp"  target="rightFrame"><img src="images/icon06.png" title="流程管理" /><h2>流程管理</h2></a></li>
+	<li><a href="${pageContext.servletContext.contextPath}/error/jqqd.jsp"  target="rightFrame"><img src="images/icon06.png" title="人事管理" /><h2>人事管理</h2></a></li>
+	<li><a href="${pageContext.servletContext.contextPath}/error/jqqd.jsp"  target="rightFrame"><img src="images/icon06.png" title="通讯管理" /><h2>通讯管理</h2></a></li>
+    <li><a href="${pageContext.servletContext.contextPath}/error/jqqd.jsp"  target="rightFrame"><img src="images/icon06.png" title="综合事务" /><h2>综合事务</h2></a></li>
 	</ul>
             
     <div class="topright">    
