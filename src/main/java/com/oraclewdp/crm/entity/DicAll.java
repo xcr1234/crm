@@ -45,4 +45,12 @@ public class DicAll {
     public void setStatus(Boolean status) {
         this.status = status;
     }
+
+	@Override
+	public String toString() {
+		return "DicAll [id=" + id + ", type=" + type + ", name=" + name
+				+ ", status=" + status + "]";
+	}
+    
+    
 }
