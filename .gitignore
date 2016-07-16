@@ -7,3 +7,4 @@ target
 bin
 .myumldata
 .tern-project
+src/main/resources/db.properties
