@@ -23,6 +23,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.alibaba.fastjson.JSON;
+import com.oraclewdp.crm.persistence.Meta;
 
 /**
  * servlet的父类，方便调用前台方法。前台调用方法用method=?
@@ -203,5 +204,31 @@ public class ActionSupport extends HttpServlet {
 		}
 	}
 	
-	
+	/**
+	 * 根据前台传值构造模糊查询的sql语句。
+	 * @author gui
+	 * @time 2016年7月16日 下午12:07:06
+	 * @tags @param clzz
+	 * @tags @param req
+	 * @tags @return
+	 */
+	public String getSearchSql(Class clzz,HttpServletRequest req) {
+		Meta meta = new Meta(clzz);
+		String tableName=meta.getTableName();
+		String sql = "select * from "+tableName+" where ";
+		Enumeration<String> names = req.getParameterNames();
+		// 根据前台搜索框的值，拼接sql语句。
+		while (names.hasMoreElements()) {
+			String name = (String) names.nextElement();
+			String value = req.getParameter(name);
+			if (value != null && value.equals("")) {
+				if(name.contains("search")){
+				  sql = sql + name + " like '%" + value + "%' and ";
+				}
+			}
+		}
+		sql = sql.substring(0, sql.indexOf("and "));
+		return sql;
+	}
+
 }

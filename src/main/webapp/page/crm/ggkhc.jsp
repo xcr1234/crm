@@ -39,6 +39,28 @@ $(document).ready(function(){
   $(".tip").fadeOut(100);
 });
 
+ $("button[name=save]").click(function(){
+ var name=$(".tip input[name=name]").val(); //客户名称
+ var creator=$(".tip input[name=creator]").val(); //创建人
+ var phone=$(".tip input[name=phone]").val();  //联系方式
+ var email=$(".tip input[name=email]").val();  //邮箱
+ var adress=$(".tip input[name=adress]").val();   //详细地址
+ var qq=$(".tip input[name=qq]").val();      //qq
+ var provence=$(".tip input[name=provence]").val();  //省
+ var city=$(".tip input[name=city]").val();     //市
+ var county=$(".tip input[name=county]").val(); //县
+ var sales=$(".tip input[name=sales]").val();    //销售负责人
+ var customer_type=$(".tip input[name=customer_type]").val();  //客户类型
+ var createdate=$(".tip input[name=createdate]").val();  //创建日期
+ 
+ /* var data=name+creator+phone+email+adress+qq+provence+city+county+sales+customer_type; */
+ var data={customer_name:name,user_creatorid:creator,customer_phone:phone,customer_email:email,customer_adress:adress,customer_qq:qq,provence:provence,city:city,county:county,sales:sales,dicAll_typeid:customer_type,customer_createdate:createdate};
+ var url="${pageContext.servletContext.contextPath}/ggkhc.do?method=kh_add";
+ $("#return_info").load(url,data,function(){
+
+ });
+ })
+
 });
 </script>
 </head>
@@ -176,44 +198,48 @@ input[type=checkbox]{
     <div class="tip">
     	<div class="ke-dialog-body">
     	 <div class="formtitle"><span>客户基本信息</span></div>
-    <form action="" method="post">
+    <form action="" method="post" name="kh_form">
     	<table>
     		<tr>
     			<td class="td_left">客户名称:</td>
-    			<td><input name="" type="text" class="dfinput"/><i></i></td>
+    			<td><input name="name" type="text" class="dfinput"/><i></i></td>
     			<td class="td_left">客户编码:</td>
-    			<td><input name="" type="text" class="dfinput"/><i></i></td>
+    			<td><input name="code" type="text" class="dfinput"/><i></i></td>
     			<td class="td_left">创建人:</td>
-    			<td><input name="" type="text" class="dfinput"/><i></i></td>
+    			<td><input name="creator" type="text" class="dfinput"/><i></i></td>
     		</tr>
     		
     		<tr>
     			<td class="td_left">联系方式:</td>
-    			<td><input name="" type="text" class="dfinput"/><i></i></td>
+    			<td><input name="phone" type="text" class="dfinput"/><i></i></td>
     			<td class="td_left">邮箱:</td>
-    			<td><input name="" type="text" class="dfinput"/><i></i></td>
+    			<td><input name="email" type="text" class="dfinput"/><i></i></td>
     			<td class="td_left">详细地址:</td>
-    			<td><input name="" type="text" class="dfinput"/><i></i></td>
+    			<td><input name="adress" type="text" class="dfinput"/><i></i></td>
     		</tr>
     		
     		<tr>
     			<td class="td_left">QQ:</td>
-    			<td><input name="" type="text" class="dfinput"/><i></i></td>
+    			<td><input name="qq" type="text" class="dfinput"/><i></i></td>
     			<td class="td_left">省:</td>
-    			<td><input name="" type="text" class="dfinput"/><i></i></td>
+    			<td><input name="provence" type="text" class="dfinput"/><i></i></td>
     			<td class="td_left">市:</td>
-    			<td><input name="" type="text" class="dfinput"/><i></i></td>
+    			<td><input name="city" type="text" class="dfinput"/><i></i></td>
     		</tr>
     		
     		<tr>
     			<td class="td_left">县:</td>
-    			<td><input name="" type="text" class="dfinput"/><i></i></td>
+    			<td><input name="county" type="text" class="dfinput"/><i></i></td>
     			<td class="td_left">销售负责人:</td>
-    			<td><input name="" type="text" class="dfinput"/><i></i></td>
+    			<td><input name="sales" type="text" class="dfinput"/><i></i></td>
     			<td class="td_left">客户类型:</td>
-    			<td><input name="" type="text" class="dfinput"/><i></i></td>
+    			<td><input name="customer_type" type="text" class="dfinput"/><i></i></td>
     		</tr>
     		
+    		<tr>
+    			<td class="td_left">创建日期:</td>
+    			<td><input name="createdate" type="text" class="dfinput"/><i></i></td>
+    			</tr>
     	</table>
     	
     	<input type="submit" value=""/>
@@ -274,9 +300,11 @@ input[type=checkbox]{
     <div style="text-align: center;margin-top: 5px;">
     	
     	<button type="button" class="scbtn">添加一行</button>
-    	<button type="button" class="scbtn sure">保存</button>
+    	<button type="button" class="scbtn sure" name="save">保存</button>
     	<button type="button" class="scbtn cancel">关闭</button>
     </div>
+    
+    <div id="return_info"></div>
     
     </div>
 
