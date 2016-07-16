@@ -23,7 +23,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="${pageContext.servletContext.contextPath}/js/jquery.idTabs.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
-  $(".click").click(function(){
+ /* $(".click").click(function(){
   $(".tip").fadeIn(200);  
   });
   
@@ -37,7 +37,7 @@ $(document).ready(function(){
 
   $(".cancel").click(function(){
   $(".tip").fadeOut(100);
-});
+});*/
 
  $("button[name=save]").click(function(){
  var name=$(".tip input[name=name]").val(); //客户名称
@@ -84,10 +84,10 @@ $(document).ready(function(){
 		width: 100px;
 		}
 	.tip{width:1400px; height:600px; position:absolute;top:10%; left:10%;background:#fcfdfd;box-shadow:1px 8px 10px 1px #9b9b9b;border-radius:1px;behavior:url(js/pie.htc); display:none; z-index:111111;}
-    option {
-	font-size: 25px;
-}
+
  select {
+	 font-size:14px;
+	 padding-left: 10px;
    opacity: 1;
     display:block;
     width: 150px;
@@ -96,6 +96,10 @@ $(document).ready(function(){
     border-style: solid;
     border-color: rgb(195, 171, 125) rgb(231, 213, 186) rgb(231, 213, 186) rgb(195, 171, 125);
 }
+
+ option{
+	 font-size:14px;
+ }
 
 input[type=checkbox]{
 	width:25px;
@@ -120,8 +124,8 @@ input[type=checkbox]{
     <div class="tools">
     
     	<ul class="toolbar">
-        <li class="click"><span><img src="images/t01.png" /></span>新建客户</li>
-        <li class="click"><span><img src="images/ico06.png" /></span>查询</li>
+        <li class="click" onclick="location.href='<%=basePath%>page/crm/ggkhc_add.jsp'"><span><img src="images/t01.png" /></span>新建客户</li>
+        <li class="click"><span><img src="/images/ico06.png" /></span>查询</li>
         <li><span><img src="images/t05.png" /></span>重置</li>     
         </ul>
     </div>
@@ -151,7 +155,7 @@ input[type=checkbox]{
     <table class="tablelist">
     	<thead>
     	<tr>
-        <th style="width: 150px"><input name="" type="checkbox" value="" checked="checked"/>全选</th>
+        <th style="width: 150px">全选</th>
         <th>客户名称</th>
         <th>省份</th>
         <th>城市</th>

@@ -84,7 +84,7 @@ $(function(){
             </div>                      
         </li>       
         <li class="active"><cite></cite><a href="${pageContext.servletContext.contextPath}/page/crm/jwjlgl.jsp" target="rightFrame">交往记录管理</a><i></i></li>
-        <li><cite></cite><a href="imgtable.html" target="rightFrame">客户漏斗图</a><i></i></li>
+        <li><cite></cite><a href="javascript:;" target="rightFrame">客户漏斗图</a><i></i></li>
         <li><cite></cite><a href="${pageContext.servletContext.contextPath}/page/crm/khsrcx.jsp" target="rightFrame">客户生日查询</a><i></i></li>
         <li><cite></cite><a href="${pageContext.servletContext.contextPath}/page/crm/khgh.jsp" target="rightFrame">客户关怀</a><i></i></li>
         <li><cite></cite><a href="${pageContext.servletContext.contextPath}/page/crm/khzy.jsp" target="rightFrame">客户转移</a><i></i></li>    
@@ -98,14 +98,14 @@ $(function(){
     </div>
     <ul class="menuson">
         <li><cite></cite><a href="${pageContext.servletContext.contextPath}/page/crm/xmjh.jsp" target="rightFrame">项目机会</a><i></i></li>
-        <li><cite></cite><a href="project.html" target="rightFrame">机会漏斗图</a><i></i></li>
-        <li><cite></cite><a href="search.html" target="rightFrame">销售标价表</a><i></i></li>
-        <li><cite></cite><a href="tech.html" target="rightFrame">解决方案</a><i></i></li>
+        <li><cite></cite><a href="javascript:;" target="rightFrame">机会漏斗图</a><i></i></li>
+        <li><cite></cite><a href="javascript:;" target="rightFrame">销售标价表</a><i></i></li>
+        <li><cite></cite><a href="javascript:;" target="rightFrame">解决方案</a><i></i></li>
         </ul>     
     </dd>    
     <dd><div class="title"><span><img src="images/leftico03.png" /></span>产品管理</div>
       <ul class="menuson">
-        <li><cite></cite><a href="flow.html" target="rightFrame">哈哈哈。没有啦</a><i></i></li>
+        <li><cite></cite><a href="javascript:;" target="rightFrame">哈哈哈。没有啦</a><i></i></li>
        
         </ul>    
     </dd>  
@@ -113,7 +113,7 @@ $(function(){
     
     <dd><div class="title"><span><img src="images/leftico04.png" /></span>用户管理</div>
     <ul class="menuson">
-        <li><cite></cite><a href="flow.html" target="rightFrame">点不开就是点不开</a><i></i></li>
+        <li><cite></cite><a href="javascript:;" target="rightFrame">点不开就是点不开</a><i></i></li>
        
         </ul>
     

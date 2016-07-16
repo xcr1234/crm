@@ -17,9 +17,9 @@ $(function(){
 </script>
 <script type="text/javascript">
 $(document).ready(function(){
-  $(".click").click(function(){
+  /*$(".click").click(function(){
   $(".tip").fadeIn(200);
-  });
+   });
   
   $(".tiptop a").click(function(){
   $(".tip").fadeOut(200);
@@ -31,7 +31,7 @@ $(document).ready(function(){
 
   $(".cancel").click(function(){
   $(".tip").fadeOut(100);
-});
+});*/
 
 });
 </script>
@@ -53,7 +53,7 @@ $(document).ready(function(){
     <div class="tools">
     
     	<ul class="toolbar">
-        <li class="click"><span><img src="${pageContext.servletContext.contextPath}/images/t01.png" /></span>新建关怀信息</li>       
+        <li class="click" onclick="location.href='khgh_add.jsp'"><span><img src="${pageContext.servletContext.contextPath}/images/t01.png" /></span>新建关怀信息</li>
         <li><span><img src="${pageContext.servletContext.contextPath}/images/ico06.png" /></span>查询</li>
         <li><span><img src="${pageContext.servletContext.contextPath}/images/t03.png" /></span>重置</li>
         </ul>

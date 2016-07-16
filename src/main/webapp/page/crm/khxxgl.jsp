@@ -21,7 +21,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 		<script type="text/javascript">
 			$(document).ready(function(){
-			  $(".click").click(function(){
+			/*  $(".click").click(function(){
 			  $(".tip").fadeIn(200);
 			  });
 			  
@@ -35,7 +35,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			
 			  $(".cancel").click(function(){
 			  $(".tip").fadeOut(100);
-			});
+			});*/
 			
 			});
 
@@ -71,83 +71,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 			<div class="tools">
 				<ul class="toolbar">
-					<li class="click"><span><img src="images/t01.png" /></span>添加</li>
+					<li class="click"  onclick="location.href='<%=basePath%>page/crm/khxxgl_add.jsp'"><span><img src="images/t01.png" /></span>添加</li>
 					<li class="click"><span><img src="images/ico06.png" /></span>查询</li>
 					<li><span><img src="images/t03.png" /></span>重置</li>
 				</ul>
 			</div>
 			<div class="formbody">
-			<form action="">
-			<table class="">
-        
-        <tbody>
-				 
-				 <tr>
-					<td class="td_left">客户名称：</td>
-					<td><input name="" type="text" class="dfinput" /></td>
-					<td class="td_left">客户编码:</td>
-					<td><input name="" type="text" class="dfinput" /></td>
-				  <td class="td_left"> 客户类型：</td>
-					<td><select value="请选择">
-							<option>一般客户</option>
-							<option>VIP客户</option>
-							<option>潜在客户</option>
-							<option>长期跟踪客户</option>
-							<option>重要客户</option>
-							<option>流失客户</option>
-							<option>A客户</option>
-						  </select>
-					</td>
-					</tr>
-				<tr>
-						<td class="td_left"> 客户来源；</td>
-						<td>
-						  <select value="请选择">
-							<option>客户介绍</option>
-							<option>广告</option>
-							<option>网络搜索</option>
-							<option>朋友介绍</option>
-							<option>其他</option>
-						  </select>
-						</td>
-						<td class="td_left">所   在   市:</td>
-						<td>
-						<input name="" type="text" class="dfinput" class="" />
-					  </td>
-					  <td class="td_left">创   建  人：</td>
-					  <td>
-						<input name="" type="text" class="dfinput"  />
-				   	</td>
-						
-					
-				</tr>
-				
-				<tr>
-					<td class="td_left">创建日期:</td>
-					<td>
-						<input name="" type="text" class="dfinput"  />
-					</td>
-					<td class="td_left">客户电话：</td>
-					<td>
-						<input name="" type="text" class="dfinput"  />
-					</td>
-					<td class="td_left">联系电话：</td>
-					<td>
-						<input name="" type="text" class="dfinput"  />
-					</td>
-			</tr>	
-			<tr>	
-					<td class="td_left">联系人手机：</td>
-					<td>
-						<input name="" type="text" class="dfinput"  />
-					</td>	
-			</tr>
-			  
-        </tbody>
-			  
-			</table>
-			
-			</form>
+
 			</div>
 		    <table class="tablelist">
 			     <thead>

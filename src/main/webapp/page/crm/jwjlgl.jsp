@@ -137,9 +137,9 @@ $(document).ready(function(e) {
     
     <script type="text/javascript">
 $(document).ready(function(){
-  $(".scbtn1").click(function(){
+  /*$(".scbtn1").click(function(){
   $(".seachform2").fadeIn(200);
-  }); 
+  }); */
 
 
 });

@@ -26,21 +26,34 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     $('.loginbox').css({'position':'absolute','left':($(window).width()-692)/2});
 	$(window).resize(function(){  
     $('.loginbox').css({'position':'absolute','left':($(window).width()-692)/2});
-    })  
+    });
     
-    $("input[name=login]").click(function(){
-       var username=$("input[name=username]").val();
-       var password=$.md5($("input[name=password]").val());
-       var validate=$("input[name=validate]").val();
-      /* alert(username+password+validate); */
-      window.location.href="${pageContext.servletContext.contextPath}/loginAction.do?method=login&username="+username+"&password="+password+"&validate="+validate;
-    })
+
     
     $("img").click(function(){
     console.log(this);
     $(this).attr("src","${pageContext.servletContext.contextPath}/validateCode.do?randow="+new Date);
-    })
-});  
+    });
+
+});
+
+
+    $(function () {
+        $("#form1").on("submit",function () {
+           var pwd =  $("input[name='password']").val();
+            $("input[name='password']").val($.md5(pwd));
+
+        });
+
+        var msg = "${info}";
+        if(msg!=""){
+
+            alert(msg);
+        }
+
+
+
+    });
 </script> 
 
 </head>
@@ -50,12 +63,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 
     <div id="mainBody">
-      <div id="cloud1" class="cloud"></div>
-      <div id="cloud2" class="cloud"></div>
-    </div>  
+    <div id="cloud1" class="cloud"></div>
+    <div id="cloud2" class="cloud"></div>
+    </div>
 
 
-<div class="logintop">    
+    <div class="logintop">
     <span>欢迎登录后台管理界面平台</span>    
     <ul>
     <li><a href="#">回首页</a></li>
@@ -69,17 +82,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <span class="systemlogo"></span> 
        
     <div class="loginbox loginbox2">
-    
+ <form action="${pageContext.servletContext.contextPath}/loginAction.do?method=login" method="post" id="form1">
     <ul>
-    <li><input name="username" type="text" class="loginuser" value="admin" onclick="JavaScript:this.value=''"/></li>
-    <li><input name="password" type="text" class="loginpwd" value="admin" onclick="JavaScript:this.value=''"/></li>
+    <li><input name="username" type="text" class="loginuser" value="admin" /></li>
+    <li><input name="password" type="password" class="loginpwd" value="admin" /></li>
     <li class="yzm">
-    <span><input name="validate" type="text" value="" onclick="JavaScript:this.value=''"/></span><cite><img src="${pageContext.servletContext.contextPath}/validateCode.do" alt="" width="100%" height="100%"/></cite> 
+    <span><input name="validate" type="text" value=""  style="background-color: #FBF2E3;color: black"/></span><cite><img src="${pageContext.servletContext.contextPath}/validateCode.do" alt="" width="100%" height="100%"/></cite>
     </li>
-    <li><input name="login" type="button" class="loginbtn" value="登陆"  onclick="javascript:window.location='main.jsp'"  /><label>${info}</label></li>
+    <li><input name="login" type="submit" class="loginbtn" value="登陆"    /> </li>
     </ul>
-    
-    
+
+ </form>
     </div>
     
     </div>

@@ -23,7 +23,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="${pageContext.servletContext.contextPath}/js/jquery.idTabs.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
-  $(".click").click(function(){
+  /*$(".click").click(function(){
   $(".tip").fadeIn(200);  
   });
   
@@ -37,7 +37,7 @@ $(document).ready(function(){
 
   $(".cancel").click(function(){
   $(".tip").fadeOut(100);
-});
+});*/
 
 });
 </script>
@@ -99,7 +99,7 @@ input[type=checkbox]{
     <div class="tools">
     
     	<ul class="toolbar">
-        <li class="click"><span><img src="images/t01.png" /></span>新建销售机会</li>
+        <li class="click" onclick="location.href='<%=basePath%>page/crm/xmjh_add.jsp'"><span><img src="images/t01.png" /></span>新建销售机会</li>
         <li class="click"><span><img src="images/ico06.png" /></span>查询</li>
         <li><span><img src="images/t05.png" /></span>重置</li>     
         </ul>
