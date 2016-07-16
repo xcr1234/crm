@@ -6,7 +6,7 @@
  *   <script type="text/javascript">_init_area();</script>
  * */
 
-var s=["s_province","s_city","s_county"];//三个select的name
+var s=["province","city","area"];//三个select的name
 var opt0 = ["省份","地级市","市、县级市"];//初始值
 
 

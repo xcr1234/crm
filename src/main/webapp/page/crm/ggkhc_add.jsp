@@ -7,6 +7,7 @@
     <script type="text/javascript" src="${pageContext.servletContext.contextPath}/js/jquery.js"></script>
     <script type="text/javascript" src="${pageContext.servletContext.contextPath}/js/select-ui.min.js"></script>
     <script type="text/javascript" src="${pageContext.servletContext.contextPath}/js/jquery.idTabs.min.js"></script>
+    <script type="text/javascript" src="${pageContext.servletContext.contextPath}/js/city.js"></script>
     <title>新建客户</title>
     <script>
         $(function () {
@@ -22,6 +23,7 @@
                 $(".tableform").append($(clone).clone(true));
             });
 
+            _init_area();
 
 
             
@@ -101,14 +103,14 @@
                     <td class="td_left">QQ:</td>
                     <td><input name="qq" type="text" class="dfinput"/><i></i></td>
                     <td class="td_left">省:</td>
-                    <td><input name="provence" type="text" class="dfinput"/><i></i></td>
+                    <td><select name="province" id="province" class="dfinput"></select><i></i></td>
                     <td class="td_left">市:</td>
-                    <td><input name="city" type="text" class="dfinput"/><i></i></td>
+                    <td><select name="city" id="city" class="dfinput"></select><i></i></td>
                 </tr>
 
                 <tr>
                     <td class="td_left">县:</td>
-                    <td><input name="county" type="text" class="dfinput"/><i></i></td>
+                    <td><select name="area" id="area" class="dfinput"></select><i></i></td>
                     <td class="td_left">销售负责人:</td>
                     <td><input name="sales" type="text" class="dfinput"/><i></i></td>
                     <td class="td_left">客户类型:</td>
