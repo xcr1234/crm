@@ -1,6 +1,8 @@
 package com.oraclewdp.crm.service.serviceimpl;
 
 import java.sql.Connection;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.oraclewdp.crm.dao.DicAllDao;
 import com.oraclewdp.crm.dao.impl.DicAllDaoImpl;
@@ -14,14 +16,15 @@ public class DicAllServiceImpl implements DicAllService{
 	private Connection connection=JdbcUtil.getInstance().getConnection();
 	private DicAllDao dicAllDao=new DicAllDaoImpl(connection);
 	private Pages<DicAll> page=null;
-	private DicAll dicAll=null;
+	private List<DicAll> dicAllList=new ArrayList<DicAll>();
 	
 	@Override
-	public DicAll getDicAll(String type) {
+	public List<DicAll> getDicAll(String type) {
 		String sql="select * from dic_all where type=?";
-		page=dicAllDao.findAll(DicAll.class, sql, type);
-		dicAll=page.getItems().get(0);
-		return dicAll;
+		Object[] params={type};
+		page=dicAllDao.findAll(DicAll.class, sql, params);
+		dicAllList=page.getItems();
+		return dicAllList;
 	}
 
 }

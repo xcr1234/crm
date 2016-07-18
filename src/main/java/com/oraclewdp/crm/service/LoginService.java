@@ -4,6 +4,7 @@ package com.oraclewdp.crm.service;
 import javax.servlet.http.HttpSession;
 
 import com.oraclewdp.crm.entity.User;
+import com.oraclewdp.crm.entity.UserRole;
 import com.oraclewdp.crm.util.ResultUtil;
 
 public interface LoginService {
@@ -38,4 +39,13 @@ public String getAuthority(User user);
  * @tags @return
  */
 public User getUser(int id);
+
+/**
+ * 获得角色
+ * @author gui
+ * @time 2016年7月18日 上午2:05:20
+ * @tags @param user
+ * @tags @return
+ */
+public UserRole getRole(User user);
 }

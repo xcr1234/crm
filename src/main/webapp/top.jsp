@@ -1,14 +1,8 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
-<%
-String path = request.getContextPath();
-String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
-%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <base href="<%=basePath%>">
-    
     <title>top</title>
     
 	<meta http-equiv="pragma" content="no-cache">
@@ -47,23 +41,23 @@ $(function(){
     <li><a href="${pageContext.servletContext.contextPath}/error/jqqd.jsp"  target="rightFrame"><img src="images/icon06.png" title="人事管理" /><h2>人事管理</h2></a></li>
 	<li><a href="${pageContext.servletContext.contextPath}/error/jqqd.jsp"  target="rightFrame"><img src="images/icon06.png" title="办公管理" /><h2>办公管理</h2></a></li>
     <li><a href="${pageContext.servletContext.contextPath}/error/jqqd.jsp"  target="rightFrame"><img src="images/icon06.png" title="信息中心" /><h2>信息中心</h2></a></li>
-	<li><a href="${pageContext.servletContext.contextPath}/error/jqqd.jsp"  target="rightFrame"><img src="images/icon06.png" title="流程管理" /><h2>流程管理</h2></a></li>
+	<%-- <li><a href="${pageContext.servletContext.contextPath}/error/jqqd.jsp"  target="rightFrame"><img src="images/icon06.png" title="流程管理" /><h2>流程管理</h2></a></li>
 	<li><a href="${pageContext.servletContext.contextPath}/error/jqqd.jsp"  target="rightFrame"><img src="images/icon06.png" title="人事管理" /><h2>人事管理</h2></a></li>
 	<li><a href="${pageContext.servletContext.contextPath}/error/jqqd.jsp"  target="rightFrame"><img src="images/icon06.png" title="通讯管理" /><h2>通讯管理</h2></a></li>
-    <li><a href="${pageContext.servletContext.contextPath}/error/jqqd.jsp"  target="rightFrame"><img src="images/icon06.png" title="综合事务" /><h2>综合事务</h2></a></li>
+    <li><a href="${pageContext.servletContext.contextPath}/error/jqqd.jsp"  target="rightFrame"><img src="images/icon06.png" title="综合事务" /><h2>综合事务</h2></a></li> --%>
 	</ul>
             
     <div class="topright">    
     <ul>
     <li><span><img src="${pageContext.servletContext.contextPath}/images/help.png" title="帮助"  class="helpimg"/></span><a href="#">帮助</a></li>
     <li><a href="#">关于</a></li>
-    <li><a href="login.html" target="_parent">退出</a></li>
+    <li><a href="${pageContext.servletContext.contextPath}/loginAction.do?method=loginout" target="_parent">退出</a></li>
     </ul>
      
     <div class="user">
-    <span>admin</span>
-    <i>消息</i>
-    <b>5</b>
+    <span>${sessionScope.userRole.role.name}</span>
+    <i>${sessionScope.userRole.user.nickName}</i>
+    <!-- <b>5</b> -->
     </div>    
     
     </div>

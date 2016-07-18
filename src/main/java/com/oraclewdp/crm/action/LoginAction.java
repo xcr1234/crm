@@ -12,6 +12,7 @@ import com.oraclewdp.crm.dao.UserRoleDao;
 import com.oraclewdp.crm.dao.impl.RoleAuthorityDaoImpl;
 import com.oraclewdp.crm.dao.impl.UserRoleDaoImpl;
 import com.oraclewdp.crm.entity.User;
+import com.oraclewdp.crm.entity.UserRole;
 import com.oraclewdp.crm.service.LoginService;
 import com.oraclewdp.crm.service.serviceimpl.LoginServiceImpl;
 import com.oraclewdp.crm.util.ActionSupport;
@@ -48,8 +49,11 @@ public class LoginAction extends ActionSupport{
 		  String validate=req.getParameter("validate").toUpperCase();
 		  result=loginService.Login(username, password, validate, session);
 		  if(result.isFlag()){
+			  user=(User)result.getO();
+			  //根据用户查出权限
+			  UserRole userRole=loginService.getRole(user);
 			  //返回登陆的用户
-			  session.setAttribute("user", (User)result.getO());
+			  session.setAttribute("userRole", userRole);
 			  req.getRequestDispatcher("main.jsp").forward(req, resp);
 		  }
 		  else{
@@ -69,22 +73,27 @@ public class LoginAction extends ActionSupport{
    */
   public void getLeftAttr(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException{
-	   int id=Integer.parseInt(req.getParameter("userid"));
+	  /* int id=Integer.parseInt(req.getParameter("userid"));
 	   user=loginService.getUser(id);
 	   //得到权限所属的菜单，返回前台。
 	    menu= loginService.getAuthority(user);
 		System.out.println("menu:"+menu);
-	   req.setAttribute("menu", menu);
+	   req.setAttribute("menu", menu);*/
 	   req.getRequestDispatcher("left.jsp").forward(req, resp);
   }
   
   /**
-   * top.jsp框架取值的请求方法
+   * 退出系统
    * @author gui
-   * @time 2016年7月15日 上午11:37:40
+   * @time 2016年7月18日 上午2:18:45
    * @tags @param req
    * @tags @param resp
    * @tags @throws ServletException
    * @tags @throws IOException
    */
+  public void loginout(HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException{
+	   session.invalidate();
+	   request.getRequestDispatcher("login.jsp").forward(req, resp);
+  }
 }

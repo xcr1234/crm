@@ -10,7 +10,7 @@ public class CustomerLink {
     @Id
     private Integer id;
 
-    private Boolean sex;
+    private boolean sex;
 
     private String name;
 
@@ -24,14 +24,15 @@ public class CustomerLink {
     @Column(value = "customer_id",target = "id",foreign = "customer")
     private Customer customer;
 
-    private String birthday;
+    private String birthdate;
 
-    public String getBirthday() {
-        return birthday;
+    private String email;
+    public String getBirthdate() {
+        return birthdate;
     }
 
-    public void setBirthday(String birthday) {
-        this.birthday = birthday;
+    public void setBirthdate(String birthdate) {
+        this.birthdate = birthdate;
     }
 
     public Integer getId() {
@@ -97,4 +98,23 @@ public class CustomerLink {
     public void setCustomer(Customer customer) {
         this.customer = customer;
     }
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	@Override
+	public String toString() {
+		return "CustomerLink [id=" + id + ", sex=" + sex + ", name=" + name
+				+ ", position=" + position + ", phone=" + phone + ", phone2="
+				+ phone2 + ", content=" + content + ", customer=" + customer
+				+ ", birthdate=" + birthdate + ", email=" + email + "]";
+	}
+    
+	
+    
 }

@@ -7,9 +7,11 @@ import java.io.PrintWriter;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
@@ -107,7 +109,7 @@ public class ActionSupport extends HttpServlet {
 			//先遍历出有几种类型
 			for(Map.Entry<String, String[]> entry:mapStr.entrySet()){
 				//过滤掉命名不规范的表单值，只有命名规范的才能注入,method是个特殊值，应该被过滤掉。
-				if(entry.getKey().contains("_")){
+				if(entry.getKey().contains("_")&&!entry.getKey().contains("link")){
 					mapParams.put(entry.getKey(), entry.getValue());
 					typeName=StringUtil.firstToUpper(entry.getKey().split("_")[0]);
 					//将所有类名装进set
@@ -123,6 +125,7 @@ public class ActionSupport extends HttpServlet {
 			}
 			//给map里的对象装入值
 			for(Map.Entry<String, String[]> entry:mapParams.entrySet()){
+			 if(entry.getValue()!=null&&entry.getValue()[0]!=""){
 				key=entry.getKey();
 				if(entry.getValue().length==1){
 					value=entry.getValue()[0];    
@@ -156,13 +159,8 @@ public class ActionSupport extends HttpServlet {
 						setMethod.invoke(o, value);
 						
 					}
-
-					
-				
-				
-				
-				
-				
+	
+			 }	
 			}
 			
 		} catch (Exception e) {
@@ -212,23 +210,83 @@ public class ActionSupport extends HttpServlet {
 	 * @tags @param req
 	 * @tags @return
 	 */
-	public String getSearchSql(Class clzz,HttpServletRequest req) {
+	public Map<String,Object[]> getSearchSql(Class clzz,HttpServletRequest req) {
 		Meta meta = new Meta(clzz);
 		String tableName=meta.getTableName();
+		List<String> list=new ArrayList<String>();
+		Map<String, Object[]> map=new HashMap<String, Object[]>();
 		String sql = "select * from "+tableName+" where ";
 		Enumeration<String> names = req.getParameterNames();
 		// 根据前台搜索框的值，拼接sql语句。
 		while (names.hasMoreElements()) {
-			String name = (String) names.nextElement();
-			String value = req.getParameter(name);
-			if (value != null && value.equals("")) {
-				if(name.contains("search")){
-				  sql = sql + name + " like '%" + value + "%' and ";
+			String columnName = (String) names.nextElement();
+			String value = req.getParameter(columnName);
+			if(!columnName.equals("method")){
+				if (value!= null && !value.equals("")&&!value.equals("no")) {
+					  sql = sql + columnName + " like ? and ";
+					  list.add("%"+value+"%");
+				}
+			}
+			
+			}
+		int size=list.size();
+		if(size>0){
+			sql = sql.substring(0, sql.lastIndexOf("and "));
+			Object[] params=new Object[size];
+			for(int i=0;i<size;i++){
+				params[i]=list.get(i);
+			}
+			map.put(sql, params);
+			System.err.println("模糊查询语句："+sql);
+			System.out.println("参数："+list);
+		}else{
+			sql="select * from "+tableName;
+			map.put(sql, null);
+		}
+		
+		return map;
+	}
+
+	public List getObjList(String className,HttpServletRequest request){
+		
+		Class clz = null;
+		List list=new ArrayList();
+		Object object=null;
+		String key="";
+ try{
+	    clz = Class.forName(className);
+	    object=clz.newInstance();
+		Map<String, String[]> map=request.getParameterMap();
+		for(Entry<String, String[]> entry:map.entrySet()){
+			key=entry.getKey();
+			PropertyDescriptor pd=null;
+			Method setMethod=null;
+			if(key.startsWith("list")){
+				String typeName=key.split("_")[0];
+				String columnName=key.split("_")[1];
+				String[] values=map.get(key);
+				if(values.length>1){
+					for(int i=0;i<values.length;i++){
+							String value=values[i];
+							Object trueValue=null;
+							if(!(value instanceof String)){
+							  trueValue=Integer.parseInt(value);
+							}else{
+								trueValue=value;
+							pd=new PropertyDescriptor(columnName, clz);
+							setMethod=pd.getWriteMethod();
+							setMethod.invoke(object, trueValue);
+						} 
+						
+						
+					}
 				}
 			}
 		}
-		sql = sql.substring(0, sql.indexOf("and "));
-		return sql;
+	}catch(Exception e){
+		e.printStackTrace();
 	}
-
+	return list;
+		
+}
 }

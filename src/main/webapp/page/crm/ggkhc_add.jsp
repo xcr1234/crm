@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,22 +9,28 @@
     <script type="text/javascript" src="${pageContext.servletContext.contextPath}/js/select-ui.min.js"></script>
     <script type="text/javascript" src="${pageContext.servletContext.contextPath}/js/jquery.idTabs.min.js"></script>
     <script type="text/javascript" src="${pageContext.servletContext.contextPath}/js/city.js"></script>
+    <script type="text/javascript" src="${pageContext.servletContext.contextPath}/plugin/My97DatePicker/WdatePicker.js"></script>
     <title>新建客户</title>
     <script>
+     
         $(function () {
-
-            $(".delRow").on("click",function () {
+          
+            $(".delRow").click(function () {
                 $(this).parents(".repeatRow").remove();
             });
 
 
             var clone = $(".repeatRow").clone(true);
             
-            $("#appendRow").on("click",function () {
+            $("#appendRow").click(function () {
                 $(".tableform").append($(clone).clone(true));
             });
+            
+            $("button[name=save]").click(function(){
+              $("form[name=kh_form]").submit();
+            })
 
-            _init_area();
+              _init_area();
 
 
             
@@ -76,50 +83,67 @@
     </style>
 </head>
 <body>
-<div class="tip">
-    <div class="ke-dialog-body">
+
         <div class="formtitle"><span>客户基本信息</span></div>
-        <form action="" method="post" name="kh_form">
+        <form action="${pageContext.servletContext.contextPath}/ggkhc.do?method=kh_add" method="post" name="kh_form">
             <table>
                 <tr>
                     <td class="td_left">客户名称:</td>
-                    <td><input name="name" type="text" class="dfinput"/><i></i></td>
+                    <td><input name="customer_name" type="text" class="dfinput"/><i></i></td>
                     <td class="td_left">客户编码:</td>
-                    <td><input name="code" type="text" class="dfinput"/><i></i></td>
+              
+                    <td><input name="customer_code" type="text" class="dfinput" disabled="true" value="系统自动生成"/><i></i></td>
                     <td class="td_left">创建人:</td>
-                    <td><input name="creator" type="text" class="dfinput"/><i></i></td>
+                    <td><select name="user_creatorid">
+                    <c:forEach items="${userRoleList}" var="u" varStatus="status">
+                    <option value="${u.user.id}">${status.index+1}:${u.role.name}--${u.user.nickName}</option>
+                    </c:forEach>
+                    </select></td>
                 </tr>
 
                 <tr>
                     <td class="td_left">联系方式:</td>
-                    <td><input name="phone" type="text" class="dfinput"/><i></i></td>
+                    
+                    <td><input name="customer_phone" type="text" class="dfinput"/><i></i></td>
                     <td class="td_left">邮箱:</td>
-                    <td><input name="email" type="text" class="dfinput"/><i></i></td>
+                   
+                    <td><input name="customer_email" type="text" class="dfinput"/><i></i></td>
                     <td class="td_left">详细地址:</td>
-                    <td><input name="adress" type="text" class="dfinput"/><i></i></td>
+
+                    <td><input name="customer_adress" type="text" class="dfinput"/><i></i></td>
                 </tr>
 
                 <tr>
                     <td class="td_left">QQ:</td>
-                    <td><input name="qq" type="text" class="dfinput"/><i></i></td>
+                    <td><input name="customer_qq" type="text" class="dfinput"/><i></i></td>
                     <td class="td_left">省:</td>
-                    <td><select name="province" id="province" class="dfinput"></select><i></i></td>
-                    <td class="td_left">市:</td>
-                    <td><select name="city" id="city" class="dfinput"></select><i></i></td>
-                </tr>
+                   <td><select name="customer_province" id="customer_province" class="dfinput"></select><i></i></td>
+                   <td class="td_left">市:</td>
+                   <td><select name="customer_city" id="customer_city" class="dfinput"></select><i></i></td>
+               </tr>
 
                 <tr>
                     <td class="td_left">县:</td>
-                    <td><select name="area" id="area" class="dfinput"></select><i></i></td>
+                   <td><select name="customer_county" id="customer_county" class="dfinput"></select><i></i></td>
                     <td class="td_left">销售负责人:</td>
-                    <td><input name="sales" type="text" class="dfinput"/><i></i></td>
+                     <td><select name="salesid" type="text">
+                     <c:forEach items="${userRoleList}" var="u" varStatus="status">
+                    <option value="${u.user.id}">${status.index+1}:${u.role.name}--${u.user.nickName}</option>
+                    </c:forEach>
+                    </select></td>
                     <td class="td_left">客户类型:</td>
-                    <td><input name="customer_type" type="text" class="dfinput"/><i></i></td>
+                    <td><select name="dicAll_typeid" type="text">
+                       <option>请选择</option>
+                       <c:forEach items="${result.o}" var="dic" varStatus="status">
+                       <option value="${dic.id}">${status.index+1}:${dic.name}</option>
+                       </c:forEach>
+                        </select><i></i></td>
+                   <!--  <td><input name="dicAll_typeid" type="text" class="dfinput"/><i></i></td> -->
                 </tr>
 
                 <tr>
                     <td class="td_left">创建日期:</td>
-                    <td><input name="createdate" type="text" class="dfinput"/><i></i></td>
+                    <td><input name="customer_createdate" type="text" class="dfinput" id="d12" style="width:180px;"/><img onclick="WdatePicker({el:'d12'})" src="${pageContext.servletContext.contextPath}/plugin/My97DatePicker/skin/datePicker.gif" width="16" height="22" align="absmiddle" style="display:inline;"><i></i></td>
                 </tr>
             </table>
 
@@ -136,32 +160,28 @@
                 <th>手机</th>
                 <th>工作电话</th>
                 <th>E-mail</th>
-                <th>生日</th>
+                <th>出生日期</th>
                 <th>备注</th>
                 <th>操作</th>
             </tr>
             <tr class="input repeatRow">
-                <td><input type="text"/></td>
+                <td><input type="text" name="listCustomerLink_name"/></td>
                 <td style="text-align: center;">
-                    <select style="font-size: 25px;width: 100px;">
+                    <select style="font-size: 25px;width: 100px;" name="listCustomerLink_sexid">
                         <option value="1" style="font-size: 25px;">男</option>
                         <option value="0" style="font-size: 25px;">女</option>
                     </select>
                 </td>
 
                 </td>
-                <td><input type="text" name=""/></td>
-                <td><input type="text" name=""/></td>
-                <td><input type="text" name=""/></td>
-                <td><input type="text" name=""/></td>
-                <td><input type="text" name=""/></td>
-                <td><input type="text" name=""/></td>
+                <td><input type="text" name="listCustomerLink_position"/></td>
+                <td><input type="text" name="listCustomerLink_phone"/></td>
+                <td><input type="text" name="listCustomerLink_phone2"/></td>
+                <td><input type="text" name="listCustomerLink_email"/></td>
+                <td><input type="text" name="listCustomerLink_birthdate" id="d11" onClick="WdatePicker()"/></td>
+                <td ><input type="text" name="listCustomerLink_content"/></td>
                 <td style="text-align: center;"><a href="javascript:;" class="delRow">删除</a></td>
             </tr>
-            
-
-
-
         </table>
         </form>
         <div style="text-align: center;margin-top: 5px;">
@@ -171,9 +191,7 @@
             <button type="button" class="scbtn cancel" onclick="history.go(-1)">关闭</button>
         </div>
 
-        <div id="return_info"></div>
-
-    </div>
+        <div id="return_info"><font style="color:green;">${result.info}</font></div>
 
     <!--<div class="tipbtn">
     <input name="" type="button"  class="sure" value="确定" />&nbsp;

@@ -98,5 +98,13 @@ private ResultUtil validate(String username,String password){
        return user;
 	
     }
+    
+    @Override
+    public UserRole getRole(User user) {
+    	int id=user.getId();
+    	String sql="select * from userrole where userId="+id;
+    	UserRole userRole=userRoleDao.find(sql, UserRole.class);
+    	return userRole;
+    }
 
 }

@@ -70,7 +70,7 @@ $(function(){
         <li>
             <div class="header">
             <cite></cite>
-            <a href="page/crm/ggkhc.jsp" target="rightFrame">公共客户池</a>
+            <a href="${pageContext.servletContext.contextPath}/ggkhc.do?method=listGgkh" target="rightFrame">公共客户池</a>
             <i></i>
             </div>
             
@@ -110,15 +110,16 @@ $(function(){
         </ul>    
     </dd>  
     
-    
+    <c:if test="${sessionScope.userRole.role.name ne '业务员'}">
     <dd><div class="title"><span><img src="images/leftico04.png" /></span>用户管理</div>
     <ul class="menuson">
-        <li><cite></cite><a href="javascript:;" target="rightFrame">点不开就是点不开</a><i></i></li>
-       
-        </ul>
-    
+      <c:if test="${sessionScope.userRole.role.name eq '管理员'}">
+        <li><cite></cite><a href="${pageContext.servletContext.contextPath}/yhgl.do?method=listUsers" target="rightFrame">账号管理</a><i></i></li>
+       </c:if>
+       <li><cite></cite><a href="javascript:;" target="rightFrame">业务员管理</a><i></i></li>
+        </ul> 
     </dd>   
-    
+    </c:if>
     </dl>
     
 </body>

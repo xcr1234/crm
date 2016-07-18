@@ -126,7 +126,7 @@ input[type=checkbox]{
     <ul class="placeul">
     <li><a href="#">CRM</a></li>
      <li><a href="#">客户管理</a></li>
-    <li><a href="#">公共客户池</a></li>
+    <li><a href="#">账号管理</a></li>
    
     </ul>
     </div>
@@ -170,35 +170,26 @@ input[type=checkbox]{
     	<thead>
     	<tr>
         <th style="width: 100px">序号</th>
-        <th>客户名称</th>
-        <th style="width:200px;">客户编码</th>
-        <th>省份</th>
-        <th>城市</th>
-        <th>区/县</th>
-        <th>电话</th>
-	  	<th>创建人</th>
-	  	<th>创建日期</th>
-	  	<th>操作</th>
+        <th>姓名</th>
+        <th>账号</th>
+        <th>角色</th>       
+	  	<th>操作</th>	  	
         </tr>
+        
         </thead>
         <tbody>
-        <tr style="height:40px;">
-        <c:forEach items="${page.items}" var="customer" varStatus="status">
+        
+        <c:forEach items="${page.items}" var="userRole" varStatus="status">
+          <tr style="height:40px;">
           <td style="width: 50px">${status.index+1}</td>
-          <td>${customer.name}</td>
-          <td style="width:180px;">${customer.code}</td>
-          <td style="width:100px;">${customer.province}</td>
-          <td style="width:100px;">${customer.city}</td>
-          <td>${customer.county}</td>
-          <td style="width:180px;">${customer.phone}</td>
-          <td>${customer.creator.nickName}</td>
-          <td>${customer.createdate}</td>
+          <td style="width: 50px">${userRole.user.nickName}</td>
+           <td style="width: 50px">${userRole.user.userName}</td>
+            <td style="width: 50px">${userRole.role.name}</td>
           <td>
              <a href="${pageContext.servletContext.contextPath}/ggkhc.do?method=detail&id=${customer.id}">查看</a>&nbsp;
              <c:if test="${sessionScope.userRole.role.name eq '管理员'}">
-             <a href="#">编辑</a>&nbsp;
+             <a href="${pageContext.servletContext.contextPath}/ggkhc.do?method=edit&id=${customer.id}">编辑</a>&nbsp;
              <a href="#">删除</a>&nbsp;
-             <a href="#">转移</a>&nbsp;
             </c:if>
            </td>
         </tr>

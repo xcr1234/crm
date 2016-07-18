@@ -40,9 +40,10 @@ public class DateUtil {
     }
 
     //获取自定义日期时间字符串方法
-    public static String getDateTimeStrByFormat(Date date){
+
+    public static String getDateTimeStrByFormat(Date date,String format){
         String str=null;
-        SimpleDateFormat sdf=new SimpleDateFormat("yyyy年MM月dd日 HH点mm分ss秒");
+        SimpleDateFormat sdf=new SimpleDateFormat(format);
         str=sdf.format(date);
         return str;
 

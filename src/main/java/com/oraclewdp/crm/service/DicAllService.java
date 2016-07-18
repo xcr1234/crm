@@ -1,10 +1,12 @@
 package com.oraclewdp.crm.service;
 
 
+import java.util.List;
+
 import com.oraclewdp.crm.entity.DicAll;
 
 
 public interface DicAllService {
-    public DicAll getDicAll(String type);
+    public List<DicAll> getDicAll(String type);
    
 }

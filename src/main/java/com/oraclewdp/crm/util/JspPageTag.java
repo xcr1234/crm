@@ -16,21 +16,7 @@ import java.util.List;
  *
  * 需要的核心接口是Pages<T>
  *
- *<div class="pagin">
-    	<div class="message">共<i class="blue">1256</i>条记录，当前显示第&nbsp;<i class="blue">2&nbsp;</i>页</div>
-        <ul class="paginList">
-        <li class="paginItem"><a href="javascript:;"><span class="pagepre"></span></a></li>
-        <li class="paginItem"><a href="javascript:;">1</a></li>
-        <li class="paginItem current"><a href="javascript:;">2</a></li>
-        <li class="paginItem"><a href="javascript:;">3</a></li>
-        <li class="paginItem"><a href="javascript:;">4</a></li>
-        <li class="paginItem"><a href="javascript:;">5</a></li>
-        <li class="paginItem more"><a href="javascript:;">...</a></li>
-        <li class="paginItem"><a href="javascript:;">10</a></li>
-        <li class="paginItem"><a href="javascript:;"><span class="pagenxt"></span></a></li>
-        </ul>
-    </div>
-    </div>
+ *
  *
  *
  * @see Pages
@@ -39,14 +25,8 @@ public class JspPageTag extends SimpleTagSupport {
 
     private Pages<?> pages;
     
-    private String divPageClass;
-    
-    private String divUlClass;
-
     private String ulClass;
-
-
-
+    
     private String first;
 
     private String last;
@@ -121,7 +101,9 @@ public class JspPageTag extends SimpleTagSupport {
 
     @Override
     public void doTag() throws JspException, IOException {
-
+    	System.out.println(pages);
+    	
+    	
         JspWriter out = this.getJspContext().getOut();
 
         out.write("<ul");
@@ -171,7 +153,7 @@ public class JspPageTag extends SimpleTagSupport {
 
 
             for (int i=p;i<q&&i<=pages.getPageCount();i++){
-                out.print("<li>");
+                out.print("<li class=\"paginItem\">");
                 if(i==pages.getCurrentPage()){
                     out.print("<a href=\"javascript:void(0);\" class=\"active\">");
                     out.print(i);

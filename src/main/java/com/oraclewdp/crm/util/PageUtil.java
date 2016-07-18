@@ -27,9 +27,25 @@ public class PageUtil implements Pages {
     public void setCount(int count) {
         this.count = count;
     }
+    
+    
+
+    public int getCurrent() {
+		return current;
+	}
 
 
-    @Override
+	public int getCount() {
+		return count;
+	}
+
+
+	public List getList() {
+		return list;
+	}
+
+
+	@Override
     public List getItems() {
         return list;
     }

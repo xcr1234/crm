@@ -32,126 +32,184 @@ public class Customer {
     @Column(value = "sales_id",foreign = "user",target = "id")
     private User sales;
 
-    @Column(value = "provence_id",foreign = "base_area",target = "id")
-    private BaseArea provence;
+    
+    private String  province;
 
-    @Column(value = "city_id",foreign = "base_area",target = "id")
-    private BaseArea city;
+    
+    private String city;
 
-    @Column(value = "county_id",foreign = "base_area",target = "id")
-    private BaseArea county;
+    
+    private String county;
+
+	
 
 	public Integer getId() {
 		return id;
 	}
 
+
+
 	public void setId(Integer id) {
 		this.id = id;
 	}
+
+
 
 	public String getCode() {
 		return code;
 	}
 
+
+
 	public void setCode(String code) {
 		this.code = code;
 	}
+
+
 
 	public DicAll getType() {
 		return type;
 	}
 
+
+
 	public void setType(DicAll type) {
 		this.type = type;
 	}
+
+
 
 	public String getName() {
 		return name;
 	}
 
+
+
 	public void setName(String name) {
 		this.name = name;
 	}
+
+
 
 	public String getPhone() {
 		return phone;
 	}
 
+
+
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
+
+
 
 	public String getEmail() {
 		return email;
 	}
 
+
+
 	public void setEmail(String email) {
 		this.email = email;
 	}
+
+
 
 	public String getAdress() {
 		return adress;
 	}
 
+
+
 	public void setAdress(String adress) {
 		this.adress = adress;
 	}
+
+
 
 	public String getQq() {
 		return qq;
 	}
 
+
+
 	public void setQq(String qq) {
 		this.qq = qq;
 	}
+
+
 
 	public String getCreatedate() {
 		return createdate;
 	}
 
+
+
 	public void setCreatedate(String createdate) {
 		this.createdate = createdate;
 	}
 
-	public User getCreatorId() {
+
+
+	public User getCreator() {
 		return creator;
 	}
 
-	public void setCreatorId(User creator) {
+
+
+	public void setCreator(User creator) {
 		this.creator = creator;
 	}
+
+
 
 	public User getSales() {
 		return sales;
 	}
 
+
+
 	public void setSales(User sales) {
 		this.sales = sales;
 	}
 
-	public BaseArea getProvence() {
-		return provence;
+
+
+	public String getProvince() {
+		return province;
 	}
 
-	public void setProvence(BaseArea provence) {
-		this.provence = provence;
+
+
+	public void setProvince(String province) {
+		this.province = province;
 	}
 
-	public BaseArea getCity() {
+
+
+	public String getCity() {
 		return city;
 	}
 
-	public void setCity(BaseArea city) {
+
+
+	public void setCity(String city) {
 		this.city = city;
 	}
 
-	public BaseArea getCounty() {
+
+
+	public String getCounty() {
 		return county;
 	}
 
-	public void setCounty(BaseArea county) {
+
+
+	public void setCounty(String county) {
 		this.county = county;
 	}
+
+
 
 	@Override
 	public String toString() {
@@ -159,7 +217,7 @@ public class Customer {
 				+ ", name=" + name + ", phone=" + phone + ", email=" + email
 				+ ", adress=" + adress + ", qq=" + qq + ", createdate="
 				+ createdate + ", creator=" + creator + ", sales=" + sales
-				+ ", provence=" + provence + ", city=" + city + ", county="
+				+ ", province=" + province + ", city=" + city + ", county="
 				+ county + "]";
 	}
 
