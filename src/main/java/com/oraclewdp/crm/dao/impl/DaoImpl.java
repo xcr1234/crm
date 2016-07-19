@@ -238,6 +238,7 @@ public class DaoImpl<E> implements Dao<E> {
 
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
+        System.out.println(sql);
         try {
             preparedStatement = connection.prepareStatement(sql);
 
@@ -354,6 +355,7 @@ public class DaoImpl<E> implements Dao<E> {
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
 
+        System.out.println(sql);
         try {
             preparedStatement = connection.prepareStatement(sql);
             for(int i=0;i<params.length;i++){
@@ -488,6 +490,7 @@ public class DaoImpl<E> implements Dao<E> {
         ArrayList<E> list = new ArrayList<>();
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
+        System.out.println(sql);
 
         try {
             preparedStatement = connection.prepareStatement(sql);

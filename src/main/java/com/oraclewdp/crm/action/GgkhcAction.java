@@ -1,5 +1,6 @@
 package com.oraclewdp.crm.action;
 
+import com.oraclewdp.crm.dao.impl.DaoImpl;
 import com.oraclewdp.crm.entity.*;
 import com.oraclewdp.crm.service.DicAllService;
 import com.oraclewdp.crm.service.GgkhcService;
@@ -7,10 +8,7 @@ import com.oraclewdp.crm.service.UserService;
 import com.oraclewdp.crm.service.serviceimpl.DicAllServiceImpl;
 import com.oraclewdp.crm.service.serviceimpl.GgkucServiceImpl;
 import com.oraclewdp.crm.service.serviceimpl.UserServiceImpl;
-import com.oraclewdp.crm.util.ActionSupport;
-import com.oraclewdp.crm.util.CodeUtil;
-import com.oraclewdp.crm.util.Pages;
-import com.oraclewdp.crm.util.ResultUtil;
+import com.oraclewdp.crm.util.*;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -19,6 +17,10 @@ import javax.servlet.http.HttpServletResponse;
 import java.beans.IntrospectionException;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -443,4 +445,18 @@ public class GgkhcAction extends ActionSupport{
 			req.getRequestDispatcher("ggkhc.do?method=listGgkh").forward(req, resp);
 		 }
 	 }
+
+	public void chart(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException{
+
+		JdbcUtil jdbcUtil = JdbcUtil.getInstance();
+		Connection connection = jdbcUtil.getConnection();
+
+		List<BeanObject> list = BeanObject.list("select * from kh_ldt",connection);
+
+		request.setAttribute("list",list);
+
+
+		returnView("khchart",request,response);
+	}
 }

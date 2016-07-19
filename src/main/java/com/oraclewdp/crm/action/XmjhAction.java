@@ -152,6 +152,16 @@ public class XmjhAction extends ActionSupport{
 
     }
 
+    public void delete(HttpServletRequest request, HttpServletResponse response) throws IOException,ServletException{
+        Integer id = Integer.valueOf(request.getParameter("id"));
+        CustomChance customChance = new CustomChance();
+        customChance.setId(id);
+        customChanceDao.delete(customChance);
+        response.sendRedirect("xmjh.do?method=listXmjh");
+
+
+    }
+
     //模糊查询
     public void query(HttpServletRequest request, HttpServletResponse response) throws IOException,ServletException{
         String no = request.getParameter("no");
@@ -163,7 +173,7 @@ public class XmjhAction extends ActionSupport{
             p = Integer.valueOf(page);
         }
 
-        Pages<CustomChance> pages = customChanceDao.findAll(CustomChance.class,"select * from custom_chance where code = ? or name = ?",no,name);
+        Pages<CustomChance> pages = customChanceDao.findAll(CustomChance.class,"select * from custom_chance where code like ? and name like ?",'%'+no+'%','%'+name+'%');
         pages.toPage(p);
 
         request.setAttribute("pages",pages);

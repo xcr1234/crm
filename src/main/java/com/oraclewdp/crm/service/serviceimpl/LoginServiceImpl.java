@@ -26,15 +26,9 @@ public class LoginServiceImpl implements LoginService{
 	private User user=null;
 	@Override
 	public ResultUtil Login(String username,String password,String validate,HttpSession session){
-		ResultUtil result1=new ResultUtil();	
-		if(!validate.equals((String)session.getAttribute("validateCode"))){
-			result1.setInfo("验证码错误");
-			return result1;
-		}else{
-			ResultUtil result=validate(username, password);
-			return result;
-		}
-		
+		ResultUtil result1=new ResultUtil();
+		ResultUtil result=validate(username, password);
+		return result;
 	   
 	}
 

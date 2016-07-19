@@ -72,7 +72,7 @@ public class ActionSupport extends HttpServlet {
 	 * @time 2016年7月12日 上午9:25:15
 	 * @tags @param o
 	 * @tags @param response
-	 */
+	*/
 	protected void renderJSON(Object o,HttpServletResponse response){
 		response.setHeader("Content-type", "text/json");
 		String jsonStr=JSON.toJSONString(o);
@@ -84,7 +84,7 @@ public class ActionSupport extends HttpServlet {
 			e.printStackTrace();
 		}
 	}
-	
+
 	/**
 	 * 通过反射实现对前台数据自动读取，注入对象，返回对象map。
 	 * @author gui

@@ -101,7 +101,7 @@ public class JspPageTag extends SimpleTagSupport {
 
     @Override
     public void doTag() throws JspException, IOException {
-    	System.out.println(pages);
+
     	
     	
         JspWriter out = this.getJspContext().getOut();

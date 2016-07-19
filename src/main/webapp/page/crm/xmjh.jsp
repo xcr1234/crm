@@ -101,7 +101,7 @@ input[type=checkbox]{
     
     	<ul class="toolbar">
         <li class="click" onclick="location.href='<%=basePath%>xmjh.do?method=add'"><span><img src="images/t01.png" /></span>新建销售机会</li>
-        <li class="click"><span><img src="images/ico06.png" onclick="document.getElementById('form1').submit()"/></span>查询</li>
+        <li class="click"  onclick="document.getElementById('form1').submit()"><span><img src="images/ico06.png"/></span>查询</li>
         <li><span><img src="images/t05.png" /></span>重置</li>     
         </ul>
     </div>
@@ -115,7 +115,7 @@ input[type=checkbox]{
     <table class="tablelist">
     	<thead>
     	<tr>
-        <th style="width: 150px"><input name="" type="checkbox" value="" checked="checked"/>全选</th>
+        <th style="width: 200px"><input name="" type="checkbox" value="" checked="checked"/>全选</th>
         <th>机会编号</th>
         <th>机会名称</th>
         <th>创建人</th>
@@ -141,7 +141,8 @@ input[type=checkbox]{
           <td>${item.possibility}</td>
           <td>${item.attach.name}</td>
 
-          <td><a href="<%=basePath%>xmjh.do?method=detail&id=${item.id}">查看</a>&nbsp;<a href="javascript:;">编辑</a>&nbsp;<a href="javascript:;">删除</a>&nbsp;</td>
+          <td><a href="<%=basePath%>xmjh.do?method=detail&id=${item.id}">查看</a>&nbsp;<a href="javascript:;">编辑</a>&nbsp;
+			  <a href="<%=basePath%>xmjh.do?method=delete&id=${item.id}" onclick="return confirm('是否确认要删除？')">删除</a>&nbsp;</td>
         </tr>
 		</c:forEach>
         </tbody>
