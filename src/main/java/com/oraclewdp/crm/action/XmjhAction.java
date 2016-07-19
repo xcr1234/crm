@@ -1,11 +1,11 @@
 package com.oraclewdp.crm.action;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.serializer.PropertyFilter;
+import com.alibaba.fastjson.serializer.SerializeFilter;
 import com.oraclewdp.crm.dao.impl.DaoImpl;
 import com.oraclewdp.crm.entity.*;
-import com.oraclewdp.crm.util.ActionSupport;
-import com.oraclewdp.crm.util.JdbcUtil;
-import com.oraclewdp.crm.util.JhCodeUtil;
-import com.oraclewdp.crm.util.Pages;
+import com.oraclewdp.crm.util.*;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -186,6 +186,42 @@ public class XmjhAction extends ActionSupport{
 
     }
 
+    public void chart(HttpServletRequest request, HttpServletResponse response) throws IOException,ServletException{
+
+
+
+        returnView("jh_chart",request,response);
+
+    }
+
+    public void byStage(HttpServletRequest request, HttpServletResponse response) throws IOException,ServletException{
+
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+        JdbcUtil jdbcUtil = JdbcUtil.getInstance();
+        Connection connection = jdbcUtil.getConnection();
+        List<BeanObject> list = BeanObject.list("select * from jh_stage",connection);
+
+        String json = JSON.toJSONString(list);
+        response.getWriter().print(json);
+
+
+    }
+
+    public void byPoss(HttpServletRequest request, HttpServletResponse response) throws IOException,ServletException{
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+        JdbcUtil jdbcUtil = JdbcUtil.getInstance();
+        Connection connection = jdbcUtil.getConnection();
+        List<BeanObject> list = BeanObject.list("select * from jh_poss",connection);
+
+        String json = JSON.toJSONString(list);
+        response.getWriter().print(json);
+
+
+
+    }
+
 
 
 
@@ -197,6 +233,8 @@ public class XmjhAction extends ActionSupport{
             jdbcUtil.closeConnection();
         } catch (SQLException e) {}
     }
+
+
 
 
 }
