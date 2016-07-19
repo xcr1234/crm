@@ -1,5 +1,16 @@
 package com.oraclewdp.crm.util;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.TypeReference;
+import com.alibaba.fastjson.annotation.JSONField;
+import com.alibaba.fastjson.parser.DefaultJSONParser;
+import com.alibaba.fastjson.parser.JSONToken;
+import com.alibaba.fastjson.parser.ParserConfig;
+import com.alibaba.fastjson.parser.deserializer.ObjectDeserializer;
+import com.alibaba.fastjson.serializer.*;
+
+import java.io.IOException;
+import java.lang.reflect.Type;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,8 +21,16 @@ import java.util.concurrent.ConcurrentHashMap;
  * 提供一个临时的bean对象，也就是没有在entity中声明的对象
  */
 public class BeanObject {
-
+    @JSONField(name = "bean")
     private Map<String,Object> beanMap = new ConcurrentHashMap<>();
+
+    public Map<String, Object> getBeanMap() {
+        return beanMap;
+    }
+
+    public void setBeanMap(Map<String, Object> beanMap) {
+        this.beanMap = beanMap;
+    }
 
     public Object get(String name){
         return beanMap.get(name);
@@ -88,8 +107,13 @@ public class BeanObject {
 
     }
 
+    public String toJson(){
+        return JSON.toJSONString(beanMap);
+    }
 
-
-
-
+    public static BeanObject fromJson(String json){
+        BeanObject beanObject = new BeanObject();
+        beanObject.beanMap = JSON.parseObject(json,new TypeReference<Map<String, Object>>(){});
+        return beanObject;
+    }
 }

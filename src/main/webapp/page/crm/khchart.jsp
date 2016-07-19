@@ -13,7 +13,8 @@
     <script type="text/javascript" src="${pageContext.servletContext.contextPath}/js/jquery.js"></script>
     <script type="text/javascript" src="${pageContext.servletContext.contextPath}/js/select-ui.min.js"></script>
     <script type="text/javascript" src="${pageContext.servletContext.contextPath}/js/jquery.idTabs.min.js"></script>
-    <script type="text/javascript" src="<%=basePath%>plugin/highcharts/js/highcharts.js"></script>
+    <script type="text/javascript" src="${pageContext.servletContext.contextPath}/plugin/highcharts/js/highcharts.js"></script>
+    <script type="text/javascript" src="${pageContext.servletContext.contextPath}/plugin/highcharts/js/modules/funnel.js"></script>
     <style type="text/css">
         body{
             /*background-color: red;*/
@@ -63,53 +64,44 @@
     </style>
     <script>
 
+
         $(function () {
-            $("#chart").highcharts({
+            $('#chart').highcharts({
                 chart: {
-                    plotBackgroundColor: null,
-                    plotBorderWidth: null,
-                    plotShadow: false,
-                    type: 'pie'
+                    type: 'funnel',
+                    marginRight: 100
                 },
                 title: {
-                    text: '客户漏斗图（按多久未联系）'
-                },
-                tooltip: {
-                    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                    text: '客户未联系天数',
+                    x: -50
                 },
                 plotOptions: {
-                    pie: {
-                        allowPointSelect: true,
-                        cursor: 'pointer',
+                    series: {
                         dataLabels: {
-                            enabled: false
+                            enabled: true,
+                            format: '<b>{point.name}</b> ({point.y:,.0f})',
+                            color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black',
+                            softConnector: true
                         },
-                        showInLegend: true
+                        neckWidth: '30%',
+                        neckHeight: '25%'
+
+                        //-- Other available options
+                        // height: pixels or percent
+                        // width: pixels or percent
                     }
                 },
-                series: [
-                    {
-                        name: 'Brands',
-                        colorByPoint: true,
-                        data:[
-                           <c:forEach var="item" items="${list}">
-                            {
-                                name: '${item.get("name")}',
-                                y: ${item.get("count")}
-                            },
-
-                            </c:forEach>
-
-
-                        ]
-                    }
-
-
-
-                ]
-
-
-
+                legend: {
+                    enabled: false
+                },
+                series: [{
+                    name: '客户数量',
+                    data: [
+                        <c:forEach var="item" items="${list}">
+                            ['${item.get("days")}',${item.get("count")}],
+                        </c:forEach>
+                    ]
+                }]
             });
 
 
@@ -123,7 +115,7 @@
     <ul class="placeul">
         <li><a href="#">CRM</a></li>
         <li><a href="#">客户管理</a></li>
-        <li><a href="#">客户漏斗图</a></li>
+        <li><a href="#">客户分析图</a></li>
 
     </ul>
 </div>
