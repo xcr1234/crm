@@ -19,7 +19,41 @@
 	<script type="text/javascript" src="${pageContext.servletContext.contextPath}/js/jquery.idTabs.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
- /* $(".click").click(function(){
+ var customerId=null;
+ var userId=null;
+ //分配销售负责人(业务员)
+ $("#fpku").change(function(){
+ userId= $("#fpku option:selected").attr("value");
+ });
+ 
+ 
+ //删除操作
+ $("a[name=delete]").click(function(the){
+ var customerId=$(this).attr("value");
+ if(confirm("确定要删除数据吗")){
+   window.location.href="${pageContext.servletContext.contextPath}/ggkhc.do?method=delete&customerId="+customerId;
+    }else{
+   }
+ 
+
+/* $.ajax({ 
+type : "post", 
+url : "http://localhost:8090/webplus3/_web/sns/delBlog.do?_p=YXM9Mw__&id=" + id, 
+success : function(data) { 
+if(data == "success") { 
+$(the).parents("tr").remove(); 
+parent.initDraft(); 
+} 
+} 
+
+});  */
+ });
+ 
+ 
+ $(".click").click(function(){
+ 
+   customerId=$(this).attr("value");
+  console.log(customerId+"--"+userId);
   $(".tip").fadeIn(200);  
   });
   
@@ -27,13 +61,18 @@ $(document).ready(function(){
   $(".tip").fadeOut(200);
 });
 
+//分配客户
   $(".sure").click(function(){
+  userId=$(":selected","#fpkh").attr("value");
+  window.location.href="${pageContext.servletContext.contextPath}/ggkhc.do?method=fpkh&customerId="+customerId+"&userId="+userId;
   $(".tip").fadeOut(100);
+  alert("分配成功！");
+  window.location.href="${pageContext.servletContext.contextPath}/ggkhc.do?method=listGgkh";
 });
 
   $(".cancel").click(function(){
   $(".tip").fadeOut(100);
-});*/
+});
 
  $("button[name=save]").click(function(){
 /*  var name=$(".tip input[name=name]").val(); //客户名称
@@ -95,7 +134,7 @@ $("#search").click(function(){
 	.td_left{
 		width: 100px;
 		}
-	.tip{width:1400px; height:600px; position:absolute;top:10%; left:10%;background:#fcfdfd;box-shadow:1px 8px 10px 1px #9b9b9b;border-radius:1px;behavior:url(js/pie.htc); display:none; z-index:111111;}
+	.tip{width:500px; height:300px; position:absolute;top:10%; left:10%;background:#fcfdfd;box-shadow:1px 8px 10px 1px #9b9b9b;border-radius:1px;behavior:url(js/pie.htc); display:none; z-index:111111;}
 
  select {
 	 font-size:14px;
@@ -136,8 +175,10 @@ input[type=checkbox]{
     <div class="tools">
     
     	<ul class="toolbar">
-        <li class="click" onclick="location.href='${pageContext.servletContext.contextPath}/ggkhc.do?method=listSelect'"><span><img src="images/t01.png" /></span>新建客户</li>
-        <li class="click" id="search"><span><img src="${pageContext.servletContext.contextPath}/images/ico06.png" /></span>查询</li>
+    	<c:if test="${sessionScope.userRole.role.name eq '管理员'}">
+        <li  onclick="location.href='${pageContext.servletContext.contextPath}/ggkhc.do?method=listSelect'"><span><img src="images/t01.png" /></span>新建客户</li>
+        </c:if>
+        <li  id="search"><span><img src="${pageContext.servletContext.contextPath}/images/ico06.png" /></span>查询</li>
         <li><span><img src="${pageContext.servletContext.contextPath}/images/t05.png" /></span>重置</li>     
         </ul>
     </div>
@@ -149,7 +190,7 @@ input[type=checkbox]{
 	<select name="customer_type">
 	   <option value="no" selected="selected">--</option>
 	   <c:forEach items="${khlx}" var="dic" varStatus="status">
-	     <option value="${dic.id}">${status.index+1}:${dic.name}</option>
+	     <option name="fpku" value="${dic.id}">${status.index+1}:${dic.name}</option>
 	    </c:forEach>	
 	</select>
  
@@ -196,9 +237,9 @@ input[type=checkbox]{
           <td>
              <a href="${pageContext.servletContext.contextPath}/ggkhc.do?method=detail&id=${customer.id}">查看</a>&nbsp;
              <c:if test="${sessionScope.userRole.role.name eq '管理员'}">
-             <a href="#">编辑</a>&nbsp;
-             <a href="#">删除</a>&nbsp;
-             <a href="#">转移</a>&nbsp;
+             <a href="${pageContext.servletContext.contextPath}/ggkhc.do?method=edit&id=${customer.id}">编辑</a>&nbsp;
+             <a href="#" value="${customer.id}" name="delete" >删除</a>&nbsp;
+             <a href="#" class="click" value="${customer.id}">分配</a>&nbsp;
             </c:if>
            </td>
         </tr>
@@ -206,13 +247,13 @@ input[type=checkbox]{
         </tbody>
     </table>
     
-   <c:if test="${page.count gt 0}">
+   <c:if test="${page.pageCount gt 0}">
     <div class="pagin">
     	<div class="message">共<i class="blue">${page.count}</i>条记录，当前显示第&nbsp;<i class="blue">${page.current}&nbsp;</i>页</div>
         <ul class="paginList">
-        <c:if test="${page.count lt 7}">
+        <c:if test="${page.pageCount lt 7}">
            <li class="paginItem"><a href="javascript:;"><span class="pagepre"></span></a></li>
-             <c:forEach begin="1" step="1" var="index" end="${page.count}" >
+             <c:forEach begin="1" step="1" var="index" end="${page.pageCount}" >
 	             <c:if test="${page.current eq index}">
 	              <li class="paginItem current"><a href="javascript:;">${index}</a></li>
 	             </c:if>
@@ -285,13 +326,26 @@ input[type=checkbox]{
     
     <div id="return_info"></div>
     
-    </div>
-
-        <!--<div class="tipbtn">
+ <!--转移客户对话框开始  -->
+        <div class="tip">
+    	<div class="tiptop"><span>转移客户</span><a></a></div>
+        
+      <div class="tipinfo">
+      <p style="font-size:30px;">分配给--></p>
+        <select id="fpkh">
+        <c:forEach items="${userRolePages.items}" var="u" varStatus="status">
+        <option value="${u.user.id}">${status.index+1}:${u.role.name}--${u.user.nickName}</option>
+        </c:forEach>
+        </select>
+        </div>
+        
+        <div class="tipbtn">
         <input name="" type="button"  class="sure" value="确定" />&nbsp;
         <input name="" type="button"  class="cancel" value="取消" />
-        </div>-->
+        </div>
     
+    </div>
+   <!-- 结束 --> 
    </div>
      
     </div>

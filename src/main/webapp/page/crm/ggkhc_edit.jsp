@@ -102,7 +102,7 @@
 <body>
 
         <div class="formtitle"><span>客户基本信息</span></div>
-        <form action="${pageContext.servletContext.contextPath}/ggkhc.do?method=kh_add" method="post" name="kh_form">
+        <form action="${pageContext.servletContext.contextPath}/ggkhc.do?method=update&customerid=${customer.id}" method="post" name="kh_form">
             <table>
                 <tr>
                     <td class="td_left">客户名称:</td>
@@ -190,8 +190,18 @@
             </tr>
              <c:forEach items="${list}" var="link">
                 <tr class="input repeatRow">
+                <input name="listCustomerLink_id" type="hidden" value="${link.id}"/>
                 <td><input type="text" name="listCustomerLink_name" value="${link.name}" /></td>
-                <td style="text-align: center;"><input type="text" name="listCustomerLink_sexid" value="${link.sex ?'男':'女'}" /></td>
+                <td style="text-align: center;"> <select style="font-size: 25px;width: 100px;" name="listCustomerLink_sexid">
+                        <c:if test="${link.sex}">
+                        <option value="1" style="font-size: 25px;" selected="selected">男</option>
+                        <option value="0" style="font-size: 25px;">女</option>
+                        </c:if>
+                         <c:if test="${!link.sex}">
+                        <option value="1" style="font-size: 25px;" >男</option>
+                        <option value="0" style="font-size: 25px;" selected="selected">女</option>
+                        </c:if>
+                    </select></td>
                 <td><input type="text" name="listCustomerLink_position" value="${link.position}" /></td>
                 <td><input type="text" name="listCustomerLink_phone" value="${link.phone}" /></td>
                 <td><input type="text" name="listCustomerLink_phone2" value="${link.phone2}" /></td>
@@ -211,7 +221,7 @@
         <div style="text-align: center;margin-top: 5px;">
 
             <button type="button" class="scbtn" id="appendRow">添加一行</button>
-            <button type="button" class="scbtn sure" name="save">保存</button>
+            <button type="button" class="scbtn sure" name="save">更新</button>
             <button type="button" class="scbtn cancel" onclick="history.go(-1)">关闭</button>
         </div>
         <div id="return_info"><font style="color:green;">${result.info}</font></div>

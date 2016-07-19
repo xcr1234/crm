@@ -26,5 +26,14 @@ public class DicAllServiceImpl implements DicAllService{
 		dicAllList=page.getItems();
 		return dicAllList;
 	}
+	
+	@Override
+	public boolean setKhCode(String khCode) {
+		String sql="select * from dic_all where type=kh_code";
+		DicAll dicAll=dicAllDao.find(sql, DicAll.class);
+		dicAll.setName(khCode);
+		boolean flag=dicAllDao.update(dicAll);
+		return flag;
+	}
 
 }

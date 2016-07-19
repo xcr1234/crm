@@ -190,7 +190,7 @@ public class GgkhcAction extends ActionSupport{
 	
 	   
 	/**
-	 * 列出第一页的公共客户池
+	 * 列出第一页的公共客户池,同时取出所有业务员
 	 * @author gui
 	 * @time 2016年7月16日 上午11:24:20
 	 * @tags @param req
@@ -202,7 +202,14 @@ public class GgkhcAction extends ActionSupport{
 			throws ServletException, IOException{
 		List<DicAll> list_khlx=dicAllService.getDicAll("khlx");
 		List<DicAll> list_khly=dicAllService.getDicAll("khly");
-		page=ggkhcService.listGgkhc(1, 10);
+		//列出业务员
+		String sql="select * from userrole where roleId=?";
+		Object[] params={3}; //业务员的ID
+		Pages<UserRole> userRolePages=ggkhcService.listUserRoleBysql(sql, params);
+		req.setAttribute("userRolePages", userRolePages);
+		
+		
+		page=ggkhcService.listGgkhc(1, 8);
 		req.setAttribute("khlx", list_khlx);
 		req.setAttribute("khly",list_khly);
 		req.setAttribute("page", page);
@@ -225,12 +232,24 @@ public class GgkhcAction extends ActionSupport{
 			    sql=entry.getKey();
 			    params=entry.getValue();
 		   }
+		   sql=sql+" and delflag=0";
+		  //列出客户类型的下拉框
+			List<DicAll> dicAlls=new ArrayList<DicAll>();
+			dicAlls=dicAllService.getDicAll("khlx");
+			ResultUtil result=new ResultUtil();
+			result.setO(dicAlls);
+			req.setAttribute("result", result);
+		   //列出业务员
+			String sql2="select * from userrole where roleId=?";
+			Object[] params2={3};
+			Pages<UserRole> userRolePages=ggkhcService.listUserRoleBysql(sql2, params2);
+			req.setAttribute("userRolePages", userRolePages);
 		   //搜索框没有值，即按分页查询
 		   if(params==null){
-			 pages=ggkhcService.listGgkhc(1, 10);
+			 pages=ggkhcService.listGgkhc(1, 8);
 		   }
 		   else{
-			  pages=ggkhcService.search(sql, 1, 10, params);
+			  pages=ggkhcService.search(sql, 1, 8, params);
 		   }
 		   
 		   req.setAttribute("page", pages);
@@ -254,10 +273,11 @@ public class GgkhcAction extends ActionSupport{
 	 */
 	public void listSelect(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException{
-		List<DicAll> dicAlls=new ArrayList<DicAll>();
+		
 		ResultUtil result=new ResultUtil();
 		
 		//列出客户类型的下拉框
+		List<DicAll> dicAlls=new ArrayList<DicAll>();
 		dicAlls=dicAllService.getDicAll("khlx");
 		result.setO(dicAlls);
 		req.setAttribute("result", result);
@@ -317,5 +337,122 @@ public class GgkhcAction extends ActionSupport{
 		  req.setAttribute("list", link_list);
 		  
 		  returnView("ggkhc_edit", req, resp);
+	 }
+	 
+	 public void update(HttpServletRequest req, HttpServletResponse resp)
+				throws ServletException, IOException{
+		 
+		 //ID
+		  int id=Integer.parseInt(req.getParameter("customerid"));
+		  customer.setId(id);
+		 //客户编码
+		    customer.setCode(CodeUtil.getKhCode());
+			String customer_name=req.getParameter("customer_name");
+			String customer_code=req.getParameter("customer_code");
+			String user_creatorid=req.getParameter("user_creatorid");
+			String customer_phone=req.getParameter("customer_phone");
+			String customer_email=req.getParameter("customer_email");
+			String customer_adress=req.getParameter("customer_adress");
+			String customer_qq=req.getParameter("customer_qq");
+			String customer_province=req.getParameter("customer_province");
+			String customer_city=req.getParameter("customer_city");
+			String customer_county=req.getParameter("customer_county");
+			String salesid=req.getParameter("salesid");
+			String dicAll_typeid=req.getParameter("dicAll_typeid");
+			String customer_createdate=req.getParameter("customer_createdate");
+		    if(dicAll_typeid!=null&&dicAll_typeid!=""){
+		    	int typeId=Integer.parseInt(dicAll_typeid);
+		    	DicAll dicAll=new DicAll();
+		    	dicAll.setId(typeId);
+		    	customer.setType(dicAll);
+		    }
+			if(user_creatorid!=null&&user_creatorid!=""){
+		    	int creatorId=Integer.parseInt(user_creatorid);
+		    	User user=new User();
+		    	user.setId(creatorId);
+		    	customer.setCreator(user);
+		    }
+		    if(salesid!=null&&salesid!=""){
+		    	int salesId=Integer.parseInt(salesid);
+		    	User user=new User();
+		    	user.setId(salesId);
+		    	customer.setSales(user);;
+		    }
+		    customer.setName(customer_name);
+		    customer.setAdress(customer_adress);
+		    customer.setCity(customer_city);
+		    customer.setCounty(customer_county);
+		    customer.setCreatedate(customer_createdate);
+		    customer.setEmail(customer_email);
+		    customer.setName(customer_name);
+		    customer.setPhone(customer_phone);
+		    customer.setProvince(customer_province);
+		    customer.setQq(customer_qq);
+			
+			 System.out.println("ID:"+req.getParameterValues("listCustomerLink_id")[0]);
+		    boolean flag1=ggkhcService.updateGgkhc(customer);
+		    boolean flag2=false;
+		    String[] listCustomerLink_name=req.getParameterValues("listCustomerLink_name");
+		    if(listCustomerLink_name!=null&&listCustomerLink_name.length>0){
+		    	if(!listCustomerLink_name[0].equals("")){
+		    	int count=listCustomerLink_name.length;
+		    	for(int i=0;i<count;i++){
+		    		CustomerLink customerLink=new CustomerLink();
+		    		int linkId=Integer.parseInt(req.getParameterValues("listCustomerLink_id")[i]);
+		    		System.out.println("id="+linkId);
+		    	    String CustomerLink_name=listCustomerLink_name[i];
+		    		String listCustomerLink_sexid=req.getParameterValues("listCustomerLink_sexid")[i];
+		    		String listCustomerLink_position=req.getParameterValues("listCustomerLink_position")[i];
+		    		String listCustomerLink_phone=req.getParameterValues("listCustomerLink_phone")[i];
+		    		String listCustomerLink_phone2=req.getParameterValues("listCustomerLink_phone2")[i];
+		    		String listCustomerLink_email=req.getParameterValues("listCustomerLink_email")[i];
+		    		String listCustomerLink_birthdate=req.getParameterValues("listCustomerLink_birthdate")[i];
+		    		String listCustomerLink_content=req.getParameterValues("listCustomerLink_content")[i];
+		    	  if(listCustomerLink_sexid!=""&&listCustomerLink_sexid!=""){
+		    		  int sexId=Integer.parseInt(listCustomerLink_sexid);
+		    		  customerLink.setSex(sexId==1?true:false);
+		    	  }
+		    	  customerLink.setId(linkId);
+		    	  customerLink.setBirthdate(listCustomerLink_birthdate);
+		    	  customerLink.setContent(listCustomerLink_content);
+		    	  customerLink.setCustomer(customer);
+		    	  customerLink.setEmail(listCustomerLink_email);
+		    	  customerLink.setName(CustomerLink_name);
+		    	  customerLink.setPhone(listCustomerLink_phone);
+		    	  customerLink.setPhone2(listCustomerLink_phone2);
+		    	  customerLink.setPosition(listCustomerLink_position);
+		    	  System.out.println(customerLink);
+		    	   flag2=ggkhcService.updateLink(customerLink);
+		    	}
+		    	}
+		    }
+		    
+		    ResultUtil result=new ResultUtil();
+		    if(flag1==true&&flag2==true){
+		    	result.setInfo("更新成功");
+		    	System.out.println("更新成功");
+		    }else{
+		    	result.setInfo("保存成功！");
+		    }
+		    
+		    req.setAttribute("result", result);
+		    req.getRequestDispatcher("ggkhc.do?method=listGgkh").forward(req, resp);
+	 }
+	 
+	 public void fpkh(HttpServletRequest req, HttpServletResponse resp)
+				throws ServletException, IOException{
+		  int userId=Integer.parseInt(req.getParameter("userId"));
+		  int customerId=Integer.parseInt(req.getParameter("customerId"));
+		  customer=ggkhcService.fpkh(userId, customerId);
+		  ggkhcService.updateGgkhc(customer);
+	 }
+	 
+	 public void delete(HttpServletRequest req, HttpServletResponse resp)
+				throws ServletException, IOException{
+		 int customerId=Integer.parseInt(req.getParameter("customerId"));
+		 boolean flag=ggkhcService.delete(customerId);
+		 if(flag==true){
+			req.getRequestDispatcher("ggkhc.do?method=listGgkh").forward(req, resp);
+		 }
 	 }
 }

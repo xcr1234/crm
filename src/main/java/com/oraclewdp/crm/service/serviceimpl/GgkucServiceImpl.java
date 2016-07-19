@@ -5,12 +5,15 @@ import java.util.List;
 
 import com.oraclewdp.crm.dao.CustomerDao;
 import com.oraclewdp.crm.dao.CustomerLinkDao;
+import com.oraclewdp.crm.dao.UserDao;
 import com.oraclewdp.crm.dao.UserRoleDao;
 import com.oraclewdp.crm.dao.impl.CustomerDaoImpl;
 import com.oraclewdp.crm.dao.impl.CustomerLinkDaoImpl;
+import com.oraclewdp.crm.dao.impl.UserDaoImpl;
 import com.oraclewdp.crm.dao.impl.UserRoleDaoImpl;
 import com.oraclewdp.crm.entity.Customer;
 import com.oraclewdp.crm.entity.CustomerLink;
+import com.oraclewdp.crm.entity.User;
 import com.oraclewdp.crm.entity.UserRole;
 import com.oraclewdp.crm.service.GgkhcService;
 import com.oraclewdp.crm.util.JdbcUtil;
@@ -23,11 +26,14 @@ public class GgkucServiceImpl implements GgkhcService {
 			connection);
 	private CustomerDao customerDao = new CustomerDaoImpl(connection);
 	private UserRoleDao userRoleDao=new UserRoleDaoImpl(connection);
+	private UserDao userDao=new UserDaoImpl(connection);
 	Pages<Customer> page = null;
 
 	@Override
 	public Pages<Customer> listGgkhc(int pageIndex, int pageNum) {
-		page = customerDao.findAll(Customer.class, pageNum, pageIndex);
+		String sql="select * from customer where delflag=?";
+		Object[] params={0};
+		page = customerDao.findAll(Customer.class, sql, pageNum, pageIndex, params);
 		return page;
 	}
 
@@ -78,5 +84,42 @@ public class GgkucServiceImpl implements GgkhcService {
 	   Pages<CustomerLink> pages=new PageUtil();
 	   pages=customerLinkDao.findAll(CustomerLink.class, sql, params);
 	   return pages.getItems();
+	}
+
+	@Override
+	public boolean updateGgkhc(Customer customer) {
+		boolean falg=false;
+	    falg=customerDao.update(customer);
+		return falg;
+	}
+	
+	@Override
+	public boolean updateLink(CustomerLink customerLink) {
+		boolean flag=false;
+		flag=customerLinkDao.update(customerLink);
+		return flag;
+	}
+	
+	@Override
+	public Pages<UserRole> listUserRoleBysql(String sql, Object[] params) {
+		Pages<UserRole> pages=userRoleDao.findAll(UserRole.class, sql, params);
+		return pages;
+	}
+
+	@Override
+	public Customer fpkh(int userId, int customerId) {
+		Customer customer=customerDao.find(customerId, Customer.class);
+		User user=userDao.find(userId, User.class);
+		customer.setSales(user);
+		return customer;
+	}
+	
+	@Override
+	public boolean delete(int customerId) {
+		boolean flag=false;
+		Customer customer=customerDao.find(customerId, Customer.class);
+		customer.setDelflag(true);
+		flag=customerDao.update(customer);
+		return flag;
 	}
 }

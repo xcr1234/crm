@@ -41,7 +41,20 @@ public class Customer {
     
     private String county;
 
+    private boolean delflag;
 	
+
+	public boolean isDelflag() {
+		return delflag;
+	}
+
+
+
+	public void setDelflag(boolean delflag) {
+		this.delflag = delflag;
+	}
+
+
 
 	public Integer getId() {
 		return id;

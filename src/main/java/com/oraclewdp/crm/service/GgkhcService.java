@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.oraclewdp.crm.entity.Customer;
 import com.oraclewdp.crm.entity.CustomerLink;
+import com.oraclewdp.crm.entity.User;
 import com.oraclewdp.crm.entity.UserRole;
 import com.oraclewdp.crm.util.Pages;
 
@@ -47,4 +48,14 @@ public interface GgkhcService {
 
 	public Customer detail(int id);
 	public List<CustomerLink> detailLink(Customer customer);
+	
+	public boolean updateGgkhc(Customer customer);
+	
+	public boolean updateLink(CustomerLink customerLink);
+
+	public Pages<UserRole> listUserRoleBysql(String sql,Object[] params);
+   
+	public Customer fpkh(int userId,int customerId);
+    
+	public boolean delete(int customerId);
 }

@@ -448,11 +448,11 @@ public class DaoImpl<E> implements Dao<E> {
 
     @Override
     public Pages<E> findAll(Class<E> clazz) {
-        return findAll(clazz,10,1);
+        return findAll(clazz,8,1);
     }
 
     @Override
     public Pages<E> findAll(Class<E> clazz, String sql, Object... params) {
-        return findAll(clazz,sql,10,1,params);
+        return findAll(clazz,sql,8,1,params);
     }
 }

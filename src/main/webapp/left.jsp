@@ -79,7 +79,7 @@ $(function(){
         <li>
             <div class="header">
             <cite></cite>
-            <a href="${pageContext.servletContext.contextPath}/page/crm/khxxgl.jsp" target="rightFrame">客户信息管理</a>
+            <a href="${pageContext.servletContext.contextPath}/khxxgl.do?method=listKhxx&userId=${sessionScope.userRole.user.id}" target="rightFrame">客户信息管理</a>
             <i></i>
             </div>                      
         </li>       

@@ -8,5 +8,7 @@ import com.oraclewdp.crm.entity.DicAll;
 
 public interface DicAllService {
     public List<DicAll> getDicAll(String type);
+    
+    public boolean setKhCode(String khCode);
    
 }

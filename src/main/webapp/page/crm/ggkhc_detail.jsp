@@ -15,7 +15,12 @@
     <script>
      
         $(function () {
-          
+            s=["customer_province","customer_city","customer_county"];//三个select的id  
+          var  province="${customer.province}";
+          var city="${customer.city}";
+          var county="${customer.county}";
+          opt0 =[province,city,county];//初始值 */
+        
             $(".delRow").click(function () {
                 $(this).parents(".repeatRow").remove();
             });
