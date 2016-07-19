@@ -3,7 +3,8 @@
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
-
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="p" uri="http://oraclewdp.com/page" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
@@ -111,8 +112,9 @@ input[type=checkbox]{
     <li><label>机会类型</label>  
 	<select>
 		<option selected="selected">请选择</option>
-		<option>一</option>
-		<option>二</option>
+		<c:forEach var="item" items="${dicAllList}">
+			<option value="${item.id}">${item.name}</option>
+		</c:forEach>
 	</select>
  
    </li>
@@ -144,22 +146,26 @@ input[type=checkbox]{
         </tr>
         </thead>
         <tbody>
+		<c:forEach var="item" items="${pages.items}">
         <tr>
-          <td style="width: 150px"><input name="" type="checkbox" value="" checked="checked"/></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
+          <td style="width: 150px"><input name="" type="checkbox" value="" checked="checked"/></td><td>${item.code}</td>
+          <td>${item.name}</td>
+          <td>${item.creator.userName}</td>
+          <td>${item.createdate}</td>
+          <td>${item.type.name}</td>
+          <td>${item.customer.name}</td>
+          <td>${item.chanceStage.name}</td>
+          <td>${item.possibility}</td>
+          <td>${item.attach.name}</td>
+
           <td><a href="#">查看</a>&nbsp;<a href="#">编辑</a>&nbsp;<a href="#">删除</a>&nbsp;</td>
         </tr>
+		</c:forEach>
         </tbody>
     </table>
-    
+
+    <%--
+
     <div class="pagin">
     	<div class="message">共<i class="blue">1256</i>条记录，当前显示第&nbsp;<i class="blue">2&nbsp;</i>页</div>
         <ul class="paginList">
@@ -175,7 +181,7 @@ input[type=checkbox]{
         </ul>
     </div>
      
-     
+     --%>
      	
      <!--添加用户对话框开始-->
     <div class="tip">

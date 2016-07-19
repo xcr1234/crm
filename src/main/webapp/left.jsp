@@ -97,7 +97,7 @@ $(function(){
     <span><img src="images/leftico02.png" /></span>销售计划管理
     </div>
     <ul class="menuson">
-        <li><cite></cite><a href="${pageContext.servletContext.contextPath}/page/crm/xmjh.jsp" target="rightFrame">项目机会</a><i></i></li>
+        <li><cite></cite><a href="${pageContext.servletContext.contextPath}/xmjh.do?method=listXmjh" target="rightFrame">项目机会</a><i></i></li>
         <li><cite></cite><a href="javascript:;" target="rightFrame">机会漏斗图</a><i></i></li>
         <li><cite></cite><a href="javascript:;" target="rightFrame">销售标价表</a><i></i></li>
         <li><cite></cite><a href="javascript:;" target="rightFrame">解决方案</a><i></i></li>

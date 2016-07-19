@@ -41,6 +41,9 @@ public class JdbcPage<T> implements Pages<T> {
         }else{
             int begin = (page-1)*pageSize;
             int end = begin+pageSize;
+            if(end>=count){
+                end = count;
+            }
             items = list.subList(begin,end);
         }
 

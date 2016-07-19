@@ -1,24 +1,26 @@
 package com.oraclewdp.crm.entity;
 
 import com.oraclewdp.crm.persistence.Column;
+import com.oraclewdp.crm.persistence.Id;
 import com.oraclewdp.crm.persistence.Table;
 
 @Table("custom_chance")
 public class CustomChance {
+    @Id
     private Integer id;
 
     private String code;
 
     private String name;
-
+    @Column(value = "type",foreign = "dic_all",target = "id")
     private DicAll type;
-
+    @Column(value = "creator",foreign = "user",target = "id")
     private User creator;
 
     private String createdate;
-
+    @Column(value = "attach_id",foreign = "attach",target = "id")
     private Attach attach;
-
+    @Column(value = "chance_stage",foreign = "dic_all",target = "id")
     private DicAll chanceStage;
 
     private String possibility;
