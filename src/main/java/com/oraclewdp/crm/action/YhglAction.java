@@ -1,18 +1,16 @@
 package com.oraclewdp.crm.action;
 
-import java.io.IOException;
+import com.oraclewdp.crm.entity.UserRole;
+import com.oraclewdp.crm.service.YhglService;
+import com.oraclewdp.crm.service.serviceimpl.YhglServiceImpl;
+import com.oraclewdp.crm.util.ActionSupport;
+import com.oraclewdp.crm.util.Pages;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import com.oraclewdp.crm.entity.UserRole;
-import com.oraclewdp.crm.service.YhglService;
-import com.oraclewdp.crm.service.serviceimpl.YhglServiceImpl;
-import com.oraclewdp.crm.util.ActionSupport;
-import com.oraclewdp.crm.util.PageUtil;
-import com.oraclewdp.crm.util.Pages;
+import java.io.IOException;
 
 @WebServlet("/yhgl.do")
 public class YhglAction extends ActionSupport{
@@ -31,8 +29,7 @@ public class YhglAction extends ActionSupport{
 
 	 public void listUsers(HttpServletRequest req, HttpServletResponse resp)
 				throws ServletException, IOException{
-		Pages<UserRole> pages=new PageUtil();
-		pages=yhglService.listUserRole();
+		Pages<UserRole> pages=yhglService.listUserRole();
 		req.setAttribute("page", pages);
 		returnView("zhgl", req, resp);
 		 

@@ -1,38 +1,77 @@
 package com.oraclewdp.crm.util;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by user on 2016/7/14.
+ * jdbc中关于page接口的实现。
  */
 public class JdbcPage<T> implements Pages<T> {
+
+    private List<T> list;
+
+    private int count;
+
+    private int pageCount;
+
+    public JdbcPage(List<T> list,int size){
+
+        this.list = list;
+        this.pageSize = size;
+        count  = list.size();
+
+        if(count%size==0){
+            pageCount = count / size;
+        }else {
+            pageCount = count/size+1;
+        }
+    }
+
+    private List<T> items;
+
+    private int pageSize;
+
+    private int current;
+
     @Override
     public void toPage(int page) {
+        this.current = page;
+        if(page<1||page>pageCount){
+            items = new ArrayList<>();
+        }else{
+            int begin = (page-1)*pageSize;
+            int end = begin+pageSize;
+            items = list.subList(begin,end);
+        }
 
     }
 
     @Override
     public int getAllCount() {
-        return 0;
+        return count;
     }
 
     @Override
     public List<T> getItems() {
-        return null;
+        return items;
     }
 
     @Override
     public int getPageCount() {
-        return 0;
+        return pageCount;
     }
 
     @Override
     public int getCurrentPage() {
-        return 0;
+        return current;
     }
 
     @Override
     public int getPageSize() {
-        return 0;
+        return pageSize;
+    }
+
+    public void setPageSize(int pageSize) {
+        this.pageSize = pageSize;
     }
 }

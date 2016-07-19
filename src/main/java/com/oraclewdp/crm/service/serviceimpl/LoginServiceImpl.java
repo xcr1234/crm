@@ -1,10 +1,5 @@
 package com.oraclewdp.crm.service.serviceimpl;
 
-import java.sql.Connection;
-import java.util.List;
-
-import javax.servlet.http.HttpSession;
-
 import com.oraclewdp.crm.dao.RoleAuthorityDao;
 import com.oraclewdp.crm.dao.UserDao;
 import com.oraclewdp.crm.dao.UserRoleDao;
@@ -17,9 +12,11 @@ import com.oraclewdp.crm.entity.User;
 import com.oraclewdp.crm.entity.UserRole;
 import com.oraclewdp.crm.service.LoginService;
 import com.oraclewdp.crm.util.JdbcUtil;
-import com.oraclewdp.crm.util.PageUtil;
 import com.oraclewdp.crm.util.Pages;
 import com.oraclewdp.crm.util.ResultUtil;
+
+import javax.servlet.http.HttpSession;
+import java.sql.Connection;
 
 public class LoginServiceImpl implements LoginService{
 	private Connection connection=JdbcUtil.getInstance().getConnection();
@@ -53,9 +50,9 @@ public class LoginServiceImpl implements LoginService{
 private ResultUtil validate(String username,String password){
 	ResultUtil result=new ResultUtil();
 	String sql="select * from user where userName=? and password=?";
-	Pages<User> pages=new PageUtil();
+
 	Object[] params={username,password};
-	pages=userDao.findAll(User.class, sql, params);
+	Pages<User> pages=userDao.findAll(User.class, sql, params);
 	if(pages.getItems()!=null&&pages.getItems().size()>0){
 		System.out.println("user:"+pages.getItems().get(0));
 		result.setFlag(true);

@@ -2,7 +2,8 @@ package com.oraclewdp.crm.dao.impl;
 
 import com.oraclewdp.crm.dao.Dao;
 import com.oraclewdp.crm.persistence.*;
-import com.oraclewdp.crm.util.PageUtil;
+
+import com.oraclewdp.crm.util.JdbcPage;
 import com.oraclewdp.crm.util.Pages;
 
 import java.sql.*;
@@ -465,22 +466,11 @@ public class DaoImpl<E> implements Dao<E> {
         }
         int offset = (pageNum-1)*size;
 
-        PageUtil pageUtil = new PageUtil();
-        pageUtil.setCount(list.size());
-        pageUtil.setCurrent(pageNum);
-        pageUtil.setSize(size);
-        int m = offset+size;
-        if(m>list.size()){
-            m = list.size();
-        }
-        List<E> sub = list.subList(offset, m);
-        pageUtil.setList(sub);
-        if(list.size()%size==0){
-            pageUtil.setPageCount(list.size()/size);
-        }else{
-            pageUtil.setPageCount(list.size()/size+1);
-        }
-        return pageUtil;
+        JdbcPage<E> jdbcPage = new JdbcPage<>(list,size);
+        jdbcPage.toPage(pageNum);
+
+
+        return jdbcPage;
 
 
 
@@ -535,23 +525,9 @@ public class DaoImpl<E> implements Dao<E> {
 
             int offset = (pageNum-1)*size;
 
-            PageUtil pageUtil = new PageUtil();
-            pageUtil.setCount(list.size());
-            pageUtil.setCurrent(pageNum);
-            pageUtil.setSize(size);
-            int m = offset+size;
-            if(m>list.size()){
-                m = list.size();
-            }
-            List<E> sub = list.subList(offset, m);
-            pageUtil.setList(sub);
-            if(list.size()%size==0){
-                pageUtil.setPageCount(list.size()/size);
-            }else{
-                pageUtil.setPageCount(list.size()/size+1);
-            }
-            return pageUtil;
-
+            JdbcPage<E> jdbcPage = new JdbcPage<>(list,size);
+            jdbcPage.toPage(pageNum);
+            return jdbcPage;
 
         }catch (SQLException e){
             throw new PersistenceException("执行SQL语句失败", e);

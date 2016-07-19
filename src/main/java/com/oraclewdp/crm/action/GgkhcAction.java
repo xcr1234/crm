@@ -7,7 +7,10 @@ import com.oraclewdp.crm.service.UserService;
 import com.oraclewdp.crm.service.serviceimpl.DicAllServiceImpl;
 import com.oraclewdp.crm.service.serviceimpl.GgkucServiceImpl;
 import com.oraclewdp.crm.service.serviceimpl.UserServiceImpl;
-import com.oraclewdp.crm.util.*;
+import com.oraclewdp.crm.util.ActionSupport;
+import com.oraclewdp.crm.util.CodeUtil;
+import com.oraclewdp.crm.util.Pages;
+import com.oraclewdp.crm.util.ResultUtil;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -26,7 +29,7 @@ public class GgkhcAction extends ActionSupport{
 	private GgkhcService ggkhcService=new GgkucServiceImpl();
 	private DicAllService dicAllService=new DicAllServiceImpl();
 	private Customer customer=new Customer();
-	private Pages<Customer> page=new PageUtil();
+
     private UserService userService=new UserServiceImpl();
    
     public void kh_add(HttpServletRequest req, HttpServletResponse resp)
@@ -195,8 +198,8 @@ public class GgkhcAction extends ActionSupport{
 		Pages<UserRole> userRolePages=ggkhcService.listUserRoleBysql(sql, params);
 		req.setAttribute("userRolePages", userRolePages);
 		
-		
-		page=ggkhcService.listGgkhc(1, 8);
+
+		Pages<Customer> page=ggkhcService.listGgkhc(1, 8);
 		req.setAttribute("khlx", list_khlx);
 		req.setAttribute("khly",list_khly);
 		req.setAttribute("page", page);
@@ -214,7 +217,7 @@ public class GgkhcAction extends ActionSupport{
 		   Map<String, Object[]> map=getSearchSql(Customer.class, req);
 		   String sql="";
 		   Object[] params=null;
-		   Pages<Customer> pages=new PageUtil();
+		   Pages<Customer> pages=null;
 		   for(Entry<String, Object[]> entry:map.entrySet()){
 			    sql=entry.getKey();
 			    params=entry.getValue();
@@ -270,8 +273,7 @@ public class GgkhcAction extends ActionSupport{
 		req.setAttribute("result", result);
 		
 		//列出用户的下拉框
-		Pages<UserRole> userPages=new PageUtil();
-		userPages=ggkhcService.listUserRole();
+		Pages<UserRole> userPages=ggkhcService.listUserRole();
 		List<UserRole> list=userPages.getItems();
 		req.setAttribute("userRoleList", list);
 		
@@ -312,8 +314,7 @@ public class GgkhcAction extends ActionSupport{
 			result.setO(dicAlls);
 			req.setAttribute("result", result);
 			//列出用户的下拉框
-			Pages<UserRole> userPages=new PageUtil();
-			userPages=ggkhcService.listUserRole();
+			Pages<UserRole> userPages=ggkhcService.listUserRole();
 			List<UserRole> list=userPages.getItems();
 			req.setAttribute("userRoleList", list);
 		   //根据ID查出客户和该客户对应的联系人

@@ -14,7 +14,7 @@ import com.oraclewdp.crm.entity.User;
 import com.oraclewdp.crm.entity.UserRole;
 import com.oraclewdp.crm.service.GgkhcService;
 import com.oraclewdp.crm.util.JdbcUtil;
-import com.oraclewdp.crm.util.PageUtil;
+
 import com.oraclewdp.crm.util.Pages;
 
 import java.sql.Connection;
@@ -51,8 +51,7 @@ public class GgkucServiceImpl implements GgkhcService {
 
 	@Override
 	public Pages<UserRole> listUserRole() {
-		Pages<UserRole> pages=new PageUtil();
-		pages=userRoleDao.findAll(UserRole.class);
+		Pages<UserRole> pages=userRoleDao.findAll(UserRole.class);
 		return pages;
 	}
 
@@ -81,8 +80,7 @@ public class GgkucServiceImpl implements GgkhcService {
 	   CustomerLink customerLink=new CustomerLink();
 	   String sql="select * from customer_link where customer_id=?";
 	   Object[] params={id};
-	   Pages<CustomerLink> pages=new PageUtil();
-	   pages=customerLinkDao.findAll(CustomerLink.class, sql, params);
+	   Pages<CustomerLink> pages=customerLinkDao.findAll(CustomerLink.class, sql, params);
 	   return pages.getItems();
 	}
 

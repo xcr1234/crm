@@ -21,8 +21,18 @@ public class XmjhAction extends ActionSupport{
     private CustomChanceService customChanceService = new CustomChanceServiceImpl();
 
     public void listXmjh(HttpServletRequest request, HttpServletResponse response) throws IOException,ServletException{
+        String page = request.getParameter("page");
+        Integer p;
+        if(page==null||page.isEmpty()){
+            p = 1;
+        }else{
+            p = Integer.valueOf(page);
+        }
+
+
 
         Pages<CustomChance> customChanceList = customChanceService.list();
+        customChanceList.toPage(p);
 
 
 
