@@ -8,6 +8,7 @@ public class PageUtil implements Pages {
     private int count;
     private List list;
     private int pageCount;
+    private int size;
 
     @Override
     public void toPage(int page) {
@@ -70,7 +71,11 @@ public class PageUtil implements Pages {
 
     @Override
     public int getPageSize() {
-        return 10;
+        return size;
+    }
+
+    public void setSize(int size) {
+        this.size = size;
     }
 
     @Override

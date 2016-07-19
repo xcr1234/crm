@@ -1,12 +1,11 @@
 package com.oraclewdp.crm.service;
 
-import java.util.List;
-
 import com.oraclewdp.crm.entity.Customer;
 import com.oraclewdp.crm.entity.CustomerLink;
-import com.oraclewdp.crm.entity.User;
 import com.oraclewdp.crm.entity.UserRole;
 import com.oraclewdp.crm.util.Pages;
+
+import java.util.List;
 
 public interface GgkhcService {
 

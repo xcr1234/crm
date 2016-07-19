@@ -5,8 +5,6 @@ import com.oraclewdp.crm.persistence.*;
 import com.oraclewdp.crm.util.PageUtil;
 import com.oraclewdp.crm.util.Pages;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -278,6 +276,128 @@ public class DaoImpl<E> implements Dao<E> {
         }
     }
 
+
+    @Override
+    public List<E> listAll(Class<E> clazz) {
+        if(clazz==null){
+            throw new NullPointerException("cannot find null!");
+        }
+
+
+        Meta meta = new Meta(clazz);
+        String sql = SQLBuilder.findAll(meta);
+        System.out.println(sql);
+        ArrayList<E> list = new ArrayList<>();
+
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        try {
+            //计算出总数
+
+
+
+
+            preparedStatement = connection.prepareStatement(sql);
+
+
+            resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()){
+                E e = clazz.newInstance();
+                for(int i=0;i<meta.getColumnMetas().size();i++){
+                    ColumnMeta columnMeta = meta.getColumnMetas().get(i);
+                    String name = Meta.getColumnName(columnMeta.getField());
+                    Object objId = resultSet.getObject(name);
+                    if(columnMeta.isBase()){
+                        FieldInvoker.set(columnMeta.getField(),e,objId);
+                    }else{
+
+                        Object obj = find0((Integer) objId,columnMeta.getField().getType(),1);
+                        FieldInvoker.set(columnMeta.getField(),e,obj);
+                    }
+
+                }
+
+                Object id = resultSet.getObject(Meta.getColumnName(meta.getIdField()));
+                FieldInvoker.set(meta.getIdField(),e,id);
+
+
+                list.add(e);
+
+
+            }
+        }catch (SQLException e){
+            throw new PersistenceException("执行SQL语句失败", e);
+        }catch (ReflectiveOperationException ex){
+            throw new PersistenceException("反射创建对象失败", ex);
+        }finally {
+            try {
+                if (resultSet != null) resultSet.close();
+                if (preparedStatement != null) preparedStatement.close();
+            } catch (SQLException ex) {
+            }
+        }
+        return list;
+
+    }
+
+    @Override
+    public List<E> listAll(Class<E> clazz, String sql, Object... params) {
+        if(clazz==null || sql == null){
+            throw new NullPointerException("cannot find null!");
+        }
+
+        Meta meta = new Meta(clazz);
+
+        ArrayList<E> list = new ArrayList<>();
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        try {
+            preparedStatement = connection.prepareStatement(sql);
+            for(int i=0;i<params.length;i++){
+                preparedStatement.setObject(i+1,params[i]);
+            }
+            resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()){
+                E e = clazz.newInstance();
+                for(int i=0;i<meta.getColumnMetas().size();i++){
+                    ColumnMeta columnMeta = meta.getColumnMetas().get(i);
+                    String name = Meta.getColumnName(columnMeta.getField());
+                    Object objId = resultSet.getObject(name);
+                    if(columnMeta.isBase()){
+                        FieldInvoker.set(columnMeta.getField(),e,objId);
+                    }else{
+
+                        Object obj = find0((Integer) objId,columnMeta.getField().getType(),1);
+                        FieldInvoker.set(columnMeta.getField(),e,obj);
+                    }
+
+                }
+
+                Object id = resultSet.getObject(Meta.getColumnName(meta.getIdField()));
+                FieldInvoker.set(meta.getIdField(),e,id);
+
+                list.add(e);
+
+
+
+
+            } }catch (SQLException e){
+            throw new PersistenceException("执行SQL语句失败", e);
+        }catch (ReflectiveOperationException ex){
+            throw new PersistenceException("反射创建对象失败", ex);
+        }finally {
+            try {
+                if (resultSet != null) resultSet.close();
+                if (preparedStatement != null) preparedStatement.close();
+            } catch (SQLException ex) {
+            }
+        }
+
+            return list;
+        }
+
     @Override
     public Pages<E> findAll(Class<E> clazz, int size, int pageNum) {
 
@@ -348,6 +468,7 @@ public class DaoImpl<E> implements Dao<E> {
         PageUtil pageUtil = new PageUtil();
         pageUtil.setCount(list.size());
         pageUtil.setCurrent(pageNum);
+        pageUtil.setSize(size);
         int m = offset+size;
         if(m>list.size()){
             m = list.size();
@@ -417,6 +538,7 @@ public class DaoImpl<E> implements Dao<E> {
             PageUtil pageUtil = new PageUtil();
             pageUtil.setCount(list.size());
             pageUtil.setCurrent(pageNum);
+            pageUtil.setSize(size);
             int m = offset+size;
             if(m>list.size()){
                 m = list.size();

@@ -1,11 +1,11 @@
 package com.oraclewdp.crm.service;
 
 
-import javax.servlet.http.HttpSession;
-
 import com.oraclewdp.crm.entity.User;
 import com.oraclewdp.crm.entity.UserRole;
 import com.oraclewdp.crm.util.ResultUtil;
+
+import javax.servlet.http.HttpSession;
 
 public interface LoginService {
 	

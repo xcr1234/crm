@@ -213,7 +213,7 @@ input[type=checkbox]{
         <th style="width: 100px">序号</th>
         <th>客户类型</th>
         <th style="width:200px;">客户名称</th>
-        <th>客户编码</th>
+        <th style="width:160px">客户编码</th>
         <th>城市</th>
         <th>区/县</th>
         <th>电话</th>

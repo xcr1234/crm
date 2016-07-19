@@ -36,5 +36,8 @@ public interface Dao<E> {
 
     public Pages<E> findAll(Class<E> clazz,String sql,int size, int num,Object ... params);
 
+    public List<E> listAll(Class<E> clazz);
+
+    public List<E> listAll(Class<E> clazz,String sql,Object ... params);
 
 }

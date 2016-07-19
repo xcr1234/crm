@@ -1,38 +1,25 @@
 package com.oraclewdp.crm.action;
 
-import java.beans.IntrospectionException;
-import java.beans.PropertyDescriptor;
-import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import com.oraclewdp.crm.entity.BaseArea;
-import com.oraclewdp.crm.entity.Customer;
-import com.oraclewdp.crm.entity.CustomerLink;
-import com.oraclewdp.crm.entity.DicAll;
-import com.oraclewdp.crm.entity.User;
-import com.oraclewdp.crm.entity.UserRole;
+import com.oraclewdp.crm.entity.*;
 import com.oraclewdp.crm.service.DicAllService;
 import com.oraclewdp.crm.service.GgkhcService;
 import com.oraclewdp.crm.service.UserService;
 import com.oraclewdp.crm.service.serviceimpl.DicAllServiceImpl;
 import com.oraclewdp.crm.service.serviceimpl.GgkucServiceImpl;
 import com.oraclewdp.crm.service.serviceimpl.UserServiceImpl;
-import com.oraclewdp.crm.util.ActionSupport;
-import com.oraclewdp.crm.util.CodeUtil;
-import com.oraclewdp.crm.util.PageUtil;
-import com.oraclewdp.crm.util.Pages;
-import com.oraclewdp.crm.util.ResultUtil;
+import com.oraclewdp.crm.util.*;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.beans.IntrospectionException;
+import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 @WebServlet("/ggkhc.do")
 public class GgkhcAction extends ActionSupport{

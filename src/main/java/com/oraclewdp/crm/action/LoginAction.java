@@ -1,24 +1,16 @@
 package com.oraclewdp.crm.action;
-import java.io.IOException;
-import java.sql.Connection;
-
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import com.oraclewdp.crm.dao.RoleAuthorityDao;
-import com.oraclewdp.crm.dao.UserRoleDao;
-import com.oraclewdp.crm.dao.impl.RoleAuthorityDaoImpl;
-import com.oraclewdp.crm.dao.impl.UserRoleDaoImpl;
 import com.oraclewdp.crm.entity.User;
 import com.oraclewdp.crm.entity.UserRole;
 import com.oraclewdp.crm.service.LoginService;
 import com.oraclewdp.crm.service.serviceimpl.LoginServiceImpl;
 import com.oraclewdp.crm.util.ActionSupport;
-import com.oraclewdp.crm.util.JdbcUtil;
-import com.oraclewdp.crm.util.Pages;
 import com.oraclewdp.crm.util.ResultUtil;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 /**
  * 登陆控制器

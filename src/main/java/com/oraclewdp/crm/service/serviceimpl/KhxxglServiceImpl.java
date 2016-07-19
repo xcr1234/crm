@@ -1,14 +1,13 @@
 package com.oraclewdp.crm.service.serviceimpl;
 
-import java.sql.Connection;
-
 import com.oraclewdp.crm.dao.CustomerDao;
 import com.oraclewdp.crm.dao.impl.CustomerDaoImpl;
 import com.oraclewdp.crm.entity.Customer;
 import com.oraclewdp.crm.service.KhxxglService;
 import com.oraclewdp.crm.util.JdbcUtil;
-import com.oraclewdp.crm.util.PageUtil;
 import com.oraclewdp.crm.util.Pages;
+
+import java.sql.Connection;
 
 public class KhxxglServiceImpl implements KhxxglService{
 
