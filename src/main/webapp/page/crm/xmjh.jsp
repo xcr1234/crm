@@ -96,42 +96,22 @@ input[type=checkbox]{
     </div>
     
     <div class="rightinfo">
-    
+    <form id="form1" action="<%=basePath%>xmjh.do?method=query" method="post">
     <div class="tools">
     
     	<ul class="toolbar">
         <li class="click" onclick="location.href='<%=basePath%>xmjh.do?method=add'"><span><img src="images/t01.png" /></span>新建销售机会</li>
-        <li class="click"><span><img src="images/ico06.png" /></span>查询</li>
+        <li class="click"><span><img src="images/ico06.png" onclick="document.getElementById('form1').submit()"/></span>查询</li>
         <li><span><img src="images/t05.png" /></span>重置</li>     
         </ul>
     </div>
     
     <ul class="seachform">
-    <li><label>机会编号</label><input name="" type="text" class="scinput" /></li>
-    <li><label>机会名称</label><input name="" type="text" class="scinput" /></li>
-    <li><label>机会类型</label>  
-	<select>
+    <li><label>机会编号</label><input name="no" type="text" class="scinput" /></li>
+    <li><label>机会名称</label><input name="name" type="text" class="scinput" /></li>
 
-		<c:forEach var="item" items="${dicAllList}">
-			<option value="${item.id}">${item.name}</option>
-		</c:forEach>
-	</select>
- 
-   </li>
-    <li><label>成交可能性</label>  
-    <div class="vocation">
-	<select name="possibility">
-
-		<c:forEach var="item" items="${possi}">
-			<option value="${item.name}">${item.name}</option>
-
-		</c:forEach>
-
-	</select>
-   </li>
-    
     </ul>
-    
+	</form>
     <table class="tablelist">
     	<thead>
     	<tr>

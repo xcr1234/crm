@@ -133,8 +133,9 @@
                     <td class="td_left">附件信息:</td>
                     <td>
                         <select style="text-align: center;" name="attach">
+                            <option value="-1">请选择</option>
                             <c:forEach items="${attach}" var="item">
-                                <option value="-1">请选择</option>
+
                                 <option value="${item.id}">${item.name}</option>
                             </c:forEach>
                         </select>

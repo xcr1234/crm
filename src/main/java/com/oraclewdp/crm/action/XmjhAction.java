@@ -60,16 +60,15 @@ public class XmjhAction extends ActionSupport{
             p = Integer.valueOf(page);
         }
 
-        List<DicAll> dicAllList = dicAllDao.listAll(DicAll.class,"select * from dic_all where type like ?","%jhlx%");
+
         Pages<CustomChance> pages = customChanceDao.findAll(CustomChance.class);
         pages.toPage(p);
 
-        List<DicAll> possi = dicAllDao.listAll(DicAll.class,"select * from dic_all where type like ?","%cjknx%");
+
 
 
         request.setAttribute("pages",pages);
-        request.setAttribute("possi",possi);
-        request.setAttribute("dicAllList",dicAllList);
+
         returnView("xmjh",request,response);
 
     }
@@ -134,6 +133,12 @@ public class XmjhAction extends ActionSupport{
         stateDic.setId(chanceStage);
         customChance.setChanceStage(stateDic);
 
+        User user = new User();
+        user.setId(creator);
+        customChance.setCreator(user);
+
+
+
         if(attach>0){
             Attach att = new Attach();
             att.setId(attach);
@@ -146,6 +151,34 @@ public class XmjhAction extends ActionSupport{
          response.sendRedirect("xmjh.do?method=listXmjh");
 
     }
+
+    //模糊查询
+    public void query(HttpServletRequest request, HttpServletResponse response) throws IOException,ServletException{
+        String no = request.getParameter("no");
+        String name = request.getParameter("name");
+
+        String page = request.getParameter("page");
+        int p = 1;
+        if(page!=null&&!page.isEmpty()){
+            p = Integer.valueOf(page);
+        }
+
+        Pages<CustomChance> pages = customChanceDao.findAll(CustomChance.class,"select * from custom_chance where code = ? or name = ?",no,name);
+        pages.toPage(p);
+
+        request.setAttribute("pages",pages);
+        returnView("xmjh",request,response);
+
+
+
+
+
+
+    }
+
+
+
+
 
     @Override
     public void destroy() {
