@@ -100,7 +100,7 @@ input[type=checkbox]{
     <div class="tools">
     
     	<ul class="toolbar">
-        <li class="click" onclick="location.href='<%=basePath%>page/crm/xmjh_add.jsp'"><span><img src="images/t01.png" /></span>新建销售机会</li>
+        <li class="click" onclick="location.href='<%=basePath%>xmjh.do?method=add'"><span><img src="images/t01.png" /></span>新建销售机会</li>
         <li class="click"><span><img src="images/ico06.png" /></span>查询</li>
         <li><span><img src="images/t05.png" /></span>重置</li>     
         </ul>
@@ -111,7 +111,7 @@ input[type=checkbox]{
     <li><label>机会名称</label><input name="" type="text" class="scinput" /></li>
     <li><label>机会类型</label>  
 	<select>
-		<option selected="selected">请选择</option>
+
 		<c:forEach var="item" items="${dicAllList}">
 			<option value="${item.id}">${item.name}</option>
 		</c:forEach>
@@ -120,10 +120,13 @@ input[type=checkbox]{
    </li>
     <li><label>成交可能性</label>  
     <div class="vocation">
-	<select>
-		<option selected="selected">请选择</option>
-		<option>一</option>
-		<option>二</option>
+	<select name="possibility">
+
+		<c:forEach var="item" items="${possi}">
+			<option value="${item.name}">${item.name}</option>
+
+		</c:forEach>
+
 	</select>
    </li>
     
@@ -158,12 +161,13 @@ input[type=checkbox]{
           <td>${item.possibility}</td>
           <td>${item.attach.name}</td>
 
-          <td><a href="#">查看</a>&nbsp;<a href="#">编辑</a>&nbsp;<a href="#">删除</a>&nbsp;</td>
+          <td><a href="<%=basePath%>xmjh.do?method=detail&id=${item.id}">查看</a>&nbsp;<a href="javascript:;">编辑</a>&nbsp;<a href="javascript:;">删除</a>&nbsp;</td>
         </tr>
 		</c:forEach>
         </tbody>
     </table>
-
+<p:page pages="${pages}" link="xmjh.do?method=listXmjh"
+		prev="上一页" first="首页" last="尾页" next="下一页" ulClass="paginList" />
     <%--
 
     <div class="pagin">
@@ -195,13 +199,13 @@ input[type=checkbox]{
     			<td class="td_left">机会名称:</td>
     			<td><input name="" type="text" class="dfinput"/><i></i></td>
     			<td class="td_left">客户名称:</td>
-    			<td><input name="" type="text" class="dfinput"/><i></i></td>
+    			<td><input name="creator" type="text" class="dfinput"/><i></i></td>
     		</tr>
     		
     		<tr>
     			<td class="td_left">机会类型</td>
     			<td style="text-align: center;">
-      					<select style="font-size: 25px;width: 100px;">
+      				<select style="font-size: 25px;width: 100px;">
       					<option value="1" style="font-size: 25px;">男</option>
       					<option value="0" style="font-size: 25px;">女</option>
       				</select>	
