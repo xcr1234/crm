@@ -85,14 +85,13 @@
 <body>
 
         <div class="formtitle"><span>客户基本信息</span></div>
-        <form action="${pageContext.servletContext.contextPath}/ggkhc.do?method=kh_add" method="post" name="kh_form">
+        <form action="${pageContext.servletContext.contextPath}/ggkhc.do?method=cpxx_add" method="post" name="kh_form">
             <table>
                 <tr>
-                    <td class="td_left">客户名称:</td>
-                    <td><input name="customer_name" type="text" class="dfinput"/><i></i></td>
+                    <td class="td_left">产品名称:</td>
+                    <td><input name="" type="text" class="dfinput"/><i></i></td>
                     <td class="td_left">客户编码:</td>
-              
-                    <td><input name="customer_code" type="text" class="dfinput" disabled="true" value="系统自动生成"/><i></i></td>
+                    <td><input name="customer_code" type="text" class="dfinput"/><i></i></td>
                     <td class="td_left">创建人:</td>
                     <td><select name="user_creatorid">
                     <c:forEach items="${userRoleList}" var="u" varStatus="status">

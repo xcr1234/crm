@@ -14,6 +14,7 @@ import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import java.beans.IntrospectionException;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
@@ -200,8 +201,15 @@ public class GgkhcAction extends ActionSupport{
 		Pages<UserRole> userRolePages=ggkhcService.listUserRoleBysql(sql, params);
 		req.setAttribute("userRolePages", userRolePages);
 		
-
-		Pages<Customer> page=ggkhcService.listGgkhc(1, 8);
+       //查出客户
+		Pages<Customer> page=ggkhcService.listGgkhc();
+		String pages=req.getParameter("page");
+		if(pages!=null&&!pages.equals("")){
+			int pageIndex=Integer.parseInt(pages);
+			page.toPage(pageIndex);
+		}else{
+			page.toPage(1);
+		}
 		req.setAttribute("khlx", list_khlx);
 		req.setAttribute("khly",list_khly);
 		req.setAttribute("page", page);
@@ -238,7 +246,7 @@ public class GgkhcAction extends ActionSupport{
 			req.setAttribute("userRolePages", userRolePages);
 		   //搜索框没有值，即按分页查询
 		   if(params==null){
-			 pages=ggkhcService.listGgkhc(1, 8);
+			 pages=ggkhcService.listGgkhc();
 		   }
 		   else{
 			  pages=ggkhcService.search(sql, 1, 8, params);

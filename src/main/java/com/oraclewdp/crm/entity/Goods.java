@@ -1,5 +1,6 @@
 package com.oraclewdp.crm.entity;
 
+import com.oraclewdp.crm.persistence.Column;
 import com.oraclewdp.crm.persistence.Id;
 
 public class Goods {
@@ -14,7 +15,8 @@ public class Goods {
 
     private String model;
 
-    private Integer unit;
+    @Column(value="unit",foreign="dic_all",target="id")
+    private DicAll unit;
 
     private Integer kcsl;
 
@@ -23,7 +25,11 @@ public class Goods {
     private Float price;
 
     private Boolean status;
+    
+    @Column(value="creator",foreign="user",target="id")
+    private User creator;
 
+    private String createTime;
     public Integer getId() {
         return id;
     }
@@ -64,15 +70,17 @@ public class Goods {
         this.model = model;
     }
 
-    public Integer getUnit() {
-        return unit;
-    }
+    
 
-    public void setUnit(Integer unit) {
-        this.unit = unit;
-    }
+    public DicAll getUnit() {
+		return unit;
+	}
 
-    public Integer getKcsl() {
+	public void setUnit(DicAll unit) {
+		this.unit = unit;
+	}
+
+	public Integer getKcsl() {
         return kcsl;
     }
 
@@ -103,4 +111,23 @@ public class Goods {
     public void setStatus(Boolean status) {
         this.status = status;
     }
+
+	public User getCreator() {
+		return creator;
+	}
+
+	public void setCreator(User creator) {
+		this.creator = creator;
+	}
+
+	public String getCreateTime() {
+		return createTime;
+	}
+
+	public void setCreateTime(String createTime) {
+		this.createTime = createTime;
+	}
+    
+	
+    
 }

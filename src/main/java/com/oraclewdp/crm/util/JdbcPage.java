@@ -77,4 +77,18 @@ public class JdbcPage<T> implements Pages<T> {
     public void setPageSize(int pageSize) {
         this.pageSize = pageSize;
     }
+
+	public List<T> getList() {
+		return list;
+	}
+
+	public int getCount() {
+		return count;
+	}
+
+	public int getCurrent() {
+		return current;
+	}
+    
+    
 }

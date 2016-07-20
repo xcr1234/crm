@@ -8,7 +8,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <base href="<%=basePath%>">
     
     <title>项目机会</title>
     
@@ -22,8 +21,36 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="${pageContext.servletContext.contextPath}/js/jquery.js"></script>
 	<script type="text/javascript" src="${pageContext.servletContext.contextPath}/js/select-ui.min.js"></script>
 	<script type="text/javascript" src="${pageContext.servletContext.contextPath}/js/jquery.idTabs.min.js"></script>
+    <script type="text/javascript" src="${pageContext.servletContext.contextPath}/js/excel/xlsx.core.min.js"></script>
+    <script type="text/javascript" src="${pageContext.servletContext.contextPath}/js/excel/blob.js"></script>
+    <script type="text/javascript" src="${pageContext.servletContext.contextPath}/js/excel/FileSaver.min.js"></script>
+    <script type="text/javascript" src="${pageContext.servletContext.contextPath}/js/excel/tableexport-3.2.min.js"></script>
+    <script type="text/javascript" src="${pageContext.servletContext.contextPath}/js/DateUtil.js"></script>
 <script type="text/javascript">
-$(document).ready(function(){
+$(function(){
+$.fn.tableExport.xlsx = {
+    defaultClass: "xlsx",
+    buttonContent: "确认导出",
+    mimeType: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+    fileExtension: ".xlsx"
+};
+$("#export").click(function(){
+ var tableName="项目机会表"; //初始化表名
+ var column=[0,9,10];  //初始化忽略的列，从0开始。
+ var date=new Date();
+ var time=formatDate(date, "yyyy-MM-dd");
+ var fileName=tableName+"-第"+${page.pageCount}+'页-'+time;
+	$("table").tableExport({
+	    headings: true, 
+	    footers: true, 
+	    formats: ["xlsx"],
+	    fileName: fileName,
+	    bootstrap: false,
+	    position: "bottom",
+	    ignoreRows: null,
+	    ignoreCols: column
+}); 
+});
   /*$(".click").click(function(){
   $(".tip").fadeIn(200);  
   });
@@ -102,7 +129,7 @@ input[type=checkbox]{
     	<ul class="toolbar">
         <li class="click" onclick="location.href='<%=basePath%>xmjh.do?method=add'"><span><img src="images/t01.png" /></span>新建销售机会</li>
         <li class="click"  onclick="document.getElementById('form1').submit()"><span><img src="images/ico06.png"/></span>查询</li>
-        <li><span><img src="images/t05.png" /></span>重置</li>     
+         <li id="export"><span><img src="${pageContext.servletContext.contextPath}/images/lc04.png" width="25px" height="25px"/></span>导出报表</li>     
         </ul>
     </div>
     

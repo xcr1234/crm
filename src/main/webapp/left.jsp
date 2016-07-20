@@ -100,12 +100,11 @@ $(function(){
         <li><cite></cite><a href="${pageContext.servletContext.contextPath}/xmjh.do?method=listXmjh" target="rightFrame">项目机会</a><i></i></li>
         <li><cite></cite><a href="${pageContext.servletContext.contextPath}/xmjh.do?method=chart" target="rightFrame">机会分析图</a><i></i></li>
         <li><cite></cite><a href="javascript:;" target="rightFrame">销售标价表</a><i></i></li>
-        <li><cite></cite><a href="javascript:;" target="rightFrame">解决方案</a><i></i></li>
         </ul>     
     </dd>    
     <dd><div class="title"><span><img src="images/leftico03.png" /></span>产品管理</div>
       <ul class="menuson">
-        <li><cite></cite><a href="javascript:;" target="rightFrame">哈哈哈。没有啦</a><i></i></li>
+        <li><cite></cite><a href="${pageContext.servletContext.contextPath}/cpxxgl.do?method=listGoods" target="rightFrame">产品信息管理</a><i></i></li>
        
         </ul>    
     </dd>  
@@ -113,10 +112,7 @@ $(function(){
     <c:if test="${sessionScope.userRole.role.name ne '业务员'}">
     <dd><div class="title"><span><img src="images/leftico04.png" /></span>用户管理</div>
     <ul class="menuson">
-      <c:if test="${sessionScope.userRole.role.name eq '管理员'}">
-        <li><cite></cite><a href="${pageContext.servletContext.contextPath}/yhgl.do?method=listUsers" target="rightFrame">账号管理</a><i></i></li>
-       </c:if>
-       <li><cite></cite><a href="javascript:;" target="rightFrame">业务员管理</a><i></i></li>
+        <li><cite></cite><a href="${pageContext.servletContext.contextPath}/yhgl.do?method=listUsers&userId=${sessionScope.userRole.user.id}" target="rightFrame">账号管理</a><i></i></li>
         </ul> 
     </dd>   
     </c:if>

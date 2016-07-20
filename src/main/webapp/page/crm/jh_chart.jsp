@@ -182,8 +182,8 @@
 
     <div class="tools">
         <ul class="toolbar">
-            <li onclick="byStage()"><span><img src="images/t01.png" /></span>按机会阶段</li>
-            <li onclick="byPoss()"><span><img src="${pageContext.servletContext.contextPath}/images/t05.png" /></span>按成交可能性</li>
+            <li onclick="byStage()"><span><img src="images/t04.png" /></span>按机会阶段</li>
+            <li onclick="byPoss()"><span><img src="${pageContext.servletContext.contextPath}/images/t04.png" /></span>按成交可能性</li>
 
         </ul>
     </div>

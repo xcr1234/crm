@@ -30,10 +30,10 @@ public class GgkucServiceImpl implements GgkhcService {
 	Pages<Customer> page = null;
 
 	@Override
-	public Pages<Customer> listGgkhc(int pageIndex, int pageNum) {
+	public Pages<Customer> listGgkhc(){
 		String sql="select * from customer where delflag=?";
 		Object[] params={0};
-		page = customerDao.findAll(Customer.class, sql, pageNum, pageIndex, params);
+		page = customerDao.findAll(Customer.class, sql, params);
 		return page;
 	}
 

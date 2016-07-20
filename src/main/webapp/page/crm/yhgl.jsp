@@ -17,13 +17,12 @@
 	<script type="text/javascript" src="${pageContext.servletContext.contextPath}/js/jquery.js"></script>
 	<script type="text/javascript" src="${pageContext.servletContext.contextPath}/js/select-ui.min.js"></script>
 	<script type="text/javascript" src="${pageContext.servletContext.contextPath}/js/jquery.idTabs.min.js"></script>
-   <script type="text/javascript" src="${pageContext.servletContext.contextPath}/plugin/My97DatePicker/WdatePicker.js"></script>
-   <script type="text/javascript" src="${pageContext.servletContext.contextPath}/js/excel/xlsx.core.min.js"></script>
+    <script type="text/javascript" src="${pageContext.servletContext.contextPath}/js/excel/xlsx.core.min.js"></script>
     <script type="text/javascript" src="${pageContext.servletContext.contextPath}/js/excel/blob.js"></script>
     <script type="text/javascript" src="${pageContext.servletContext.contextPath}/js/excel/FileSaver.min.js"></script>
     <script type="text/javascript" src="${pageContext.servletContext.contextPath}/js/excel/tableexport-3.2.min.js"></script>
     <script type="text/javascript" src="${pageContext.servletContext.contextPath}/js/DateUtil.js"></script>
-   <script type="text/javascript">
+<script type="text/javascript">
 $(document).ready(function(){
 $.fn.tableExport.xlsx = {
     defaultClass: "xlsx",
@@ -32,11 +31,11 @@ $.fn.tableExport.xlsx = {
     fileExtension: ".xlsx"
 };
 $("#export").click(function(){
- var tableName="交往记录表"; //初始化表名
- var column=9;  //初始化忽略的列，从0开始。
+ var tableName="用户信息表"; //初始化表名
+ var column=4;  //初始化忽略的列，从0开始。
  var date=new Date();
  var time=formatDate(date, "yyyy-MM-dd");
- var fileName=tableName+"-第"+${page.pageCount}+'页-'+time;
+ var fileName=tableName+"-第"+${page.current}+'页-'+time;
 	$("table").tableExport({
 	    headings: true, 
 	    footers: true, 
@@ -49,41 +48,17 @@ $("#export").click(function(){
 }); 
 });
 
- var customerId=null;
- var userId=null;
- //分配销售负责人(业务员)
- $("#fpku").change(function(){
- userId= $("#fpku option:selected").attr("value");
- });
- 
- 
- //删除操作
- $("a[name=delete]").click(function(the){
- var customerId=$(this).attr("value");
- if(confirm("确定要删除数据吗")){
-   window.location.href="${pageContext.servletContext.contextPath}/ggkhc.do?method=delete&customerId="+customerId;
-    }else{
-   }
- 
-
-/* $.ajax({ 
-type : "post", 
-url : "http://localhost:8090/webplus3/_web/sns/delBlog.do?_p=YXM9Mw__&id=" + id, 
-success : function(data) { 
-if(data == "success") { 
-$(the).parents("tr").remove(); 
-parent.initDraft(); 
-} 
-} 
-
-});  */
- });
- 
- 
- $(".click").click(function(){
- 
-   customerId=$(this).attr("value");
-  console.log(customerId+"--"+userId);
+$("a[name=reset]").click(function(){
+  var userRoleId=$(this).attr("userRoleId");
+  var userId=$(this).attr("userId");
+  var url="${pageContext.servletContext.contextPath}/yhgl.do?method=reset";
+  var data={userRoleId:userRoleId,userId:userId};
+  $.getJSON(url,data,function(result){
+    /* $(this).parentNode.append("<font style='color:green;'>"+result+"</font>"); */
+    alert(result);
+  });
+});
+ /* $(".click").click(function(){
   $(".tip").fadeIn(200);  
   });
   
@@ -91,18 +66,13 @@ parent.initDraft();
   $(".tip").fadeOut(200);
 });
 
-//分配客户
   $(".sure").click(function(){
-  userId=$(":selected","#fpkh").attr("value");
-  window.location.href="${pageContext.servletContext.contextPath}/ggkhc.do?method=fpkh&customerId="+customerId+"&userId="+userId;
   $(".tip").fadeOut(100);
-  alert("分配成功！");
-  window.location.href="${pageContext.servletContext.contextPath}/ggkhc.do?method=listGgkh";
 });
 
   $(".cancel").click(function(){
   $(".tip").fadeOut(100);
-});
+});*/
 
  $("button[name=save]").click(function(){
 /*  var name=$(".tip input[name=name]").val(); //客户名称
@@ -121,7 +91,7 @@ parent.initDraft();
  /* var data=name+creator+phone+email+adress+qq+provence+city+county+sales+customer_type; */
  /* var data={customer_name:name,user_creatorid:creator,customer_phone:phone,customer_email:email,customer_adress:adress,customer_qq:qq,provence:provence,city:city,county:county,sales:sales,dicAll_typeid:customer_type,customer_createdate:createdate}; */
  $("#return_info").load(url,data,function(){
-
+   
  });
  })
 
@@ -164,7 +134,7 @@ $("#search").click(function(){
 	.td_left{
 		width: 100px;
 		}
-	.tip{width:500px; height:300px; position:absolute;top:10%; left:10%;background:#fcfdfd;box-shadow:1px 8px 10px 1px #9b9b9b;border-radius:1px;behavior:url(js/pie.htc); display:none; z-index:111111;}
+	.tip{width:1400px; height:600px; position:absolute;top:10%; left:10%;background:#fcfdfd;box-shadow:1px 8px 10px 1px #9b9b9b;border-radius:1px;behavior:url(js/pie.htc); display:none; z-index:111111;}
 
  select {
 	 font-size:14px;
@@ -195,7 +165,7 @@ input[type=checkbox]{
     <ul class="placeul">
     <li><a href="#">CRM</a></li>
      <li><a href="#">客户管理</a></li>
-    <li><a href="#">交往记录管理</a></li>
+    <li><a href="#">账号管理</a></li>
    
     </ul>
     </div>
@@ -205,19 +175,36 @@ input[type=checkbox]{
     <div class="tools">
     
     	<ul class="toolbar">
-        <li  onclick="location.href='${pageContext.servletContext.contextPath}/ggkhc.do?method=listSelect'"><span><img src="${pageContext.servletContext.contextPath}/images/t01.png" /></span>新建交往信息</li>
-        <li  id="search"><span><img src="${pageContext.servletContext.contextPath}/images/ico06.png" /></span>查询</li>
-        <li id="export"><span><img src="${pageContext.servletContext.contextPath}/images/lc04.png" width="25px" height="25px"/></span>导出报表</li>     
+    	<c:if test="${sessionScope.userRole.role.name ne '业务员'}">
+        <li class="click" onclick="location.href='${pageContext.servletContext.contextPath}/page/crm/user_add.jsp'"><span><img src="images/t01.png" /></span>新建账号</li>
+        </c:if>
+        <li class="click" id="search"><span><img src="${pageContext.servletContext.contextPath}/images/ico06.png" /></span>查询</li>
+         <li id="export"><span><img src="${pageContext.servletContext.contextPath}/images/lc04.png" width="25px" height="25px"/></span>导出报表</li>
+         <li><span>${info}</span></li>    
         </ul>
     </div>
     
     <ul class="seachform">
-    <li><label>交往人</label><input name="contactor" type="text" class="scinput" /></li>
-    <li><label>交往内容</label><input name="context" type="text" class="scinput" /></li>
-    <li><label>交往时间</label> 
-          <input name="startTime" type="text" class="scinput" id="d11" onClick="WdatePicker()"/>
-          <input name="endTime" type="text" class="scinput"  id="d11" onClick="WdatePicker()"/>
+    <li><label>用户姓名</label><input name="name" type="text" class="scinput" /></li>
+    <li><label>用户账号</label><input name="code" type="text" class="scinput" /></li>
+    <li><label>用户角色</label>  
+	<select name="user_role">
+	   <option value="no" selected="selected">--</option>
+	   <%-- <c:forEach items="${yhjs}" var="dic" varStatus="status">
+	     <option value="${dic.id}">${status.index+1}:${dic.name}</option>
+	    </c:forEach>	 --%>
+	</select>
+ 
    </li>
+    <%-- <li><label>客户来源</label>  
+    <div class="vocation">
+	<select name="">
+	   <option selected="selected">--</option>
+	   <c:forEach items="${khly}" var="dic" varStatus="status">
+	     <option value="${dic.id}">${status.index+1}:${dic.name}</option>
+	    </c:forEach>	
+	</select>
+   </li> --%>
     
     </ul>
     
@@ -225,37 +212,26 @@ input[type=checkbox]{
     	<thead>
     	<tr>
         <th style="width: 100px">序号</th>
-        <th>交往人</th>
-        <th style="width:200px;">创建人</th>
-        <th>所属客户</th>
-        <th>客户电话</th>
-        <th>开始时间</th>
-        <th>结束时间</th>
-	  	<th>备注</th>
-	  	<th>创建日期</th>
-	  	<th>交往内容</th>
-	  	<th>点评内容</th>
+        <th>姓名</th>
+        <th>账号</th>
+        <th>角色</th>       
+	  	<th>操作</th>	  	
         </tr>
+        
         </thead>
         <tbody>
-        <tr style="height:40px;">
-        <c:forEach items="${page.items}" var="o" varStatus="status">
+        
+        <c:forEach items="${page.items}" var="userRole" varStatus="status">
+          <tr style="height:40px;">
           <td style="width: 50px">${status.index+1}</td>
-          <td>${o.contactor.nickName}</td>
-          <td style="width:180px;">${o.creator.name}</td>
-          <td style="width:100px;">${o.customer.name}</td>
-          <td style="width:100px;">${o.startTime}</td>
-          <td>${o.endTime}</td>
-          <td style="width:180px;">${o.content}</td>
-          <td>${o.createdate}</td>
-          <td>${o.context}</td>
-          <td>${o.remark}</td>
+          <td style="width: 50px">${userRole.user.nickName}</td>
+           <td style="width: 50px">${userRole.user.userName}</td>
+            <td style="width: 50px">${userRole.role.name}</td>
           <td>
-             <a href="${pageContext.servletContext.contextPath}/khxx.do?method=detail&id=${o.id}">查看</a>&nbsp;
+             <a href="${pageContext.servletContext.contextPath}/yhgl.do?method=detail&id=${userRole.id}">查看</a>&nbsp;
              <c:if test="${sessionScope.userRole.role.name eq '管理员'}">
-             <a href="${pageContext.servletContext.contextPath}/khxx.do?method=edit&id=${o.id}">编辑</a>&nbsp;
-             <a href="#" value="${customer.id}" name="delete" >删除</a>&nbsp;
-             <a href="#" class="click" value="${customer.id}">分配</a>&nbsp;
+             <a name="reset" userId="${userRole.user.id}" userRoleId="${userRole.id}" href="#">重置密码</a>&nbsp;
+             <a href="#">删除</a>&nbsp;
             </c:if>
            </td>
         </tr>
@@ -263,13 +239,13 @@ input[type=checkbox]{
         </tbody>
     </table>
     
-  <%--  <c:if test="${page.pageCount gt 0}">
+   <%-- <c:if test="${page.count gt 0}">
     <div class="pagin">
     	<div class="message">共<i class="blue">${page.count}</i>条记录，当前显示第&nbsp;<i class="blue">${page.current}&nbsp;</i>页</div>
         <ul class="paginList">
-        <c:if test="${page.pageCount lt 7}">
+        <c:if test="${page.count lt 7}">
            <li class="paginItem"><a href="javascript:;"><span class="pagepre"></span></a></li>
-             <c:forEach begin="1" step="1" var="index" end="${page.pageCount}" >
+             <c:forEach begin="1" step="1" var="index" end="${page.count}" >
 	             <c:if test="${page.current eq index}">
 	              <li class="paginItem current"><a href="javascript:;">${index}</a></li>
 	             </c:if>
@@ -308,33 +284,20 @@ input[type=checkbox]{
             </c:if>
       </c:if>
   </c:if>          --%>
-       
- <%-- <p:page pages="${page}" link="ggkhc.jsp" prev="上一页" first="首页" last="尾页" next="下一页" ulClass="paginList" /> --%>
+          
+  <p:page pages="${page}" link="yhgl.do?method=listUsers&userId=${sessionScope.userRole.user.id}" prev="上一页" first="首页" last="尾页" next="下一页" ulClass="paginList" />
    
     </div>
     
     <div id="return_info"></div>
     
- <!--转移客户对话框开始  -->
-        <div class="tip">
-    	<div class="tiptop"><span>转移客户</span><a></a></div>
-        
-      <div class="tipinfo">
-      <p style="font-size:30px;">分配给--></p>
-        <select id="fpkh">
-        <c:forEach items="${userRolePages.items}" var="u" varStatus="status">
-        <option value="${u.user.id}">${status.index+1}:${u.role.name}--${u.user.nickName}</option>
-        </c:forEach>
-        </select>
-        </div>
-        
-        <div class="tipbtn">
+    </div>
+
+        <!--<div class="tipbtn">
         <input name="" type="button"  class="sure" value="确定" />&nbsp;
         <input name="" type="button"  class="cancel" value="取消" />
-        </div>
+        </div>-->
     
-    </div>
-   <!-- 结束 --> 
    </div>
      
     </div>

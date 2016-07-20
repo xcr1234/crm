@@ -42,7 +42,17 @@ public class KhxxglAction extends ActionSupport{
 		String sql="select * from customer where delflag=0 and creator_id=?";
 		Object[] params={userId};
 		Pages<Customer> page=khxxglService.listCustomerBySql(sql, params);
-	    req.setAttribute("page", page);
+	    //是否分页
+		
+		String pages=req.getParameter("page");
+		if(pages!=null&&!pages.equals("")){
+			int pageIndex=Integer.parseInt(pages);
+			page.toPage(pageIndex);
+		}else{
+			page.toPage(1);
+		}
+		
+		req.setAttribute("page", page);
 	    
 	    returnView("khxxgl", req, resp);
 	

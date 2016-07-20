@@ -17,8 +17,37 @@
 	<script type="text/javascript" src="${pageContext.servletContext.contextPath}/js/jquery.js"></script>
 	<script type="text/javascript" src="${pageContext.servletContext.contextPath}/js/select-ui.min.js"></script>
 	<script type="text/javascript" src="${pageContext.servletContext.contextPath}/js/jquery.idTabs.min.js"></script>
+	<script type="text/javascript" src="${pageContext.servletContext.contextPath}/js/excel/xlsx.core.min.js"></script>
+    <script type="text/javascript" src="${pageContext.servletContext.contextPath}/js/excel/blob.js"></script>
+    <script type="text/javascript" src="${pageContext.servletContext.contextPath}/js/excel/FileSaver.min.js"></script>
+    <script type="text/javascript" src="${pageContext.servletContext.contextPath}/js/excel/tableexport-3.2.min.js"></script>
+    <script type="text/javascript" src="${pageContext.servletContext.contextPath}/js/DateUtil.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
+$.fn.tableExport.xlsx = {
+    defaultClass: "xlsx",
+    buttonContent: "确认导出",
+    mimeType: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+    fileExtension: ".xlsx"
+};
+$("#export").click(function(){
+ var tableName="公共客户池"; //初始化表名
+ var column=9;  //初始化忽略的列，从0开始。
+ var date=new Date();
+ var time=formatDate(date, "yyyy-MM-dd");
+ var fileName=tableName+"-第"+${page.pageCount}+'页-'+time;
+	$("table").tableExport({
+	    headings: true, 
+	    footers: true, 
+	    formats: ["xlsx"],
+	    fileName: fileName,
+	    bootstrap: false,
+	    position: "bottom",
+	    ignoreRows: null,
+	    ignoreCols: column
+}); 
+});
+
  var customerId=null;
  var userId=null;
  //分配销售负责人(业务员)
@@ -165,7 +194,7 @@ input[type=checkbox]{
     <ul class="placeul">
     <li><a href="#">CRM</a></li>
      <li><a href="#">客户管理</a></li>
-    <li><a href="#">公共客户池</a></li>
+    <li><a href="#">交往记录</a></li>
    
     </ul>
     </div>
@@ -179,7 +208,7 @@ input[type=checkbox]{
         <li  onclick="location.href='${pageContext.servletContext.contextPath}/ggkhc.do?method=listSelect'"><span><img src="images/t01.png" /></span>新建客户</li>
         </c:if>
         <li  id="search"><span><img src="${pageContext.servletContext.contextPath}/images/ico06.png" /></span>查询</li>
-        <li><span><img src="${pageContext.servletContext.contextPath}/images/t05.png" /></span>重置</li>     
+       <li id="export"><span><img src="${pageContext.servletContext.contextPath}/images/lc04.png" width="25px" height="25px"/></span>导出报表</li>          
         </ul>
     </div>
     
@@ -247,7 +276,7 @@ input[type=checkbox]{
         </tbody>
     </table>
     
-   <c:if test="${page.pageCount gt 0}">
+  <%--  <c:if test="${page.pageCount gt 0}">
     <div class="pagin">
     	<div class="message">共<i class="blue">${page.count}</i>条记录，当前显示第&nbsp;<i class="blue">${page.current}&nbsp;</i>页</div>
         <ul class="paginList">
@@ -291,36 +320,9 @@ input[type=checkbox]{
              <li class="paginItem"><a href="javascript:;"><span class="pagenxt"></span></a></li>
             </c:if>
       </c:if>
-  </c:if>         
-           <%-- <li class="paginItem"><a href="javascript:;"><span class="pagepre"></span></a></li>
-             <c:forEach begin="1" step="1" var="index" end="${page.count}" >
-	             <c:if test="${page.current eq index}">
-	              <li class="paginItem current"><a href="javascript:;">${index}</a></li>
-	             </c:if>
-	             <c:if test="${page.current ne index}">
-	              <li class="paginItem"><a href="javascript:;">${index}</a></li>
-	             </c:if>
-             <li class="paginItem"><a href="javascript:;">3</a></li>
-             </c:forEach>
-          <li class="paginItem"><a href="javascript:;"><span class="pagenxt"></span></a></li>
-        </c:if>
-        
-        </c:if>
-        <c:forEach begin="${page.current}" step="1" var="index" end="${page.current}" >
-        
-          <li class="paginItem"><a href="javascript:;"><span class="pagepre"></span></a></li>
-        </c:forEach>
-        <li class="paginItem"><a href="javascript:;"><span class="pagepre"></span></a></li>
-        <li class="paginItem"><a href="javascript:;">1</a></li>
-        <li class="paginItem current"><a href="javascript:;">2</a></li>
-        <li class="paginItem"><a href="javascript:;">3</a></li>
-        <li class="paginItem"><a href="javascript:;">4</a></li>
-        <li class="paginItem"><a href="javascript:;">5</a></li>
-        <li class="paginItem more"><a href="javascript:;">...</a></li>
-        <li class="paginItem"><a href="javascript:;">10</a></li>
-        <li class="paginItem"><a href="javascript:;"><span class="pagenxt"></span></a></li>
-        </ul> --%>
- <%-- <p:page pages="${page}" link="ggkhc.jsp" prev="上一页" first="首页" last="尾页" next="下一页" ulClass="paginList" /> --%>
+  </c:if>          --%>
+           
+  <p:page pages="${page}" link="ggkhc.do?method=listGgkh&" prev="上一页" first="首页" last="尾页" next="下一页" ulClass="paginList" />
    
     </div>
     

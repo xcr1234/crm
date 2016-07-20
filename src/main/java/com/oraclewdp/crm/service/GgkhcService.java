@@ -18,7 +18,7 @@ public interface GgkhcService {
 	 * @tags @param PageNum
 	 * @tags @return
 	 */
-	public Pages<Customer> listGgkhc(int pageIndex, int pageNum);
+	public Pages<Customer> listGgkhc();
 
 	/**
 	 * 保存公共客户池的信息
