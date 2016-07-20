@@ -9,6 +9,10 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
 
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
+
 /**
  * 提供jdbc数据的连接类， 自动读取配置
  * @author xcr
@@ -26,9 +30,26 @@ public class JdbcUtil {
         this.user = user;
         this.pwd = pwd;
     }
+    private JdbcUtil(){
+    	
+    }
 
 
     private static JdbcUtil jdbcUtil = null;
+    private static DataSource dataSource;
+    private Connection connection=null;
+    
+    static{
+    	InitialContext context;
+		try {
+			context = new InitialContext();
+			dataSource=(DataSource) context.lookup("java:comp/env/jdbc/c3p0"); 
+		} catch (NamingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
+		
+    }
     
     
 /**
@@ -38,7 +59,11 @@ public class JdbcUtil {
  * @tags @return JdbcUtil
  */
     public  synchronized  static JdbcUtil getInstance(){
-        return getInstance("db.properties");
+       /* return getInstance("db.properties");*/
+    	if (jdbcUtil==null){
+    		jdbcUtil=new JdbcUtil();
+    	}
+    	return jdbcUtil;
     }
 
     public  synchronized  static JdbcUtil getInstance(String f){
@@ -82,19 +107,26 @@ public class JdbcUtil {
      */
     public Connection getConnection(){
 
-        Connection connection = threadLocal.get();
+       /* Connection connection = threadLocal.get();*/
         if(connection==null){
-            try {
+            /*try {
 				connection = DriverManager.getConnection(url,user,pwd);
 				threadLocal.set(connection);
             } catch (SQLException e) {
 			
 				e.printStackTrace();
-			}
+			}*/
             
+            try {
+				connection=dataSource.getConnection();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
         }
+		return connection;
 
-        return connection;
+       
 
     }
 
@@ -111,9 +143,5 @@ public class JdbcUtil {
             threadLocal.remove();
         }
     }
-
-
-
-
 
 }
