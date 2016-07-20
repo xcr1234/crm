@@ -33,7 +33,111 @@
         $(function(){
 
             $("#createdate").val(new Date().format("yyyy-MM-dd"));
-        })
+
+            var func = function(){
+                var price = $(this).find("option:selected").data("price");
+                $(this).parents("tr").find(".goodprice").val(price);
+
+            };
+            $("select[name='goods']").change(func);
+            func.call($("select[name='goods']"));
+
+
+            $(".delRow").click(function () {
+                $(this).parents(".repeatRow").remove();
+            });
+
+
+
+            $("input[name='count']").change(function () {
+                calc.call(this);
+            });
+
+            $("input[name='rate']").change(function () {
+                calc.call($(this).parents("tr").find("input[name='count']"));
+            });
+
+            $("input[name='cdzk']").change(function () {
+                var total = $("input[name='totle_price']").val();
+                var zk = parseInt($(this).val());
+                if($.isNumeric(total)){
+
+
+
+                    $("input[name='totle_discount_price']").val((total-total*zk/100).toFixed(2));
+                }
+
+            });
+
+
+
+
+
+
+            //clone一定要放在最后面
+            var clone = $(".repeatRow").clone(true);
+
+            $("#appendRow").click(function () {
+
+                $(".tableform").append($(clone).clone(true));
+
+            });
+
+        });
+
+        function calc() {
+
+            var val = $(this).val();
+            if(!$.isNumeric(val)){
+
+                $(this).parents("tr").find("input[name='per_price_rate']").val("");
+                $(this).parents("tr").find("input[name='price_rate']").val("");
+                $(this).parents("tr").find("input[name='price']").val("");
+                $(this).parents("tr").find("input[name='totle_price']").val("");
+
+            }else{
+                var num = parseInt(val);
+                var rate = parseInt($(this).parents("tr").find("input[name='rate']").val());
+                var price = parseFloat( $(this).parents("tr").find("input[name='goodprice']").val());
+
+
+                $(this).parents("tr").find("input[name='per_price_rate']").val(price+rate/100*price);
+                $(this).parents("tr").find("input[name='price_rate']").val(num*price*rate/100);
+                $(this).parents("tr").find("input[name='price']").val(num*price);
+                $(this).parents("tr").find("input[name='totle_price']").val(num*price+num*price*rate/100);
+            };
+
+
+            $("input[name='totle_count']").sum("input[name='count']");
+            $("input[name='totle_rate']").sum("input[name='rate']");
+            $("input[name='totle_pre_price_rate']").sum("input[name='per_price_rate']");
+            $("input[name='totle_price_rate']").sum("input[name='price_rate']");
+            $("input[name='totle_price']").sum("input[name='price']");
+
+
+
+
+
+
+        };
+
+        $.fn.sum = function (selector) {
+            var sum = 0;
+            $(selector).each(function () {
+                var val = $(this).val();
+                if($.isNumeric(val)){
+                    sum = sum + parseFloat(val);
+                }
+
+            });
+            $(this).val(sum);
+        }
+
+
+
+
+
+
     </script>
     <style type="text/css">
         body{
@@ -80,28 +184,7 @@
             /*height:18px;*/
         }
     </style>
-    <script type="text/javascript">
 
-        $(function () {
-            $(".delRow").click(function () {
-                $(this).parents(".repeatRow").remove();
-            });
-
-
-            var clone = $(".repeatRow").clone(true);
-
-            $("#appendRow").click(function () {
-
-                $(".tableform").append($(clone).clone(true));
-
-            });
-
-
-
-
-
-        });
-    </script>
 </head>
 <body>
 <div class="tip">
@@ -135,26 +218,26 @@
                     <td><input type="text" name="phone" class="dfinput"></td>
                 </tr>
                 <tr>
-                    <td class="td_left">菜单折扣:</td>
-                    <td><input name="cdzk" type="text" class="dfinput" /><i></i></td>
+                    <td class="td_left">菜单折扣:%</td>
+                    <td><input name="cdzk" type="number" class="dfinput" value="100" /><i></i></td>
                     <td class="td_left">数量合计:</td>
-                    <td><input name="totle_count" type="text" class="dfinput"/><i></i></td>
+                    <td><input name="totle_count" type="text" class="dfinput" readonly="readonly"/><i></i></td>
                     <td class="td_left">税率合计:</td>
-                    <td><input name="totle_rate" type="text" class="dfinput"/><i></i>
+                    <td><input name="totle_rate" type="text" class="dfinput" readonly="readonly"/><i></i>
                     </td>
                 </tr>
                 <tr>
                     <td class="td_left">含税单价合计:</td>
-                    <td><input name="totle_pre_price_rate" type="text" class="dfinput"/><i></i></td>
+                    <td><input name="totle_pre_price_rate" type="text" class="dfinput" readonly="readonly"/><i></i></td>
                     <td class="td_left">税金合计:</td>
-                    <td><input name="totle_price_rate" type="text" class="dfinput"/><i></i></td>
+                    <td><input name="totle_price_rate" type="text" class="dfinput" readonly="readonly"/><i></i></td>
                     <td class="td_left">货款合计:</td>
-                    <td><input name="totle_price" type="text" class="dfinput"/><i></i>
+                    <td><input name="totle_price" type="text" class="dfinput" readonly="readonly"/><i></i>
                     </td>
                 </tr>
                 <tr>
                     <td class="td_left">折扣后合计:</td>
-                    <td><input name="totle_discount_price" type="text" class="dfinput"/><i></i></td>
+                    <td><input name="totle_discount_price" type="text" class="dfinput" readonly="readonly"/><i></i></td>
                     <td class="td_left">所属客户</td>
                     <td>
                         <select name="sskh">
@@ -172,13 +255,15 @@
                 <thead>
                 <tr>
                     <th>商品</th>
+                    <th>商品单价</th>
                     <th>数量</th>
                     <th>税率%</th>
                     <th>含税单价</th>
-                    <th>摘要</th>
+
                     <th>税金</th>
                     <th>货款</th>
                     <th>合计</th>
+                    <th>摘要</th>
                     <th>&nbsp;</th>
                 </tr>
 
@@ -190,17 +275,19 @@
                     <td>
                         <select name="goods">
                             <c:forEach items="${goodsList}" var="item">
-                                <option value="${item.id}">${item.name}</option>
+                                <option value="${item.id}" data-price="${item.price}">${item.name}</option>
                             </c:forEach>
                         </select>
                     </td>
-                    <td><input type="text" name="count"/></td>
-                    <td><input type="text" name="rate"/></td>
-                    <td><input type="text" name="per_price_rate"/></td>
+                    <td><input type="text" readonly="readonly" class="goodprice" name="goodprice"></td>
+                    <td><input type="number" name="count" /></td>
+                    <td><input type="number" name="rate" value="0"/></td>
+                    <td><input type="number" name="per_price_rate" value="0" readonly="readonly"/></td>
+
+                    <td><input type="number" name="price_rate" readonly="readonly"/></td>
+                    <td><input type="number" name="price" readonly="readonly"/></td>
+                    <td><input type="number" name="totle_price" readonly="readonly"/></td>
                     <td><input type="text" name="digest"/></td>
-                    <td><input type="text" name="price_rate"/></td>
-                    <td><input type="text" name="price"/></td>
-                    <td><input type="text" name="totle_price"/></td>
                     <td style="text-align: center"><a href="javascript:;"  class="delRow">删除</a></td>
                 </tr>
 
