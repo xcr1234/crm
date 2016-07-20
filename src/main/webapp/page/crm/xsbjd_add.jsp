@@ -14,6 +14,7 @@
     <script type="text/javascript" src="${pageContext.servletContext.contextPath}/js/jquery.js"></script>
     <script type="text/javascript" src="${pageContext.servletContext.contextPath}/js/select-ui.min.js"></script>
     <script type="text/javascript" src="${pageContext.servletContext.contextPath}/js/jquery.idTabs.min.js"></script>
+    <script type="text/javascript" src="${pageContext.servletContext.contextPath}/plugin/My97DatePicker/WdatePicker.js"></script>
     <script>
         Date.prototype.format = function (fmt) { //author: meizz
             var o = {
@@ -205,11 +206,11 @@
                         </select>
                     </td>
                     <td class="td_left">有效日期:</td>
-                    <td><input name="yxrq" type="text" class="dfinput"></td>
+                    <td><input name="yxrq" type="text" class="dfinput"  onClick="WdatePicker()"></td>
                 </tr>
                 <tr>
                     <td class="td_left">报价日期:</td>
-                    <td><input name="bjrq" type="text" class="dfinput"/><i></i></td>
+                    <td><input name="bjrq" type="text" class="dfinput"  onClick="WdatePicker()"/><i></i></td>
                     <td class="td_left">创建人:</td>
                     <td>
                         <input name="creator" type="text" class="dfinput"/><i></i>
@@ -247,7 +248,7 @@
                         </select>
                     </td>
                     <td class="td_left">创建日期</td>
-                    <td><input type="text" value="" id="createdate" name="createdate"></td>
+                    <td><input type="text" value="" id="createdate" name="createdate" class="dfinput"  onClick="WdatePicker()"></td>
                 </tr>
             </table>
             <div class="formtitle"><span>报价单商品列表</span></div>

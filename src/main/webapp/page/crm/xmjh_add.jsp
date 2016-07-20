@@ -14,6 +14,7 @@
     <script type="text/javascript" src="${pageContext.servletContext.contextPath}/js/jquery.js"></script>
     <script type="text/javascript" src="${pageContext.servletContext.contextPath}/js/select-ui.min.js"></script>
     <script type="text/javascript" src="${pageContext.servletContext.contextPath}/js/jquery.idTabs.min.js"></script>
+    <script type="text/javascript" src="${pageContext.servletContext.contextPath}/plugin/My97DatePicker/WdatePicker.js"></script>
     <script>
         Date.prototype.format = function (fmt) { //author: meizz
             var o = {
@@ -32,7 +33,7 @@
         };
         $(function(){
 
-            $("#createdate").val(new Date().format("yyyy/MM/dd"));
+            $("#createdate").val(new Date().format("yyyy-MM-dd"));
         })
     </script>
     <style type="text/css">
@@ -151,7 +152,7 @@
                         </select>
                     </td>
                     <td class="td_left">创建日期:</td>
-                    <td><input name="createdate" id="createdate" type="text" class="dfinput"/><i></i></td>
+                    <td><input name="createdate" id="createdate" type="text" class="dfinput"  onClick="WdatePicker()"/><i></i></td>
                 </tr>
             </table>
 

@@ -15,6 +15,7 @@
 	<script type="text/javascript" src="${pageContext.servletContext.contextPath}/js/jquery.js"></script>
 	<script type="text/javascript" src="${pageContext.servletContext.contextPath}/js/select-ui.min.js"></script>
 	<script type="text/javascript" src="${pageContext.servletContext.contextPath}/js/jquery.idTabs.min.js"></script>
+      <script type="text/javascript" src="${pageContext.servletContext.contextPath}/plugin/My97DatePicker/WdatePicker.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
   $(".click").click(function(){
@@ -101,7 +102,7 @@ input[type=checkbox]{
     <ul class="seachform">
     <li><label>报价单编号</label><input name="" type="text" class="scinput" /></li>
     <li><label>客户名称</label><input name="" type="text" class="scinput" /></li>
-    <li><label>创建日期 </label><input name="" type="text" class="scinput" /></li>
+    <li><label>创建日期 </label><input name="" type="text" class="scinput"   onClick="WdatePicker()" /></li>
     
     </ul>
     
