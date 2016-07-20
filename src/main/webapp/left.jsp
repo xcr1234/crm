@@ -99,7 +99,7 @@ $(function(){
     <ul class="menuson">
         <li><cite></cite><a href="${pageContext.servletContext.contextPath}/xmjh.do?method=listXmjh" target="rightFrame">项目机会</a><i></i></li>
         <li><cite></cite><a href="${pageContext.servletContext.contextPath}/xmjh.do?method=chart" target="rightFrame">机会分析图</a><i></i></li>
-        <li><cite></cite><a href="javascript:;" target="rightFrame">销售标价表</a><i></i></li>
+        <li><cite></cite><a href="${pageContext.servletContext.contextPath}/xmjh.do?method=listXsbjd" target="rightFrame">销售标价表</a><i></i></li>
         </ul>     
     </dd>    
     <dd><div class="title"><span><img src="images/leftico03.png" /></span>产品管理</div>

@@ -29,17 +29,17 @@ public class Bjd {
     private String createdate;
 
     private Integer discount;
-
+    @Column("totle_count")
     private Integer totleCount;
-
+    @Column("totle_rate")
     private Float totleRate;
-
+    @Column("totle_pre_price_rate")
     private Float totlePrePriceRate;
-
+    @Column("totle_price_rate")
     private Float totlePriceRate;
-
+    @Column("totle_price")
     private Float totlePrice;
-
+    @Column("totle_discount_price")
     private Float totleDiscountPrice;
 
     public Integer getId() {

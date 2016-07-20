@@ -1,5 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn"
+           uri="http://java.sun.com/jsp/jstl/functions" %>
 <%
     String path = request.getContextPath();
     String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -88,7 +90,7 @@
         <form action="<%=basePath%>xmjh.do?method=add_submit" method="post" name="gh_form">
             <table>
                 <tr>
-                    <td class="td_left">机会编号:</td>
+                                       <td class="td_left">机会编号:</td>
                     <td><input name="code" type="text" class="dfinput" disabled="disabled" value="系统自动生成"/><i></i></td>
                     <td class="td_left">机会名称:</td>
                     <td><input name="name" type="text" class="dfinput"/><i></i></td>

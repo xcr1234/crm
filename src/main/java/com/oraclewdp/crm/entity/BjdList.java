@@ -16,15 +16,15 @@ public class BjdList {
     private Integer count;
 
     private Integer rate;
-
+    @Column("per_price_rate")
     private Float perPriceRate;
 
     private String digest;
-
+    @Column("price_rate")
     private Float priceRate;
 
     private Float price;
-
+    @Column("totle_price")
     private Float totlePrice;
 
     public Integer getId() {

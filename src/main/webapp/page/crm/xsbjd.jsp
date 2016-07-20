@@ -92,7 +92,7 @@ input[type=checkbox]{
     <div class="tools">
     
     	<ul class="toolbar">
-        <li class="click"><span><img src="images/t01.png" /></span>新建报价单</li>
+        <li class="click" onclick="location.href='${pageContext.servletContext.contextPath}/xmjh.do?method=addXsbjd'"><span><img src="images/t01.png" /></span>新建报价单</li>
         <li class="click"><span><img src="images/ico06.png" /></span>查询</li>
         <li><span><img src="images/t05.png" /></span>重置</li>     
         </ul>
@@ -121,46 +121,42 @@ input[type=checkbox]{
         </tr>
         </thead>
         <tbody>
+		<c:forEach items="${pages.items}" var="item">
         <tr>
           <td style="width: 150px"><input name="" type="checkbox" value="" checked="checked"/></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td><a href="#">查看</a>&nbsp;<a href="#">编辑</a>&nbsp;</td>
+          <td>${item.code}</td>
+          <td>${item.creator}</td>
+          <td>${item.bjrq}</td>
+          <td>${item.createdate}</td>
+          <td>${item.yxrq}</td>
+          <td>${item.sskh.name}</td>
+          <td>${item.bjr.nickName}</td>
+          <td>￥${item.totleDiscountPrice}</td>
+          <td><a href="${pageContext.servletContext.contextPath}/xmjh.do?method=view&id=${item.id}">查看</a>&nbsp;<a href="#">编辑</a>&nbsp;</td>
         </tr>
+		</c:forEach>
         </tbody>
     </table>
-    
-    <div class="pagin">
-    	<div class="message">共<i class="blue">1256</i>条记录，当前显示第&nbsp;<i class="blue">2&nbsp;</i>页</div>
-        <ul class="paginList">
-        <li class="paginItem"><a href="javascript:;"><span class="pagepre"></span></a></li>
-        <li class="paginItem"><a href="javascript:;">1</a></li>
-        <li class="paginItem current"><a href="javascript:;">2</a></li>
-        <li class="paginItem"><a href="javascript:;">3</a></li>
-        <li class="paginItem"><a href="javascript:;">4</a></li>
-        <li class="paginItem"><a href="javascript:;">5</a></li>
-        <li class="paginItem more"><a href="javascript:;">...</a></li>
-        <li class="paginItem"><a href="javascript:;">10</a></li>
-        <li class="paginItem"><a href="javascript:;"><span class="pagenxt"></span></a></li>
-        </ul>
-    </div>
-     
-      <th>报价单编号</th>
-        <th>创建人</th>
-        <th>报价日期</th>
-        <th>创建日期</th>
-        <th>报价有效期</th>
-	  	<th>所属客户</th>
-	  	<th>报价人</th>
-	  	<th>总金额</th>
-	  	<th>操作</th>
-     	
+
+		<p:page pages="${page}" link="xmjh.do?method=listXsbjd" prev="上一页" first="首页" last="尾页" next="下一页" ulClass="paginList" />
+
+
+		<!--<div class="pagin">
+            <div class="message">共<i class="blue">1256</i>条记录，当前显示第&nbsp;<i class="blue">2&nbsp;</i>页</div>
+            <ul class="paginList">
+            <li class="paginItem"><a href="javascript:;"><span class="pagepre"></span></a></li>
+            <li class="paginItem"><a href="javascript:;">1</a></li>
+            <li class="paginItem current"><a href="javascript:;">2</a></li>
+            <li class="paginItem"><a href="javascript:;">3</a></li>
+            <li class="paginItem"><a href="javascript:;">4</a></li>
+            <li class="paginItem"><a href="javascript:;">5</a></li>
+            <li class="paginItem more"><a href="javascript:;">...</a></li>
+            <li class="paginItem"><a href="javascript:;">10</a></li>
+            <li class="paginItem"><a href="javascript:;"><span class="pagenxt"></span></a></li>
+            </ul>
+        </div>-->
+
+     	<%--
      <!--添加用户对话框开始-->
     <div class="tip">
     	<div class="ke-dialog-body">
@@ -267,6 +263,7 @@ input[type=checkbox]{
 	时间：2016-07-13
 	描述：对话框结束
 -->
+--%>
         
     
   
