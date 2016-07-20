@@ -10,10 +10,10 @@ public class Contact {
     private User contact;
     @Column(value = "creator",foreign = "user",target = "id")
     private User creator;
-
+    @Column(value="customer_id",foreign="customer",target="id")
+    private Customer customer;
+    
     private String createdate;
-
-    private Integer customerId;
 
     private String phone;
 
@@ -24,6 +24,8 @@ public class Contact {
     private String startTime;
     
     private String endTime;
+    
+    private String context;
 
     private Integer attachId;
 
@@ -57,14 +59,6 @@ public class Contact {
 
 	public void setCreatedate(String createdate) {
 		this.createdate = createdate;
-	}
-
-	public Integer getCustomerId() {
-		return customerId;
-	}
-
-	public void setCustomerId(Integer customerId) {
-		this.customerId = customerId;
 	}
 
 	public String getPhone() {
@@ -115,5 +109,22 @@ public class Contact {
 		this.attachId = attachId;
 	}
 
+	public Customer getCustomer() {
+		return customer;
+	}
+
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
+	}
+
+	public String getContext() {
+		return context;
+	}
+
+	public void setContext(String context) {
+		this.context = context;
+	}
+
+	
    
 }
