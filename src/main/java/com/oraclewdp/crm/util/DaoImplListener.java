@@ -8,7 +8,7 @@ import javax.servlet.annotation.WebListener;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-@WebListener
+
 public class DaoImplListener implements ServletRequestListener {
     @Override
     public void requestDestroyed(ServletRequestEvent event) {
