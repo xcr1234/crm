@@ -58,7 +58,7 @@
                 calc.call($(this).parents("tr").find("input[name='count']"));
             });
 
-            $("input[name='cdzk']").change(function () {
+            $("input[name='discount']").change(function () {
 
 
                 var zk = parseInt($(this).val());
@@ -121,7 +121,7 @@
 
 
 
-            $("input[name='cdzk']").change();
+            $("input[name='discount']").change();
 
 
 
@@ -226,7 +226,7 @@
                 </tr>
                 <tr>
                     <td class="td_left">菜单折扣:%</td>
-                    <td><input name="cdzk" type="number" class="dfinput" value="100" /><i></i></td>
+                    <td><input name="discount" type="number" class="dfinput" value="100" /><i></i></td>
                     <td class="td_left">数量合计:</td>
                     <td><input name="totle_count" type="text" class="dfinput" readonly="readonly"/><i></i></td>
                     <td class="td_left">税率合计:</td>
