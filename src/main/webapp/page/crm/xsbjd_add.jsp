@@ -59,13 +59,15 @@
             });
 
             $("input[name='cdzk']").change(function () {
-                var total = $("input[name='totle_price']").val();
+
+
                 var zk = parseInt($(this).val());
+                var total = parseFloat($("input[name='totle_price']").val());
                 if($.isNumeric(total)){
 
 
 
-                    $("input[name='totle_discount_price']").val((total-total*zk/100).toFixed(2));
+                    $("input[name='totle_discount_price']").val((total*zk/100).toFixed(2));
                 }
 
             });
@@ -116,6 +118,10 @@
             $("input[name='totle_price']").sum("input[name='price']");
 
 
+
+
+
+            $("input[name='cdzk']").change();
 
 
 
