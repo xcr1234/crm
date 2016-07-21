@@ -55,7 +55,11 @@
             });
 
             $("input[name='rate']").change(function () {
+
                 calc.call($(this).parents("tr").find("input[name='count']"));
+
+
+
             });
 
             $("input[name='discount']").change(function () {
@@ -115,7 +119,7 @@
             $("input[name='totle_rate']").sum("input[name='rate']");
             $("input[name='totle_pre_price_rate']").sum("input[name='per_price_rate']");
             $("input[name='totle_price_rate']").sum("input[name='price_rate']");
-            $("input[name='totle_price']").sum("input[name='price']");
+            $("#table1 input[name='totle_price']").sum("#table2 input[name='price']");
 
 
 
@@ -198,7 +202,7 @@
     <div class="ke-dialog-body">
         <div class="formtitle"><span>销售报价单添加</span></div>
         <form action="<%=basePath%>xmjh.do?method=addXsbjd_submit" method="post" name="gh_form">
-            <table>
+            <table id="table1">
 
                 <tr>
                     <td class="td_left">报价单编号:</td>
@@ -258,7 +262,7 @@
                 </tr>
             </table>
             <div class="formtitle"><span>报价单商品列表</span></div>
-            <table class="tableform" style="    width: 1100px;">
+            <table class="tableform" style="    width: 1100px;" id="table2">
                 <thead>
                 <tr>
                     <th>商品</th>
