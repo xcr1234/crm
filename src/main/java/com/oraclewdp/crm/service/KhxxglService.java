@@ -5,6 +5,7 @@ import java.sql.Connection;
 import com.oraclewdp.crm.dao.CustomerDao;
 import com.oraclewdp.crm.dao.impl.CustomerDaoImpl;
 import com.oraclewdp.crm.entity.Customer;
+import com.oraclewdp.crm.entity.UserRole;
 import com.oraclewdp.crm.util.JdbcUtil;
 import com.oraclewdp.crm.util.Pages;
 
@@ -17,4 +18,13 @@ public interface KhxxglService {
 	 * @tags @return
 	 */
      public Pages<Customer> listCustomerBySql(String sql,Object[] params);
+
+    /**
+     * 根据不同的权限得到不同的内容
+     */
+     public Pages<Customer> listCustomerByUserRole();
+
+     public UserRole getUserRole(int userRoleId);
+     
+     public Pages<Customer> getAll();
 }

@@ -1,4 +1,5 @@
 <%@ page language="java" import="java.util.*" contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -6,6 +7,13 @@
 <title>无标题文档</title>
 <link href="${pageContext.servletContext.contextPath}/css/style.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="${pageContext.servletContext.contextPath}/js/jquery.js"></script>
+<script type="text/javascript" src="${pageContext.servletContext.contextPath}/js/excel/xlsx.core.min.js"></script>
+<script type="text/javascript" src="${pageContext.servletContext.contextPath}/js/excel/blob.js"></script>
+<script type="text/javascript" src="${pageContext.servletContext.contextPath}/js/excel/FileSaver.min.js"></script>
+<script type="text/javascript" src="${pageContext.servletContext.contextPath}/js/excel/tableexport-3.2.min.js"></script>
+<script type="text/javascript" src="${pageContext.servletContext.contextPath}/js/select-ui.min.js"></script>
+<script type="text/javascript" src="${pageContext.servletContext.contextPath}/js/jquery.idTabs.min.js"></script>
+<script type="text/javascript" src="${pageContext.servletContext.contextPath}/js/DateUtil.js"></script>
 <script language="javascript">
 $(function(){
 	//导航切换
@@ -17,6 +25,30 @@ $(function(){
 </script>
 <script type="text/javascript">
 $(document).ready(function(){
+$.fn.tableExport.xlsx = {
+    defaultClass: "xlsx",
+    buttonContent: "确认导出",
+    mimeType: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+    fileExtension: ".xlsx"
+};
+$("#export").click(function(){
+ var tableName="客户关怀表"; //初始化表名
+ var column=9;  //初始化忽略的列，从0开始。
+ var date=new Date();
+ var time=formatDate(date, "yyyy-MM-dd");
+ var fileName=tableName+"-第"+${page.current}+'页-'+time;
+	$("table").tableExport({
+	    headings: true, 
+	    footers: true, 
+	    formats: ["xlsx"],
+	    fileName: fileName,
+	    bootstrap: false,
+	    position: "bottom",
+	    ignoreRows: null,
+	    ignoreCols: column
+}); 
+});
+      
   /*$(".click").click(function(){
   $(".tip").fadeIn(200);
    });
@@ -55,84 +87,60 @@ $(document).ready(function(){
     	<ul class="toolbar">
         <li class="click" onclick="location.href='khgh_add.jsp'"><span><img src="${pageContext.servletContext.contextPath}/images/t01.png" /></span>新建关怀信息</li>
         <li><span><img src="${pageContext.servletContext.contextPath}/images/ico06.png" /></span>查询</li>
-        <li><span><img src="${pageContext.servletContext.contextPath}/images/t03.png" /></span>重置</li>
-        </ul>
-        
-        
-        <ul class="toolbar1">
-        <li><span><img src="${pageContext.servletContext.contextPath}/images/t05.png" /></span>设置</li>
+        <li id="export"><span><img src="${pageContext.servletContext.contextPath}/images/lc04.png" width="25px" height="25px"/></span>导出报表</li>
         </ul>
     
-    </div>
-    <table style="font-size:300px;">
+     </div>
+     <ul class="seachform">
+    <li><label>关怀客户</label><input name="name" type="text" class="scinput" /></li>
+    <li><label>创建人</label><input name="code" type="text" class="scinput" /></li>
+    <li><label>关怀内容</label>  
+	<input name="code" type="text" class="scinput" />
+ 
+   </li>
+    
+    </ul>
+     
+     <table class="tablelist" id="tablelist">
+    	<thead>
     	<tr>
-        <td><label>客户名称：&nbsp;&nbsp;</label><input name="" type="text" class="scinput1" /></td>
-        <td><label>&nbsp;&nbsp;销售负责人：&nbsp;&nbsp;</label><input name="" type="text" class="scinput1" /></td>
-        <td><label>&nbsp;&nbsp;关怀日期:&nbsp;&nbsp;</label><input name="" type="text" class="scinput1" /></td>
-        <td><label>--</label><input name="" type="text" class="scinput1" /></td>
-      </tr>
-    </table>
-    <br />
-    <table class="imgtable">
-    
-    <thead>   
-    <tr>
-    
-    <th width="100px;">关怀日期</th>
-    <th>关怀主题</th>
-    <th>客户</th>
-    <th>联系人</th>
-    <th>联系电话</th>
-    <th>联系人手机</th>
-    <th>销售负责联系人</th>
-    <th>创建人</th>
-    <th>启用状态</th>
-    <th>操作</th>
-    </tr>
-    </thead>
-    <tbody>
-
-					<tr>
-						<td></td>
-						<td><a href="#">非常不错的国外后台模板，支持HTML5</a>
-							<p>发布时间：2013-10-12 09:25:18</p>
-						</td>
-						<td>后台界面
-							<p>ID: 82122</p>
-						</td>
-						<td>开放浏览</td>
-						<td>admin</td>
-						<td>已审核</td>
-						<td>128</td>
-						<td>已审核</td>
-						<td>128</td>
-						<td><a href="#">查看</a>&nbsp;&nbsp;<a href="#">编辑</a></td>
-					</tr>
-
-				</tbody>
-    
-    
+        <th style="width: 100px">序号</th>
+        <th>关怀客户</th>
+        <th style="width:200px;">关怀日期</th>
+        <th>联系人电话</th>
+        <th>联系人手机</th>
+        <th>创建人</th>
+        <th>创建日期</th>
+        <th>关怀内容</th>
+	  	<th>备注</th>
+	  	<th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr style="height:40px;">
+        <c:forEach items="${page.items}" var="o" varStatus="status">
+          <td style="width: 50px">${status.index+1}</td>
+          <td style="width:100px;">${o.customer.name}</td>
+          <td>${o.date}</td>
+          <td>${o.phone}</td>
+          <td>${o.phone2}</td>
+          <td>${o.creator.nickName}</td>
+          <td style="width:100px;">${o.creatdate}</td>
+          <td style="width:180px;">${o.content}</td>
+          <td>${o.remark}</td>
+          <td>
+             <a href="${pageContext.servletContext.contextPath}/khgh.do?method=detail&id=${o.id}">查看</a>&nbsp;
+             <c:if test="${sessionScope.userRole.role.name eq '管理员'}">
+             <a href="${pageContext.servletContext.contextPath}/cpxxgl.do?method=edit&id=${o.id}">编辑</a>&nbsp;
+             <a href="#" value="${o.id}" name="delete" >删除</a>&nbsp;
+            </c:if>
+           </td>
+        </tr>
+         </c:forEach>
+        </tbody>
     </table>
     
-    
-    
-    
-    
-   
-    <div class="pagin">
-    	<div class="message">共<i class="blue">1256</i>条记录，当前显示第&nbsp;<i class="blue">2&nbsp;</i>页</div>
-        <ul class="paginList">
-        <li class="paginItem"><a href="javascript:;"><span class="pagepre"></span></a></li>
-        <li class="paginItem"><a href="javascript:;">1</a></li>
-        <li class="paginItem current"><a href="javascript:;">2</a></li>
-        <li class="paginItem"><a href="javascript:;">3</a></li>
-        <li class="paginItem"><a href="javascript:;">4</a></li>
-        <li class="paginItem"><a href="javascript:;">5</a></li>
-        <li class="paginItem more"><a href="javascript:;">...</a></li>
-        <li class="paginItem"><a href="javascript:;">10</a></li>
-        <li class="paginItem"><a href="javascript:;"><span class="pagenxt"></span></a></li>
-        </ul>
-    </div>
+    <p:page pages="${page}" link="khgh.do?method=listKhgh&userRoleId=${sessionScope.userRole.id}" prev="上一页" first="首页" last="尾页" next="下一页" ulClass="paginList" />
     
     
     <div class="tip">

@@ -193,9 +193,7 @@ input[type=checkbox]{
     <div class="tools">
     
     	<ul class="toolbar">
-    	<c:if test="${sessionScope.userRole.role.name eq '管理员'}">
         <li  onclick="location.href='${pageContext.servletContext.contextPath}/ggkhc.do?method=listSelect'"><span><img src="images/t01.png" /></span>新建客户</li>
-        </c:if>
         <li  id="search"><span><img src="${pageContext.servletContext.contextPath}/images/ico06.png" /></span>查询</li>
         <li id="export"><span><img src="${pageContext.servletContext.contextPath}/images/lc04.png" width="25px" height="25px"/></span>导出报表</li>      
         </ul>
@@ -245,18 +243,16 @@ input[type=checkbox]{
           <td>${customer.createdate}</td>
           <td>
              <a href="${pageContext.servletContext.contextPath}/ggkhc.do?method=detail&id=${customer.id}">查看</a>&nbsp;
-             <c:if test="${sessionScope.userRole.user.id eq customer.creator.id}">
+             <c:if test="${sessionScope.userRole.role.name eq '管理员'}">
              <a href="${pageContext.servletContext.contextPath}/ggkhc.do?method=edit&id=${customer.id}">编辑</a>&nbsp;
              <a href="#" value="${customer.id}" name="delete" >删除</a>&nbsp;
              </c:if>
-             <c:if test="${sessionScope.userRole.role.name eq '管理员'}">
-             <a href="#" class="click" value="${sessionScope.userRole.user.id}">点评</a>&nbsp;
-              </c:if>
            </td>
         </tr>
          </c:forEach>
         </tbody>
     </table>
+    <p:page pages="${page}" link="khxxgl.do?method=listKhxx&userRoleId=${sessionScope.userRole.id}" prev="上一页" first="首页" last="尾页" next="下一页" ulClass="paginList" />
     
    <%-- <c:if test="${page.pageCount gt 0}">
     <div class="pagin">
@@ -304,7 +300,7 @@ input[type=checkbox]{
       </c:if>
   </c:if>          --%>
           
- <p:page pages="${page}" link="khxxgl.do?method=listKhxx" prev="上一页" first="首页" last="尾页" next="下一页" ulClass="paginList" />
+ 
    
     </div>
     

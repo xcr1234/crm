@@ -10,11 +10,16 @@
     <script type="text/javascript" src="${pageContext.servletContext.contextPath}/js/jquery.idTabs.min.js"></script>
     <script type="text/javascript" src="${pageContext.servletContext.contextPath}/js/city.js"></script>
     <script type="text/javascript" src="${pageContext.servletContext.contextPath}/plugin/My97DatePicker/WdatePicker.js"></script>
+    <script type="text/javascript" src="${pageContext.servletContext.contextPath}/js/DateUtil.js"></script>
     <title>新建客户</title>
     <script>
      
         $(function () {
           
+            var date=new Date();
+            var time=formatDate(date, "yyyy-MM-dd");
+            $("input[name=customer_createdate]").val(time);
+           
             $(".delRow").click(function () {
                 $(this).parents(".repeatRow").remove();
             });
@@ -85,19 +90,22 @@
 <body>
 
         <div class="formtitle"><span>客户基本信息</span></div>
-        <form action="${pageContext.servletContext.contextPath}/ggkhc.do?method=cpxx_add" method="post" name="kh_form">
+        <form action="${pageContext.servletContext.contextPath}/ggkhc.do?method=kh_add" method="post" name="kh_form">
             <table>
                 <tr>
-                    <td class="td_left">产品名称:</td>
-                    <td><input name="" type="text" class="dfinput"/><i></i></td>
+                    <td class="td_left">客户名称:</td>
+                    <td><input name="customer_name" type="text" class="dfinput"/><i></i></td>
                     <td class="td_left">客户编码:</td>
-                    <td><input name="customer_code" type="text" class="dfinput"/><i></i></td>
+                    <td><input name="customer_code" type="text" class="dfinput" readonly="readonly" value="客户编码由系统自动生成"/><i></i></td>
                     <td class="td_left">创建人:</td>
-                    <td><select name="user_creatorid">
+                    <td><input name="user_creatorName" type="text" class="dfinput" readonly="readonly" value="${sessionScope.userRole.user.nickName}"/><i></i>
+                         <input type="hidden" name="user_creatorid" value="${sessionScope.userRole.user.id}"/>
+                    <%-- <select name="user_creatorid" readonly="readonly">
                     <c:forEach items="${userRoleList}" var="u" varStatus="status">
                     <option value="${u.user.id}">${status.index+1}:${u.role.name}--${u.user.nickName}</option>
                     </c:forEach>
-                    </select></td>
+                    </select> --%>
+                    </td>
                 </tr>
 
                 <tr>
@@ -125,11 +133,18 @@
                     <td class="td_left">县:</td>
                    <td><select name="customer_county" id="customer_county" class="dfinput"></select><i></i></td>
                     <td class="td_left">销售负责人:</td>
-                     <td><select name="salesid" type="text">
+                     <td>
+                     <c:if test="${sessionScope.userRole.role.name eq '管理员'}">
+                     <select name="salesid" type="text">
                      <c:forEach items="${userRoleList}" var="u" varStatus="status">
                     <option value="${u.user.id}">${status.index+1}:${u.role.name}--${u.user.nickName}</option>
                     </c:forEach>
-                    </select></td>
+                    </select>
+                    </c:if>
+                    <c:if test="${sessionScope.userRole.role.name ne '管理员'}">
+                     <input readonly="readonly" type="text" value="${sessionScope.userRole.role.name}:${sessionScope.userRole.user.nickName}"/><input name="salesid" type="hidden" class="dfinput" value="${sessionScope.userRole.user.id}"/><i></i>
+                     </c:if>
+                    </td>
                     <td class="td_left">客户类型:</td>
                     <td><select name="dicAll_typeid" type="text">
                        <option>请选择</option>
@@ -142,7 +157,7 @@
 
                 <tr>
                     <td class="td_left">创建日期:</td>
-                    <td><input name="customer_createdate" type="text" class="dfinput" id="d12" style="width:180px;"/><img onclick="WdatePicker({el:'d12'})" src="${pageContext.servletContext.contextPath}/plugin/My97DatePicker/skin/datePicker.gif" width="16" height="22" align="absmiddle" style="display:inline;"><i></i></td>
+                    <td><input name="customer_createdate" type="text" class="dfinput" id="d12" style="width:180px;" readonly="readonly"/><img onclick="WdatePicker({el:'d12'})" src="${pageContext.servletContext.contextPath}/plugin/My97DatePicker/skin/datePicker.gif" width="16" height="22" align="absmiddle" style="display:inline;"><i></i></td>
                 </tr>
             </table>
 

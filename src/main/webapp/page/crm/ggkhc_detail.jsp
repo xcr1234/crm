@@ -98,44 +98,44 @@
             <table>
                 <tr>
                     <td class="td_left">客户名称:</td>
-                    <td><input name="customer_name" type="text" class="dfinput" value="${customer.name}" disabled="true"/><i></i></td>
+                    <td><input name="customer_name" type="text" class="dfinput" value="${customer.name}" readonly="readonly"/><i></i></td>
                     <td class="td_left">客户编码:</td>
-                    <td><input name="customer_code" type="text" class="dfinput" disabled="true" value="${customer.code}"/><i></i></td>
+                    <td><input name="customer_code" type="text" class="dfinput" readonly="readonly" value="${customer.code}"/><i></i></td>
                     <td class="td_left">创建人:</td>
-                    <td><input name="customer_code" type="text" class="dfinput" disabled="true" value="${customer.creator.nickName}"/><i></i></td>
+                    <td><input name="customer_code" type="text" class="dfinput" readonly="readonly" value="${customer.creator.nickName}"/><i></i></td>
                 </tr>
 
                 <tr>
                     <td class="td_left">联系方式:</td>
-                    <td><input name="customer_phone" type="text" class="dfinput" value="${customer.phone}" disabled="true"/><i></i></td>
+                    <td><input name="customer_phone" type="text" class="dfinput" value="${customer.phone}" readonly="readonly"/><i></i></td>
                     <td class="td_left">邮箱:</td>
-                    <td><input name="customer_email" type="text" class="dfinput" value="${customer.email}" disabled="true"/><i></i></td>
+                    <td><input name="customer_email" type="text" class="dfinput" value="${customer.email}" readonly="readonly"/><i></i></td>
                     <td class="td_left">详细地址:</td>
-                    <td><input name="customer_adress" type="text" class="dfinput" value="${customer.adress}" disabled="true"/><i></i></td>
+                    <td><input name="customer_adress" type="text" class="dfinput" value="${customer.adress}" readonly="readonly"/><i></i></td>
                 </tr>
 
                 <tr>
                     <td class="td_left">QQ:</td>
-                    <td><input name="customer_qq" type="text" class="dfinput" value="${customer.qq}" disabled="true"/><i></i></td>
+                    <td><input name="customer_qq" type="text" class="dfinput" value="${customer.qq}" readonly="readonly"/><i></i></td>
                     <td class="td_left">省:</td>
-                   <td><select name="customer_province" id="customer_province" class="dfinput" value="${customer.province}" disabled="true"></select><i></i></td>
+                   <td><input name="customer_province" id="customer_province" type="text" class="dfinput" value="${customer.province}" readonly="readonly"/><i></i></td>
                    <td class="td_left">市:</td>
-                   <td><select name="customer_city" id="customer_city" class="dfinput" value="${customer.city}" disabled="true"></select><i></i></td>
+                   <td><input name="customer_city" id="customer_city" class="dfinput" value="${customer.city}" readonly="readonly"></input><i></i></td>
                </tr>
 
                 <tr>
                     <td class="td_left">县:</td>
-                   <td><select name="customer_county" id="customer_county" class="dfinput" value="${customer.county}" disabled="true"></select><i></i></td>
+                   <td><input name="customer_county" id="customer_county" class="dfinput" value="${customer.county}" readonly="readonly"></input><i></i></td>
                     <td class="td_left">销售负责人:</td>
-                     <td><input name="customer_sales" type="text" class="dfinput" value="${customer.sales.nickName}" disabled="true"/><i></i></td>
+                     <td><input name="customer_sales" type="text" class="dfinput" value="${customer.sales.nickName}" readonly="readonly"/><i></i></td>
                     <td class="td_left">客户类型:</td>
-                    <td><input name="customer_type" type="text" class="dfinput" value="${customer.type.name}" disabled="true"/><i></i></td>
+                    <td><input name="customer_type" type="text" class="dfinput" value="${customer.type.name}" readonly="readonly"/><i></i></td>
                    <!--  <td><input name="dicAll_typeid" type="text" class="dfinput"/><i></i></td> -->
                 </tr>
 
                 <tr>
                     <td class="td_left">创建日期:</td>
-                    <td><input name="customer_createdate" type="text" class="dfinput" id="d12" style="width:180px;" value="${customer.createdate}" disabled="true"/><i></i></td>
+                    <td><input name="customer_createdate" type="text" class="dfinput" id="d12" style="width:180px;" value="${customer.createdate}" readonly="readonly"/><i></i></td>
                 </tr>
             </table>
 
@@ -158,14 +158,14 @@
             </tr>
              <c:forEach items="${list}" var="link">
                 <tr class="input repeatRow">
-                <td><input type="text" name="listCustomerLink_name" value="${link.name}" disabled="true"/></td>
-                <td style="text-align: center;"><input type="text" name="listCustomerLink_sexid" value="${link.sex ?'男':'女'}" disabled="true"/></td>
-                <td><input type="text" name="listCustomerLink_position" value="${link.position}" disabled="true"/></td>
-                <td><input type="text" name="listCustomerLink_phone" value="${link.phone}" disabled="true"/></td>
-                <td><input type="text" name="listCustomerLink_phone2" value="${link.phone2}" disabled="true"/></td>
-                <td><input type="text" name="listCustomerLink_email" value="${link.email}" disabled="true"/></td>
-                <td><input type="text" name="listCustomerLink_birthdate" id="d11" onClick="WdatePicker()" value="${link.birthdate}" disabled="true"/></td>
-                <td ><input type="text" name="listCustomerLink_content" value="${link.content}" disabled="true"/></td>
+                <td><input type="text" name="listCustomerLink_name" value="${link.name}" readonly="readonly"/></td>
+                <td style="text-align: center;"><input type="text" name="listCustomerLink_sexid" value="${link.sex ?'男':'女'}" readonly="readonly"/></td>
+                <td><input type="text" name="listCustomerLink_position" value="${link.position}" readonly="readonly"/></td>
+                <td><input type="text" name="listCustomerLink_phone" value="${link.phone}" readonly="readonly"/></td>
+                <td><input type="text" name="listCustomerLink_phone2" value="${link.phone2}" readonly="readonly"/></td>
+                <td><input type="text" name="listCustomerLink_email" value="${link.email}" readonly="readonly"/></td>
+                <td><input type="text" name="listCustomerLink_birthdate" id="d11" onClick="WdatePicker()" value="${link.birthdate}" readonly="readonly"/></td>
+                <td ><input type="text" name="listCustomerLink_content" value="${link.content}" readonly="readonly"/></td>
                 <!-- <td style="text-align: center;"><a href="javascript:;" class="delRow">删除</a></td> -->
             </tr>
            </c:forEach> 

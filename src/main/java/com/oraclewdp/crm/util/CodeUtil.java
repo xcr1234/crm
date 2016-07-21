@@ -1,6 +1,7 @@
 package com.oraclewdp.crm.util;
 
 import java.sql.Connection;
+import java.text.DecimalFormat;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -11,7 +12,7 @@ import com.oraclewdp.crm.service.DicAllService;
 import com.oraclewdp.crm.service.serviceimpl.DicAllServiceImpl;
 
 public class CodeUtil {
-private  static String khCode=new DicAllServiceImpl().getDicAll("kh_code").get(0).getName();  //客户编码201607160001
+private  static String khCode=new DicAllServiceImpl().getInitKhCode();  //客户编码201607160001
 private  static String glyCode=new DicAllServiceImpl().getDicAll("gly_code").get(0).getName(); //管理员的种子数
 private  static String ywjlCode=new DicAllServiceImpl().getDicAll("ywjl_code").get(0).getName(); //业务经理的种子数
 private  static String ywyCode=new DicAllServiceImpl().getDicAll("ywjl_code").get(0).getName(); //业务员的种子数
@@ -34,11 +35,14 @@ public static String getKhCode(){
 	Calendar cd=Calendar.getInstance();
 	Date date=cd.getTime();
 	dateStr=DateUtil.getDateTimeStrByFormat(date,format);
-    if(khCode==""||khCode.substring(0, 8)!=dateStr){
+	String tmp=khCode.substring(0, 8);
+    if(khCode==""||!tmp.equals(dateStr)){
     	khCode=dateStr+"0001";
     }else{
-    	int codeTemp=Integer.parseInt(khCode)+1;
-    	khCode=codeTemp+"";
+    	int index=Integer.parseInt(khCode.substring(8, khCode.length()))+1;
+    	DecimalFormat df=new DecimalFormat("0000");
+    	String codeSuff=df.format(index);
+    	khCode=khCode.substring(0, 8)+codeSuff;
     }
     boolean flag=new DicAllServiceImpl().setKhCode(khCode);
     if(flag==true){
@@ -133,5 +137,5 @@ public static String getKhCode(){
 	  }
 	  return code;
   }
- 
+  
 }

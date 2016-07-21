@@ -288,7 +288,7 @@ public class XmjhAction extends ActionSupport{
         String cjr = request.getParameter("cjr");
         String phone = request.getParameter("phone");
         Integer discount = request.getParameter("discount").isEmpty()?null:Integer.valueOf(request.getParameter("discount"));
-        Integer cdzk = request.getParameter("cdzk").isEmpty()?null:Integer.valueOf(request.getParameter("cdzk"));
+       /* Integer cdzk = request.getParameter("cdzk").isEmpty()?null:Integer.valueOf(request.getParameter("cdzk"));*/
         Integer totle_count = request.getParameter("totle_count").isEmpty()?null:Integer.valueOf(request.getParameter("totle_count"));
         Float totle_rate = request.getParameter("totle_rate").isEmpty()?null:Float.valueOf(request.getParameter("totle_rate"));
         Float totle_pre_price_rate = request.getParameter("totle_pre_price_rate").isEmpty()?null:Float.valueOf(request.getParameter("totle_pre_price_rate"));

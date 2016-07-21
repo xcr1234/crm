@@ -48,7 +48,8 @@ public class YhglAction extends ActionSupport{
 		 Role role=userRole.getRole();
 	     //根据不同的角色查询出不同的结果
 		 page=yhglService.listUserRole(role);
-		//判断是否分页
+		
+		 //判断是否分页
 		String pages=req.getParameter("page");
 		if(pages!=null&&!pages.equals("")){
 			int pageIndex=Integer.parseInt(pages);

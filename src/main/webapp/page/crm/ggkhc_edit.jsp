@@ -110,7 +110,7 @@
                     <td class="td_left">客户编码:</td>
                     <td><input name="customer_code" type="text" class="dfinput"  value="${customer.code}"/><i></i></td>
                     <td class="td_left">创建人:</td>
-                    <td><input name="customer_code" type="text" class="dfinput"  value="${customer.creator.nickName}"/><i></i></td>
+                    <td><input readonly="readonly" name="customer_code" type="text" class="dfinput"  value="${customer.creator.nickName}"/><i></i></td>
                 </tr>
 
                 <tr>
@@ -167,7 +167,7 @@
 
                 <tr>
                     <td class="td_left">创建日期:</td>
-                    <td><input name="customer_createdate" type="text" class="dfinput" id="d12" style="width:180px;" value="${customer.createdate}" /><img onclick="WdatePicker({el:'d12'})" src="${pageContext.servletContext.contextPath}/plugin/My97DatePicker/skin/datePicker.gif" width="16" height="22" align="absmiddle" style="display:inline;"><i></i></td>
+                    <td><input readonly="readonly" name="customer_createdate" type="text" class="dfinput" id="d12" style="width:180px;" value="${customer.createdate}" /><img onclick="WdatePicker({el:'d12'})" src="${pageContext.servletContext.contextPath}/plugin/My97DatePicker/skin/datePicker.gif" width="16" height="22" align="absmiddle" style="display:inline;"><i></i></td>
                 </tr>
             </table>
 

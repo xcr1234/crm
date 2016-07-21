@@ -6,11 +6,11 @@ import com.oraclewdp.crm.persistence.Table;
 
 import java.util.Date;
 
-@Table("custom_care")
+@Table("customer_care")
 public class CustomerCare {
     @Id
     private Integer id;
-    @Column(value = "customer_id",foreign = "customer",target = "id")
+    @Column(value ="customer_id",foreign = "customer",target = "id")
     private Customer customer;
 
     private String date;

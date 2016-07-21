@@ -29,11 +29,15 @@ public class DicAllServiceImpl implements DicAllService{
 	
 	@Override
 	public boolean setKhCode(String khCode) {
-		String sql="select * from dic_all where type=kh_code";
-		DicAll dicAll=dicAllDao.find(sql, DicAll.class);
+		DicAll dicAll=dicAllDao.find(42, DicAll.class);
 		dicAll.setName(khCode);
 		boolean flag=dicAllDao.update(dicAll);
 		return flag;
+	}
+	
+	public String  getInitKhCode(){
+		DicAll dicAll=dicAllDao.find(42, DicAll.class);
+	    return dicAll.getName();
 	}
 
 }

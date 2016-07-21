@@ -6,8 +6,8 @@ import com.oraclewdp.crm.persistence.Id;
 public class Contact {
     @Id
     private Integer id;
-    @Column(value = "contactor",foreign = "user",target = "id")
-    private User contact;
+    @Column(value = "contactor",foreign = "customer_link",target = "id")
+    private CustomerLink contactor;
     @Column(value = "creator",foreign = "user",target = "id")
     private User creator;
     @Column(value="customer_id",foreign="customer",target="id")
@@ -26,8 +26,9 @@ public class Contact {
     private String endTime;
     
     private String context;
-
-    private Integer attachId;
+    
+    @Column(value="attach_id",foreign="attach",target="id")
+    private Attach attach;
 
 	public Integer getId() {
 		return id;
@@ -37,12 +38,14 @@ public class Contact {
 		this.id = id;
 	}
 
-	public User getContact() {
-		return contact;
+	
+
+	public CustomerLink getContactor() {
+		return contactor;
 	}
 
-	public void setContact(User contact) {
-		this.contact = contact;
+	public void setContactor(CustomerLink contactor) {
+		this.contactor = contactor;
 	}
 
 	public User getCreator() {
@@ -101,12 +104,13 @@ public class Contact {
 		this.endTime = endTime;
 	}
 
-	public Integer getAttachId() {
-		return attachId;
+	
+	public Attach getAttach() {
+		return attach;
 	}
 
-	public void setAttachId(Integer attachId) {
-		this.attachId = attachId;
+	public void setAttach(Attach attach) {
+		this.attach = attach;
 	}
 
 	public Customer getCustomer() {

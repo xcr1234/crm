@@ -73,6 +73,19 @@
     <version>2.6.12</version>
 </dependency>
 
+<!-- https://mvnrepository.com/artifact/org.apache.commons/commons-email -->
+<dependency>
+    <groupId>org.apache.commons</groupId>
+    <artifactId>commons-email</artifactId>
+    <version>1.4</version>
+</dependency>
+
+<!-- https://mvnrepository.com/artifact/activation/activation -->
+<dependency>
+    <groupId>activation</groupId>
+    <artifactId>activation</artifactId>
+    <version>1.0.2</version>
+</dependency>
 
 
 

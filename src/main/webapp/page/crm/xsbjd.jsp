@@ -15,9 +15,37 @@
 	<script type="text/javascript" src="${pageContext.servletContext.contextPath}/js/jquery.js"></script>
 	<script type="text/javascript" src="${pageContext.servletContext.contextPath}/js/select-ui.min.js"></script>
 	<script type="text/javascript" src="${pageContext.servletContext.contextPath}/js/jquery.idTabs.min.js"></script>
-      <script type="text/javascript" src="${pageContext.servletContext.contextPath}/plugin/My97DatePicker/WdatePicker.js"></script>
+     <script type="text/javascript" src="${pageContext.servletContext.contextPath}/plugin/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript" src="${pageContext.servletContext.contextPath}/js/excel/xlsx.core.min.js"></script>
+    <script type="text/javascript" src="${pageContext.servletContext.contextPath}/js/excel/blob.js"></script>
+    <script type="text/javascript" src="${pageContext.servletContext.contextPath}/js/excel/FileSaver.min.js"></script>
+    <script type="text/javascript" src="${pageContext.servletContext.contextPath}/js/excel/tableexport-3.2.min.js"></script>
+    <script type="text/javascript" src="${pageContext.servletContext.contextPath}/js/DateUtil.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
+$.fn.tableExport.xlsx = {
+    defaultClass: "xlsx",
+    buttonContent: "确认导出",
+    mimeType: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+    fileExtension: ".xlsx"
+};
+$("#export").click(function(){
+ var tableName="销售报价单"; //初始化表名
+ var column=[0,9];  //初始化忽略的列，从0开始。
+ var date=new Date();
+ var time=formatDate(date, "yyyy-MM-dd");
+ var fileName=tableName+"-第"+${page.current}+'页-'+time;
+	$("table").tableExport({
+	    headings: true, 
+	    footers: true, 
+	    formats: ["xlsx"],
+	    fileName: fileName,
+	    bootstrap: false,
+	    position: "bottom",
+	    ignoreRows: null,
+	    ignoreCols: column
+}); 
+});
   $(".click").click(function(){
   $(".tip").fadeIn(200);  
   });
@@ -95,7 +123,7 @@ input[type=checkbox]{
     	<ul class="toolbar">
         <li class="click" onclick="location.href='${pageContext.servletContext.contextPath}/xmjh.do?method=addXsbjd'"><span><img src="images/t01.png" /></span>新建报价单</li>
         <li class="click"><span><img src="images/ico06.png" /></span>查询</li>
-        <li><span><img src="images/t05.png" /></span>重置</li>     
+        <li id="export"><span><img src="${pageContext.servletContext.contextPath}/images/lc04.png" width="25px" height="25px"/></span>导出报表</li>     
         </ul>
     </div>
     

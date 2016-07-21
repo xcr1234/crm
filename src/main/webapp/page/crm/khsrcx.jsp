@@ -1,4 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
@@ -17,6 +18,11 @@
 
 <script type="text/javascript">
 $(document).ready(function(e) {
+  $("a[name=fszf]").click(function(){
+    var userId=${sessionScope.userRole.user.id};
+    var cusLinkId=$(this).attr("cusLinkId");
+    window.location.href="${pageContext.servletContext.contextPath}/khsrxc.do?method=toSendMail&userId="+userId+"&cusLinkId="+cusLinkId;
+  });
     $(".select1").uedSelect({
 		width : 345			  
 	});
@@ -57,32 +63,43 @@ $(document).ready(function(e) {
      <table class="tablelist">
     	<thead>
     	<tr>
+    	<th>序号</th>
+        <th>所属客户</th>
         <th>客户姓名</th>
         <th>客户性别</th>
         <th>客户手机</th>
         <th>工作电话</th>
-        <th>所属客户</th>
-        <th>生日</th>
+        <th>出生日期</th>
+        <th>邮箱</th>
+        <th>操作</th>
         </tr>
         </thead>
+         <tbody>
+         <c:forEach items="${page.items}" var="o" varStatus="status">
+        <tr style="height:40px;">
+          <td style="width: 50px">${status.index+1}</td>
+          <td style="width:180px;">${o.customer.name}</td>
+          <td style="width:180px;">${o.name}</td>
+          <td style="width:200px;">${o.sex ?'男':'女'}</td>
+          <td style="width:200px;">${o.phone}</td>
+          <td style="width:180px;">${o.phone2}</td>
+          <td style="width:180px;">${o.birthdate}</td>
+          <td>${o.email}</td>
+          <td style="width:150px;">
+            <%--  <a href="${pageContext.servletContext.contextPath}/khxx.do?method=detail&id=${o.id}">查看</a>&nbsp;
+             <c:if test="${sessionScope.userRole.role.name eq '管理员'}">
+             <a href="${pageContext.servletContext.contextPath}/khxx.do?method=edit&id=${o.id}">编辑</a>&nbsp;
+             <a href="#" value="${customer.id}" name="delete" >删除</a>&nbsp;
+             <a href="#" class="click" value="${customer.id}">分配</a>&nbsp;
+            </c:if> --%>
+             <a href="#" name="fszf" class="click" userId="${sessionScope.userRole.user.id}" cusLinkId="${o.id}">发送祝福</a>&nbsp;
+           </td>
+        </tr>
+         </c:forEach>
+        </tbody>
         
     </table>
-    
-   
-    <div class="pagin">
-    	<div class="message">共<i class="blue">1256</i>条记录，当前显示第&nbsp;<i class="blue">2&nbsp;</i>页</div>
-        <ul class="paginList">
-        <li class="paginItem"><a href="javascript:;"><span class="pagepre"></span></a></li>
-        <li class="paginItem"><a href="javascript:;">1</a></li>
-        <li class="paginItem current"><a href="javascript:;">2</a></li>
-        <li class="paginItem"><a href="javascript:;">3</a></li>
-        <li class="paginItem"><a href="javascript:;">4</a></li>
-        <li class="paginItem"><a href="javascript:;">5</a></li>
-        <li class="paginItem more"><a href="javascript:;">...</a></li>
-        <li class="paginItem"><a href="javascript:;">10</a></li>
-        <li class="paginItem"><a href="javascript:;"><span class="pagenxt"></span></a></li>
-        </ul>
-    </div>
+  
   
     
     </div> 
@@ -90,39 +107,48 @@ $(document).ready(function(e) {
     
   	<div id="tab2" class="tabson">
     
-    
-    <table class="tablelist">
+     <table class="tablelist">
     	<thead>
     	<tr>
+    	<th>序号</th>
+        <th>所属客户</th>
         <th>客户姓名</th>
         <th>客户性别</th>
         <th>客户手机</th>
         <th>工作电话</th>
-        <th>所属客户</th>
-        <th>生日</th>
+        <th>出生日期</th>
+        <th>邮箱</th>
+        <th>操作</th>
         </tr>
         </thead>
+         <tbody>
+         <c:forEach items="${page2.items}" var="o" varStatus="status">
+        <tr style="height:40px;">
+          <td style="width: 50px">${status.index+1}</td>
+          <td style="width:180px;">${o.customer.name}</td>
+          <td style="width:180px;">${o.name}</td>
+          <td style="width:200px;">${o.sex ?'男':'女'}</td>
+          <td style="width:200px;">${o.phone}</td>
+          <td>${o.phone2}</td>
+          <td style="width:180px;">${o.birthdate}</td>
+          <td>${o.email}</td>
+          <td style="width:200px;">
+            <%--  <a href="${pageContext.servletContext.contextPath}/khxx.do?method=detail&id=${o.id}">查看</a>&nbsp;
+             <c:if test="${sessionScope.userRole.role.name eq '管理员'}">
+             <a href="${pageContext.servletContext.contextPath}/khxx.do?method=edit&id=${o.id}">编辑</a>&nbsp;
+             <a href="#" value="${customer.id}" name="delete" >删除</a>&nbsp;
+             <a href="#" class="click" value="${customer.id}">分配</a>&nbsp;
+            </c:if> --%>
+            <a href="#" name="fszf" class="click" userId="${sessionScope.userRole.user.id}" cusLinkId="${o.id}">发送祝福</a>&nbsp;
+           </td>
+        </tr>
+         </c:forEach>
+        </tbody>
         
     </table>
-    
    
-    <div class="pagin">
-    	<div class="message">共<i class="blue">1256</i>条记录，当前显示第&nbsp;<i class="blue">2&nbsp;</i>页</div>
-        <ul class="paginList">
-        <li class="paginItem"><a href="javascript:;"><span class="pagepre"></span></a></li>
-        <li class="paginItem"><a href="javascript:;">1</a></li>
-        <li class="paginItem current"><a href="javascript:;">2</a></li>
-        <li class="paginItem"><a href="javascript:;">3</a></li>
-        <li class="paginItem"><a href="javascript:;">4</a></li>
-        <li class="paginItem"><a href="javascript:;">5</a></li>
-        <li class="paginItem more"><a href="javascript:;">...</a></li>
-        <li class="paginItem"><a href="javascript:;">10</a></li>
-        <li class="paginItem"><a href="javascript:;"><span class="pagenxt"></span></a></li>
-        </ul>
     </div>
        
-	</div> 
- 
 	<script type="text/javascript"> 
       $("#usual1 ul").idTabs(); 
     </script>

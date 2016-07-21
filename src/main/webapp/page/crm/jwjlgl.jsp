@@ -33,7 +33,7 @@ $.fn.tableExport.xlsx = {
 };
 $("#export").click(function(){
  var tableName="交往记录表"; //初始化表名
- var column=9;  //初始化忽略的列，从0开始。
+ var column=10;  //初始化忽略的列，从0开始。
  var date=new Date();
  var time=formatDate(date, "yyyy-MM-dd");
  var fileName=tableName+"-第"+${page.pageCount}+'页-'+time;
@@ -205,7 +205,7 @@ input[type=checkbox]{
     <div class="tools">
     
     	<ul class="toolbar">
-        <li  onclick="location.href='${pageContext.servletContext.contextPath}/ggkhc.do?method=listSelect'"><span><img src="${pageContext.servletContext.contextPath}/images/t01.png" /></span>新建交往信息</li>
+        <li  onclick="location.href='${pageContext.servletContext.contextPath}/jwjlgl.do?method=toJwjl_add'"><span><img src="${pageContext.servletContext.contextPath}/images/t01.png" /></span>新建交往信息</li>
         <li  id="search"><span><img src="${pageContext.servletContext.contextPath}/images/ico06.png" /></span>查询</li>
         <li id="export"><span><img src="${pageContext.servletContext.contextPath}/images/lc04.png" width="25px" height="25px"/></span>导出报表</li>     
         </ul>
@@ -234,28 +234,30 @@ input[type=checkbox]{
 	  	<th>备注</th>
 	  	<th>创建日期</th>
 	  	<th>交往内容</th>
-	  	<th>点评内容</th>
+	  	<th>点评</th>
+	  	<th>操作</th>
         </tr>
         </thead>
         <tbody>
         <tr style="height:40px;">
         <c:forEach items="${page.items}" var="o" varStatus="status">
           <td style="width: 50px">${status.index+1}</td>
-          <td>${o.contactor.nickName}</td>
-          <td style="width:180px;">${o.creator.name}</td>
-          <td style="width:100px;">${o.customer.name}</td>
-          <td style="width:100px;">${o.startTime}</td>
+          <td style="width:180px;">${o.contactor.name}</td>
+          <td style="width:180px;">${o.creator.nickName}</td>
+          <td>${o.customer.name}</td>
+          <td>${o.phone}</td>
+          <td>${o.startTime}</td>
           <td>${o.endTime}</td>
-          <td style="width:180px;">${o.content}</td>
+          <td>${o.content}</td>
           <td>${o.createdate}</td>
           <td>${o.context}</td>
           <td>${o.remark}</td>
-          <td>
+          <td style="width:750px;">
              <a href="${pageContext.servletContext.contextPath}/khxx.do?method=detail&id=${o.id}">查看</a>&nbsp;
              <c:if test="${sessionScope.userRole.role.name eq '管理员'}">
              <a href="${pageContext.servletContext.contextPath}/khxx.do?method=edit&id=${o.id}">编辑</a>&nbsp;
              <a href="#" value="${customer.id}" name="delete" >删除</a>&nbsp;
-             <a href="#" class="click" value="${customer.id}">分配</a>&nbsp;
+             <a href="#" class="click" value="${customer.id}">点评</a>&nbsp;
             </c:if>
            </td>
         </tr>

@@ -35,7 +35,7 @@ $("#export").click(function(){
  var column=9;  //初始化忽略的列，从0开始。
  var date=new Date();
  var time=formatDate(date, "yyyy-MM-dd");
- var fileName=tableName+"-第"+${page.pageCount}+'页-'+time;
+ var fileName=tableName+"-第"+${page.current}+'页-'+time;
 	$("table").tableExport({
 	    headings: true, 
 	    footers: true, 
@@ -93,9 +93,16 @@ parent.initDraft();
 //分配客户
   $(".sure").click(function(){
   userId=$(":selected","#fpkh").attr("value");
-  window.location.href="${pageContext.servletContext.contextPath}/ggkhc.do?method=fpkh&customerId="+customerId+"&userId="+userId;
+  var url="${pageContext.servletContext.contextPath}/ggkhc.do?method=fpkh&customerId="+customerId+"&userId="+userId;
+  var data={customerId:customerId,userId:userId};
+  $.getJSON(url,data,function(){
   $(".tip").fadeOut(100);
   alert("分配成功！");
+  window.location.href="${pageContext.servletContext.contextPath}/ggkhc.do?method=fpkh&customerId="+customerId+"&userId="+userId;
+  });
+  
+  
+  
   window.location.href="${pageContext.servletContext.contextPath}/ggkhc.do?method=listGgkh";
 });
 
@@ -276,6 +283,7 @@ input[type=checkbox]{
         </tbody>
     </table>
     
+    <p:page pages="${page}" link="ggkhc.do?method=listGgkh&" prev="上一页" first="首页" last="尾页" next="下一页" ulClass="paginList" />
   <%--  <c:if test="${page.pageCount gt 0}">
     <div class="pagin">
     	<div class="message">共<i class="blue">${page.count}</i>条记录，当前显示第&nbsp;<i class="blue">${page.current}&nbsp;</i>页</div>
@@ -322,7 +330,7 @@ input[type=checkbox]{
       </c:if>
   </c:if>          --%>
            
-  <p:page pages="${page}" link="ggkhc.do?method=listGgkh&" prev="上一页" first="首页" last="尾页" next="下一页" ulClass="paginList" />
+  
    
     </div>
     

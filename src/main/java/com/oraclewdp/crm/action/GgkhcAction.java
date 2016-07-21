@@ -203,6 +203,7 @@ public class GgkhcAction extends ActionSupport{
 		
        //查出客户
 		Pages<Customer> page=ggkhcService.listGgkhc();
+		//查看是否分页操作
 		String pages=req.getParameter("page");
 		if(pages!=null&&!pages.equals("")){
 			int pageIndex=Integer.parseInt(pages);
@@ -387,7 +388,7 @@ public class GgkhcAction extends ActionSupport{
 		    customer.setProvince(customer_province);
 		    customer.setQq(customer_qq);
 			
-			 System.out.println("ID:"+req.getParameterValues("listCustomerLink_id")[0]);
+			 /*System.out.println("ID:"+req.getParameterValues("listCustomerLink_id")[0]);*/
 		    boolean flag1=ggkhcService.updateGgkhc(customer);
 		    boolean flag2=false;
 		    String[] listCustomerLink_name=req.getParameterValues("listCustomerLink_name");
@@ -439,6 +440,7 @@ public class GgkhcAction extends ActionSupport{
 	 
 	 public void fpkh(HttpServletRequest req, HttpServletResponse resp)
 				throws ServletException, IOException{
+		 System.out.println("分配客户");
 		  int userId=Integer.parseInt(req.getParameter("userId"));
 		  int customerId=Integer.parseInt(req.getParameter("customerId"));
 		  customer=ggkhcService.fpkh(userId, customerId);
