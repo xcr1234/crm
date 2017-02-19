@@ -1,0 +1,9 @@
+.settings
+.classpath
+.project
+*.iml
+.idea
+target
+bin
+.myumldata
+.tern-project

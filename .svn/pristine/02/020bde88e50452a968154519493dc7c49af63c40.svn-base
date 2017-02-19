@@ -1,0 +1,60 @@
+package com.oraclewdp.crm.service;
+
+import com.oraclewdp.crm.entity.Customer;
+import com.oraclewdp.crm.entity.CustomerLink;
+import com.oraclewdp.crm.entity.UserRole;
+import com.oraclewdp.crm.util.Pages;
+
+import java.util.List;
+
+public interface GgkhcService {
+
+	/**
+	 * 列出公共客户池
+	 * 
+	 * @author gui
+	 * @time 2016年7月16日 上午10:55:34
+	 * @tags @param pageIndex
+	 * @tags @param PageNum
+	 * @tags @return
+	 */
+	public Pages<Customer> listGgkhc();
+
+	/**
+	 * 保存公共客户池的信息
+	 * 
+	 * @author gui
+	 * @time 2016年7月16日 下午4:29:34
+	 * @tags @param customer
+	 * @tags @return
+	 */
+	public int saveGgkuc(Customer customer);
+	
+	/**
+	 * 保存客户联系人
+	 * @author gui
+	 * @time 2016年7月16日 下午11:59:59
+	 * @tags @param customerLink
+	 * @tags @return
+	 */
+	public int saveCustomerLink(CustomerLink customerLink);
+
+	public Pages<UserRole> listUserRole();
+	
+	public Pages<Customer> search(String sql,int pageIndex,int pageNum,Object[] params);
+
+	public Pages<Customer> searchBySql(String sql);
+
+	public Customer detail(int id);
+	public List<CustomerLink> detailLink(Customer customer);
+	
+	public boolean updateGgkhc(Customer customer);
+	
+	public boolean updateLink(CustomerLink customerLink);
+
+	public Pages<UserRole> listUserRoleBysql(String sql,Object[] params);
+   
+	public Customer fpkh(int userId,int customerId);
+    
+	public boolean delete(int customerId);
+}

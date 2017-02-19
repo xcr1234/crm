@@ -1,0 +1,179 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>right</title>
+<link href="css/style.css" rel="stylesheet" type="text/css" />
+<link href="css/select.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/jquery.idTabs.min.js"></script>
+<script type="text/javascript" src="js/select-ui.min.js"></script>
+<script type="text/javascript" src="editor/kindeditor.js"></script>
+
+<script type="text/javascript">
+    KE.show({
+        id : 'content7',
+        cssPath : './index.css'
+    });
+  </script>
+  
+<script type="text/javascript">
+$(document).ready(function(e) {
+
+	$(".select3").uedSelect({
+		width : 152
+	});
+});
+</script>
+</head>
+
+<body class="sarchbody">
+
+	<div class="place">
+    <span>位置：</span>
+    <ul class="placeul">
+    <li><a href="#">首页</a></li>
+    <li><a href="#">销售报价单</a></li>
+    </ul>
+    </div>
+    </br></br>
+    
+    <div class="tools">
+    
+    	<ul class="toolbar">
+        <li class="click"><span><img src="images/t01.png" /></span>新建报价单</li>
+        <li class="click"><span><img src="images/ico06.png" /></span>查询</li>
+        <li><span><img src="images/t03.png" /></span>重置</li>     
+        </ul>
+		</br>
+        
+        
+        
+    
+    </div>
+    
+    
+    <div class="formbody">
+    
+    
+    <div id="usual1" class="usual"> 
+    <ul class="seachform1">   
+    <li><label>报价单编号</label><input name="" type="text" class="scinput1" /></li>
+    <li><label>报价单号</label><input name="" type="text" class="scinput1" /></li>
+     <li><label>报价阶段</label>  
+    <div class="vocation">
+    <select class="select3">
+    <option>初次报价</option>
+    <option>二次报价</option>
+    <option>执行中</option>
+    <option>结束</option> 
+    </select>
+    </div>
+    
+    </li>
+    
+    </ul>
+    
+    <ul class="seachform2">
+    
+    <li><label>客户名称</label><input name="" type="text" class="scinput1" /></li>
+    <li><label>审核状态</label>  
+    <div class="vocation">
+    <select class="select3">
+    <option>未提交</option>
+    <option>未审核</option>
+    <option>审核未通过</option>
+    <option>已审核</option>
+    </select>
+    </div>
+    </li>
+    
+    <li><label>项目单位</label>  
+    <div class="vocation">
+    <select class="select3">
+    <option>全部</option>
+    <option>其他</option>
+    </select>
+    </div>
+    </li>
+    
+    <li><label>创建人</label><input name="" type="text" class="scinput1" /></li>
+    <li><label>创建日期</label><input name="" type="text" class="scinput1" /></li>
+    <input style="background-color: rgb(255, 255, 255);" class="Wdate" onfocus="WdatePicker({skin:'blue',dateFmt:'yyyy-MM-dd'})" maxlength="10" size="22" name="JHRQ" value="" type="text">
+    <li><label>一</label><input name="" type="text" class="scinput1" /></li>
+      
+
+    
+    </ul>
+    
+    <ul class="seachform1">
+    <li class="sarchbtn"><label>&nbsp;</label>  <input name="" type="button" class="scbtn1" value="更多条件"/>  </li>  
+    </ul>
+    
+    <script language="javascript">
+	$(document).ready(function() 
+{ 
+    $(".scbtn1").click(function() 
+    {      
+        if( $(".seachform2").hasClass("hideclass") ) 
+        { 
+            $(".seachform2").removeClass("hideClass"); 
+        } 
+        else 
+        { 
+            $(".seachform2").addClass("hideClass"); 
+        }    
+    }); 
+}); 
+	
+	
+	</script>
+    
+    
+    <script type="text/javascript">
+$(document).ready(function(){
+  $(".scbtn1").click(function(){
+  $(".seachform2").fadeIn(200);
+  }); 
+
+
+});
+</script>
+
+    
+    
+    
+   
+   
+    </div>
+    
+    <table class="tablelist">
+    	<thead>
+    	<tr>
+        <th><input name="" type="checkbox" value="" checked="checked"/></th>
+        <th>报价单编号<i class="sort"><img src="images/px.gif" /></i></th>
+        <th>创建人</th>
+        <th>报价日期</th>
+        <th>创建日期</th>
+        <th>报价有效期</th>
+        <th>所属客户</th>
+        <th>报价人</th>
+        <th>总金额</th>
+        <th>是否成单</th>
+        <th>审核状态</th>
+        <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+   
+        </tbody>
+    </table>
+    
+
+       
+	</div> 
+ 
+    </div>
+</body>
+
+</html>

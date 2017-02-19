@@ -1,0 +1,427 @@
+/*
+Navicat MySQL Data Transfer
+
+Source Server         : mysql1
+Source Server Version : 50709
+Source Host           : localhost:3306
+Source Database       : crm
+
+Target Server Type    : MYSQL
+Target Server Version : 50709
+File Encoding         : 65001
+
+Date: 2016-07-15 13:45:11
+*/
+
+SET FOREIGN_KEY_CHECKS=0;
+
+-- ----------------------------
+-- Table structure for attach
+-- ----------------------------
+DROP TABLE IF EXISTS `attach`;
+CREATE TABLE `attach` (
+  `id` int(32) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) DEFAULT NULL COMMENT '附件名称',
+  `type` int(32) DEFAULT NULL COMMENT '附件类型',
+  `path` varchar(255) DEFAULT NULL COMMENT '附件类型',
+  PRIMARY KEY (`id`),
+  KEY `type` (`type`),
+  CONSTRAINT `attach_ibfk_1` FOREIGN KEY (`type`) REFERENCES `dic_all` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of attach
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for authority
+-- ----------------------------
+DROP TABLE IF EXISTS `authority`;
+CREATE TABLE `authority` (
+  `id` int(32) NOT NULL AUTO_INCREMENT,
+  `menu_id` int(32) DEFAULT NULL COMMENT '菜单外键',
+  PRIMARY KEY (`id`),
+  KEY `menu_id` (`menu_id`),
+  CONSTRAINT `authority_ibfk_1` FOREIGN KEY (`menu_id`) REFERENCES `menu` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of authority
+-- ----------------------------
+INSERT INTO `authority` VALUES ('1', '1');
+INSERT INTO `authority` VALUES ('2', '2');
+
+-- ----------------------------
+-- Table structure for bjd
+-- ----------------------------
+DROP TABLE IF EXISTS `bjd`;
+CREATE TABLE `bjd` (
+  `id` int(32) NOT NULL AUTO_INCREMENT,
+  `sskh` int(32) DEFAULT NULL COMMENT '所属客户',
+  `bjr` int(32) DEFAULT NULL COMMENT '报价人',
+  `yxrq` varchar(255) DEFAULT NULL COMMENT '有效日期',
+  `bjrq` varchar(255) DEFAULT NULL COMMENT '报价日期',
+  `phone` varchar(255) DEFAULT NULL COMMENT '联系电话',
+  `creator` varchar(255) DEFAULT NULL COMMENT '创建人',
+  `custom_chance_id` int(32) DEFAULT NULL COMMENT '销售机会',
+  `createdate` varchar(255) DEFAULT NULL COMMENT '创建日期',
+  `discount` int(4) DEFAULT NULL COMMENT '菜单折扣',
+  `totle_count` int(16) DEFAULT NULL COMMENT '数量合计',
+  `totle_rate` float DEFAULT NULL COMMENT '税率合计',
+  `totle_pre_price_rate` float DEFAULT NULL COMMENT '含税单价合计',
+  `totle_price_rate` float DEFAULT NULL COMMENT '税金合计',
+  `totle_price` float DEFAULT NULL COMMENT '货款合计',
+  `totle_discount_price` float DEFAULT NULL COMMENT '折扣后合计',
+  `bjd_code` varchar(255) DEFAULT NULL COMMENT '报价单编号',
+  PRIMARY KEY (`id`),
+  KEY `sskh` (`sskh`),
+  KEY `bjr` (`bjr`),
+  KEY `custom_chance_id` (`custom_chance_id`),
+  CONSTRAINT `bjd_ibfk_1` FOREIGN KEY (`sskh`) REFERENCES `customer` (`id`),
+  CONSTRAINT `bjd_ibfk_2` FOREIGN KEY (`bjr`) REFERENCES `user` (`id`),
+  CONSTRAINT `bjd_ibfk_3` FOREIGN KEY (`custom_chance_id`) REFERENCES `custom_chance` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of bjd
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for bjd_list
+-- ----------------------------
+DROP TABLE IF EXISTS `bjd_list`;
+CREATE TABLE `bjd_list` (
+  `id` int(32) NOT NULL AUTO_INCREMENT,
+  `goods_id` int(32) DEFAULT NULL COMMENT '商品',
+  `bjd_id` int(32) DEFAULT NULL,
+  `count` int(16) DEFAULT NULL COMMENT '数量',
+  `rate` int(4) DEFAULT NULL COMMENT '税率',
+  `per_price_rate` float DEFAULT NULL COMMENT '含税单价',
+  `digest` varchar(255) DEFAULT NULL COMMENT '摘要',
+  `price_rate` float DEFAULT NULL COMMENT '税金',
+  `price` float DEFAULT NULL COMMENT '货款',
+  `totle_price` float DEFAULT NULL COMMENT '合计',
+  PRIMARY KEY (`id`),
+  KEY `goods_id` (`goods_id`),
+  KEY `bjd_id` (`bjd_id`),
+  CONSTRAINT `bjd_list_ibfk_1` FOREIGN KEY (`goods_id`) REFERENCES `goods` (`id`),
+  CONSTRAINT `bjd_list_ibfk_2` FOREIGN KEY (`bjd_id`) REFERENCES `bjd` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of bjd_list
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for contact
+-- ----------------------------
+DROP TABLE IF EXISTS `contact`;
+CREATE TABLE `contact` (
+  `id` int(32) NOT NULL AUTO_INCREMENT,
+  `contactor` int(32) DEFAULT NULL COMMENT '交往人',
+  `creator` varchar(255) DEFAULT NULL COMMENT '创建人',
+  `createdate` varchar(255) DEFAULT NULL,
+  `customer_id` int(32) DEFAULT NULL COMMENT '所属客户',
+  `phone` varchar(255) DEFAULT NULL COMMENT '联系电话',
+  `content` varchar(255) DEFAULT NULL COMMENT '内容',
+  `remark` varchar(255) DEFAULT NULL COMMENT '备注',
+  `attach_id` int(32) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `contactor` (`contactor`),
+  CONSTRAINT `contact_ibfk_1` FOREIGN KEY (`contactor`) REFERENCES `user` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of contact
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for customer
+-- ----------------------------
+DROP TABLE IF EXISTS `customer`;
+CREATE TABLE `customer` (
+  `id` int(32) NOT NULL AUTO_INCREMENT,
+  `code` varchar(255) DEFAULT NULL COMMENT '客户编码',
+  `customer_type` int(8) DEFAULT NULL COMMENT '客户类型',
+  `name` varchar(255) DEFAULT NULL COMMENT '客户姓名',
+  `phone` varchar(255) DEFAULT NULL COMMENT '联系方式',
+  `email` varchar(255) DEFAULT NULL COMMENT '邮箱',
+  `adress` varchar(255) DEFAULT NULL COMMENT '详细地址',
+  `qq` varchar(255) DEFAULT NULL COMMENT 'QQ',
+  `createdate` varchar(255) DEFAULT NULL COMMENT '创建日期',
+  `creator` varchar(255) DEFAULT NULL COMMENT '创建人',
+  `sales` varchar(255) DEFAULT NULL COMMENT '销售负责人',
+  `provence` varchar(255) DEFAULT NULL COMMENT '省',
+  `city` varchar(255) DEFAULT NULL COMMENT '市',
+  `county` varchar(255) DEFAULT NULL COMMENT '县',
+  PRIMARY KEY (`id`),
+  KEY `customer_type` (`customer_type`),
+  CONSTRAINT `customer_ibfk_1` FOREIGN KEY (`customer_type`) REFERENCES `dic_all` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of customer
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for customer_care
+-- ----------------------------
+DROP TABLE IF EXISTS `customer_care`;
+CREATE TABLE `customer_care` (
+  `id` int(32) NOT NULL,
+  `customer_id` int(32) NOT NULL COMMENT '关怀客户',
+  `date` varchar(255) DEFAULT NULL COMMENT '关怀日期',
+  `phone` varchar(255) DEFAULT NULL COMMENT '联系人电话',
+  `phone2` varchar(255) DEFAULT NULL COMMENT '联系人手机',
+  `creator` int(32) DEFAULT NULL,
+  `creatdate` varchar(255) DEFAULT NULL COMMENT '创建日期',
+  `content` varchar(255) DEFAULT NULL COMMENT '内容',
+  `remark` varchar(255) DEFAULT NULL COMMENT '备注',
+  PRIMARY KEY (`id`),
+  KEY `customer_id` (`customer_id`),
+  KEY `creator` (`creator`),
+  CONSTRAINT `customer_care_ibfk_1` FOREIGN KEY (`customer_id`) REFERENCES `customer` (`id`),
+  CONSTRAINT `customer_care_ibfk_2` FOREIGN KEY (`creator`) REFERENCES `user` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of customer_care
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for customer_link
+-- ----------------------------
+DROP TABLE IF EXISTS `customer_link`;
+CREATE TABLE `customer_link` (
+  `id` int(32) NOT NULL AUTO_INCREMENT,
+  `sex` tinyint(1) DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `position` varchar(255) DEFAULT NULL,
+  `phone` varchar(255) DEFAULT NULL COMMENT '手机',
+  `phone2` varchar(255) DEFAULT NULL COMMENT '工作电话',
+  `birthdate` varchar(255) DEFAULT NULL COMMENT '出生日期',
+  `content` varchar(255) DEFAULT NULL COMMENT '备注',
+  `customer_id` int(32) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `customer_id` (`customer_id`),
+  CONSTRAINT `customer_link_ibfk_1` FOREIGN KEY (`customer_id`) REFERENCES `customer` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of customer_link
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for custom_chance
+-- ----------------------------
+DROP TABLE IF EXISTS `custom_chance`;
+CREATE TABLE `custom_chance` (
+  `id` int(32) NOT NULL,
+  `code` varchar(255) DEFAULT NULL COMMENT '机会编号',
+  `name` varchar(255) DEFAULT NULL COMMENT '机会名称',
+  `type` int(32) DEFAULT NULL COMMENT '机会类型',
+  `creator` int(11) DEFAULT NULL COMMENT '创建人',
+  `createdate` varchar(255) DEFAULT NULL COMMENT '创建日期',
+  `attach_id` int(32) DEFAULT NULL COMMENT '附件',
+  `chance_stage` int(32) DEFAULT NULL COMMENT '机会阶段',
+  `possibility` varchar(255) DEFAULT NULL COMMENT '成交可能性',
+  `customer_id` int(32) DEFAULT NULL COMMENT '客户外键',
+  PRIMARY KEY (`id`),
+  KEY `type` (`type`),
+  KEY `creator` (`creator`),
+  KEY `chance_stage` (`chance_stage`),
+  KEY `customer_id` (`customer_id`),
+  KEY `attach_id` (`attach_id`),
+  CONSTRAINT `custom_chance_ibfk_1` FOREIGN KEY (`type`) REFERENCES `dic_all` (`id`),
+  CONSTRAINT `custom_chance_ibfk_2` FOREIGN KEY (`creator`) REFERENCES `user` (`id`),
+  CONSTRAINT `custom_chance_ibfk_3` FOREIGN KEY (`chance_stage`) REFERENCES `dic_all` (`id`),
+  CONSTRAINT `custom_chance_ibfk_4` FOREIGN KEY (`customer_id`) REFERENCES `customer` (`id`),
+  CONSTRAINT `custom_chance_ibfk_5` FOREIGN KEY (`attach_id`) REFERENCES `attach` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of custom_chance
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for dic_all
+-- ----------------------------
+DROP TABLE IF EXISTS `dic_all`;
+CREATE TABLE `dic_all` (
+  `id` int(32) NOT NULL AUTO_INCREMENT,
+  `type` varchar(255) DEFAULT NULL COMMENT '数据字典类别',
+  `name` varchar(255) DEFAULT NULL COMMENT '名称',
+  `status` tinyint(1) DEFAULT NULL COMMENT '状态',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of dic_all
+-- ----------------------------
+INSERT INTO `dic_all` VALUES ('1', 'khlx_1', '一般客户', '1');
+INSERT INTO `dic_all` VALUES ('2', 'khlx_2', 'VIP客户', '1');
+INSERT INTO `dic_all` VALUES ('3', 'khlx_3', '潜在客户', '1');
+INSERT INTO `dic_all` VALUES ('4', 'khlx_4', '长期跟踪客户', '1');
+INSERT INTO `dic_all` VALUES ('5', 'khlx_5', '重要客户', '1');
+INSERT INTO `dic_all` VALUES ('6', 'khlx_6', '一般合作客户', '1');
+INSERT INTO `dic_all` VALUES ('7', 'khlx_7', '已流失客户', '1');
+INSERT INTO `dic_all` VALUES ('8', 'khlx_8', 'C客户', '1');
+INSERT INTO `dic_all` VALUES ('9', 'khlx_9', 'A客户', '1');
+INSERT INTO `dic_all` VALUES ('10', 'khly_1', '网络搜索', '1');
+INSERT INTO `dic_all` VALUES ('11', 'khly_2', '客户解释', '1');
+INSERT INTO `dic_all` VALUES ('12', 'khly_3', '广告', '1');
+INSERT INTO `dic_all` VALUES ('13', 'khly_4', '报纸杂志', '1');
+INSERT INTO `dic_all` VALUES ('14', 'khly_5', '户外媒体', '1');
+INSERT INTO `dic_all` VALUES ('15', 'khly_6', '朋友推荐', '1');
+INSERT INTO `dic_all` VALUES ('16', 'khly_7', '其他', '1');
+INSERT INTO `dic_all` VALUES ('17', 'jhlx_1', '投标项目', '1');
+INSERT INTO `dic_all` VALUES ('18', 'jhlx_1', '自定义', '1');
+INSERT INTO `dic_all` VALUES ('19', 'jhlx_2', '议标项目', '1');
+INSERT INTO `dic_all` VALUES ('20', 'jhlx_3', '商务洽谈', '1');
+INSERT INTO `dic_all` VALUES ('21', 'jhlx_4', '渠道销售', '1');
+INSERT INTO `dic_all` VALUES ('22', 'jhlx_5', '网络搜索', '1');
+INSERT INTO `dic_all` VALUES ('23', 'jhjd_1', '初期沟通', '1');
+INSERT INTO `dic_all` VALUES ('24', 'jhjd_2', '自定义', '1');
+INSERT INTO `dic_all` VALUES ('25', 'jhjd_3', '立项评估', '1');
+INSERT INTO `dic_all` VALUES ('26', 'jhjd_4', '需求分析', '1');
+INSERT INTO `dic_all` VALUES ('27', 'jhjd_5', '解决方案', '1');
+INSERT INTO `dic_all` VALUES ('28', 'jhjd_2', '已报价', '1');
+INSERT INTO `dic_all` VALUES ('29', 'jhjd_7', '合同签订', '1');
+INSERT INTO `dic_all` VALUES ('30', 'jhjd_8', '88', '1');
+INSERT INTO `dic_all` VALUES ('31', 'cjknx_1', '0', '1');
+INSERT INTO `dic_all` VALUES ('32', 'cjknx_2', '10', '1');
+INSERT INTO `dic_all` VALUES ('33', 'cjknx_3', '20', '1');
+INSERT INTO `dic_all` VALUES ('34', 'cjknx_4', '30', '1');
+INSERT INTO `dic_all` VALUES ('35', 'cjknx_5', '40', '1');
+INSERT INTO `dic_all` VALUES ('36', 'cjknx_6', '50', '1');
+INSERT INTO `dic_all` VALUES ('37', 'cjknx_7', '60', '1');
+INSERT INTO `dic_all` VALUES ('38', 'cjknx_8', '70', '1');
+INSERT INTO `dic_all` VALUES ('39', 'cjknx_9', '80', '1');
+INSERT INTO `dic_all` VALUES ('40', 'cjknx_10', '90', '1');
+INSERT INTO `dic_all` VALUES ('41', 'cjknx_11', '100', '1');
+
+-- ----------------------------
+-- Table structure for goods
+-- ----------------------------
+DROP TABLE IF EXISTS `goods`;
+CREATE TABLE `goods` (
+  `id` int(32) NOT NULL,
+  `name` varchar(255) DEFAULT NULL COMMENT '产品名称',
+  `code` varchar(255) DEFAULT NULL COMMENT '产品编码',
+  `picture` varchar(255) DEFAULT NULL COMMENT '商品图片',
+  `model` varchar(255) DEFAULT NULL COMMENT '规格型号',
+  `unit` int(32) DEFAULT NULL COMMENT '计量单位',
+  `kcsl` int(16) DEFAULT NULL COMMENT '库存数量',
+  `kykc` int(16) DEFAULT NULL COMMENT '可用库存',
+  `price` float DEFAULT NULL COMMENT '参考出售价',
+  `status` tinyint(1) DEFAULT NULL COMMENT '商品状态',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of goods
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for menu
+-- ----------------------------
+DROP TABLE IF EXISTS `menu`;
+CREATE TABLE `menu` (
+  `id` int(32) NOT NULL AUTO_INCREMENT,
+  `context` text COMMENT '菜单内容',
+  `level` int(8) DEFAULT NULL COMMENT '菜单级别',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of menu
+-- ----------------------------
+INSERT INTO `menu` VALUES ('1', '<dd>\r\n    <div class=\"title\">\r\n    <span><img src=\"images/leftico01.png\" /></span>客户管理\r\n    </div>\r\n    	<ul class=\"menuson\">\r\n        \r\n        <li>\r\n            <div class=\"header\">\r\n            <cite></cite>\r\n            <a href=\"page/crm/ggkhc.jsp\" target=\"rightFrame\">公共客户池</a>\r\n            <i></i>\r\n            </div>\r\n            \r\n        </li>\r\n        \r\n        <li>\r\n            <div class=\"header\">\r\n            <cite></cite>\r\n            <a href=\"&#36;&#123pageContext.servletContext.contextPath&#125;/page/crm/khxxgl.jsp\" target=\"rightFrame\">客户信息管理</a>\r\n            <i></i>\r\n            </div>                      \r\n        </li>       \r\n        <li class=\"active\"><cite></cite><a href=\"&#36;&#123pageContext.servletContext.contextPath&#125;/page/crm/jwjlgl.jsp\" target=\"rightFrame\">交往记录管理</a><i></i></li>\r\n        <li><cite></cite><a href=\"imgtable.html\" target=\"rightFrame\">客户漏斗图</a><i></i></li>\r\n        <li><cite></cite><a href=\"&#36;&#123pageContext.servletContext.contextPath&#125;/page/crm/khsrcx.jsp\" target=\"rightFrame\">客户生日查询</a><i></i></li>\r\n        <li><cite></cite><a href=\"&#36;&#123pageContext.servletContext.contextPath&#125;/page/crm/khgh.jsp\" target=\"rightFrame\">客户关怀</a><i></i></li>\r\n        <li><cite></cite><a href=\"&#36;&#123pageContext.servletContext.contextPath&#125;/page/crm/khzy.jsp\" target=\"rightFrame\">客户转移</a><i></i></li>    \r\n        </ul>    \r\n    </dd>\r\n        \r\n    \r\n    <dd>\r\n    <div class=\"title\">\r\n    <span><img src=\"images/leftico02.png\" /></span>销售计划管理\r\n    </div>\r\n    <ul class=\"menuson\">\r\n        <li><cite></cite><a href=\"&#36;&#123pageContext.servletContext.contextPath&#125;/page/crm/xmjh.jsp\" target=\"rightFrame\">项目机会</a><i></i></li>\r\n        <li><cite></cite><a href=\"project.html\" target=\"rightFrame\">机会漏斗图</a><i></i></li>\r\n        <li><cite></cite><a href=\"search.html\" target=\"rightFrame\">销售标价表</a><i></i></li>\r\n        <li><cite></cite><a href=\"tech.html\" target=\"rightFrame\">解决方案</a><i></i></li>\r\n        </ul>     \r\n    </dd>    \r\n    <dd><div class=\"title\"><span><img src=\"images/leftico03.png\" /></span>产品管理</div>\r\n      <ul class=\"menuson\">\r\n        <li><cite></cite><a href=\"flow.html\" target=\"rightFrame\">哈哈哈。没有啦</a><i></i></li>\r\n       \r\n        </ul>    \r\n    </dd>  \r\n    \r\n    \r\n    <dd><div class=\"title\"><span><img src=\"images/leftico04.png\" /></span>用户管理</div>\r\n    <ul class=\"menuson\">\r\n        <li><cite></cite><a href=\"flow.html\" target=\"rightFrame\">点不开就是点不开</a><i></i></li>\r\n       \r\n        </ul>\r\n    \r\n    </dd> \r\n	', '2');
+INSERT INTO `menu` VALUES ('2', '   <dd>\r\n    <div class=\"title\">\r\n    <span><img src=\"images/leftico01.png\" /></span>客户管理\r\n    </div>\r\n    	<ul class=\"menuson\">\r\n        \r\n        <li>\r\n            <div class=\"header\">\r\n            <cite></cite>\r\n            <a href=\"page/crm/ggkhc.jsp\" target=\"rightFrame\">公共客户池</a>\r\n            <i></i>\r\n            </div>\r\n            \r\n        </li>\r\n        \r\n        <li>\r\n            <div class=\"header\">\r\n            <cite></cite>\r\n            <a href=\"${pageContext.servletContext.contextPath}/page/crm/khxxgl.jsp\" target=\"rightFrame\">客户信息管理</a>\r\n            <i></i>\r\n            </div>                      \r\n        </li>       \r\n        <li class=\"active\"><cite></cite><a href=\"${pageContext.servletContext.contextPath}/page/crm/jwjlgl.jsp\" target=\"rightFrame\">交往记录管理</a><i></i></li>\r\n        <li><cite></cite><a href=\"imgtable.html\" target=\"rightFrame\">客户漏斗图</a><i></i></li>\r\n        <li><cite></cite><a href=\"${pageContext.servletContext.contextPath}/page/crm/khsrcx.jsp\" target=\"rightFrame\">客户生日查询</a><i></i></li>\r\n        <li><cite></cite><a href=\"${pageContext.servletContext.contextPath}/page/crm/khgh.jsp\" target=\"rightFrame\">客户关怀</a><i></i></li>\r\n        <li><cite></cite><a href=\"${pageContext.servletContext.contextPath}/page/crm/khzy.jsp\" target=\"rightFrame\">客户转移</a><i></i></li>    \r\n        </ul>    \r\n    </dd>\r\n        \r\n    \r\n    <dd>\r\n    <div class=\"title\">\r\n    <span><img src=\"images/leftico02.png\" /></span>销售计划管理\r\n    </div>\r\n    <ul class=\"menuson\">\r\n        <li><cite></cite><a href=\"${pageContext.servletContext.contextPath}/page/crm/xmjh.jsp\" target=\"rightFrame\">项目机会</a><i></i></li>\r\n        <li><cite></cite><a href=\"project.html\" target=\"rightFrame\">机会漏斗图</a><i></i></li>\r\n        <li><cite></cite><a href=\"search.html\" target=\"rightFrame\">销售标价表</a><i></i></li>\r\n        <li><cite></cite><a href=\"tech.html\" target=\"rightFrame\">解决方案</a><i></i></li>\r\n        </ul>     \r\n    </dd>    \r\n    <dd><div class=\"title\"><span><img src=\"images/leftico03.png\" /></span>产品管理</div>\r\n      <ul class=\"menuson\">\r\n        <li><cite></cite><a href=\"flow.html\" target=\"rightFrame\">哈哈哈。没有啦</a><i></i></li>\r\n       \r\n        </ul>    \r\n    </dd> ', '2');
+
+-- ----------------------------
+-- Table structure for role
+-- ----------------------------
+DROP TABLE IF EXISTS `role`;
+CREATE TABLE `role` (
+  `id` int(16) NOT NULL AUTO_INCREMENT,
+  `name` varchar(10) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of role
+-- ----------------------------
+INSERT INTO `role` VALUES ('1', 'superAdmin');
+INSERT INTO `role` VALUES ('2', 'admin');
+INSERT INTO `role` VALUES ('3', 'worker');
+
+-- ----------------------------
+-- Table structure for roleauthority
+-- ----------------------------
+DROP TABLE IF EXISTS `roleauthority`;
+CREATE TABLE `roleauthority` (
+  `id` int(32) NOT NULL AUTO_INCREMENT,
+  `roleId` int(16) NOT NULL,
+  `authorityId` int(16) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `roleId` (`roleId`),
+  KEY `authorityId` (`authorityId`),
+  CONSTRAINT `roleauthority_ibfk_1` FOREIGN KEY (`roleId`) REFERENCES `role` (`id`),
+  CONSTRAINT `roleauthority_ibfk_2` FOREIGN KEY (`authorityId`) REFERENCES `authority` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of roleauthority
+-- ----------------------------
+INSERT INTO `roleauthority` VALUES ('1', '1', '1');
+INSERT INTO `roleauthority` VALUES ('2', '3', '2');
+
+-- ----------------------------
+-- Table structure for user
+-- ----------------------------
+DROP TABLE IF EXISTS `user`;
+CREATE TABLE `user` (
+  `id` int(32) NOT NULL AUTO_INCREMENT,
+  `workno` varchar(255) DEFAULT NULL COMMENT '工号',
+  `workposition` int(32) DEFAULT NULL COMMENT '职位',
+  `userName` varchar(16) NOT NULL,
+  `sex` varchar(2) DEFAULT NULL,
+  `oldpassword` varchar(32) DEFAULT NULL,
+  `nickName` varchar(30) DEFAULT NULL,
+  `userPic` varchar(50) DEFAULT NULL,
+  `phone` varchar(15) DEFAULT NULL,
+  `email` varchar(30) DEFAULT NULL,
+  `address` varchar(50) DEFAULT NULL,
+  `userDetailId` int(11) DEFAULT NULL,
+  `password` varchar(32) DEFAULT NULL,
+  `status` int(4) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `workposition` (`workposition`),
+  CONSTRAINT `user_ibfk_1` FOREIGN KEY (`workposition`) REFERENCES `dic_all` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of user
+-- ----------------------------
+INSERT INTO `user` VALUES ('1', null, null, 'admin', null, null, null, null, null, null, null, null, '21232f297a57a5a743894a0e4a801fc3', null);
+
+-- ----------------------------
+-- Table structure for userrole
+-- ----------------------------
+DROP TABLE IF EXISTS `userrole`;
+CREATE TABLE `userrole` (
+  `id` int(32) NOT NULL AUTO_INCREMENT,
+  `userId` int(32) NOT NULL,
+  `roleId` int(16) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `userId` (`userId`),
+  KEY `roleId` (`roleId`),
+  CONSTRAINT `userrole_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `user` (`id`),
+  CONSTRAINT `userrole_ibfk_2` FOREIGN KEY (`roleId`) REFERENCES `role` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of userrole
+-- ----------------------------
+INSERT INTO `userrole` VALUES ('1', '1', '1');

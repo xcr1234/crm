@@ -1,0 +1,223 @@
+CREATE TABLE `customer` (
+`id` int(32) NOT NULL AUTO_INCREMENT,
+`code` varchar(255) NULL COMMENT '客户编码',
+`customer_type` int(8) NULL COMMENT '客户类型',
+`name` varchar(255) NULL COMMENT '客户姓名',
+`phone` varchar(255) NULL COMMENT '联系方式',
+`email` varchar(255) NULL COMMENT '邮箱',
+`adress` varchar(255) NULL COMMENT '详细地址',
+`qq` varchar(255) NULL COMMENT 'QQ',
+`createdate` varchar(255) NULL COMMENT '创建日期',
+`creator` varchar(255) NULL COMMENT '创建人',
+`sales` varchar(255) NULL COMMENT '销售负责人',
+`provence` varchar(255) NULL COMMENT '省',
+`city` varchar(255) NULL COMMENT '市',
+`county` varchar(255) NULL COMMENT '县',
+PRIMARY KEY (`id`) 
+);
+
+CREATE TABLE `authority` (
+`id` int(32) NOT NULL AUTO_INCREMENT,
+`menu_id` int(32) NULL COMMENT '菜单外键',
+PRIMARY KEY (`id`) 
+)
+ENGINE=InnoDB
+DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci
+AUTO_INCREMENT=1;
+
+CREATE TABLE `role` (
+`id` int(16) NOT NULL AUTO_INCREMENT,
+`name` varchar(10) CHARACTER SET utf8 NOT NULL,
+PRIMARY KEY (`id`) 
+)
+ENGINE=InnoDB
+DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci
+AUTO_INCREMENT=1;
+
+CREATE TABLE `roleauthority` (
+`id` int(32) NOT NULL AUTO_INCREMENT,
+`roleId` int(16) NOT NULL,
+`authorityId` int(16) NOT NULL,
+PRIMARY KEY (`id`) 
+)
+ENGINE=InnoDB
+DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci
+AUTO_INCREMENT=1;
+
+CREATE TABLE `user` (
+`id` int(32) NOT NULL AUTO_INCREMENT,
+`workno` varchar(255) NULL COMMENT '工号',
+`workposition` int(32) NULL COMMENT '职位',
+`userName` varchar(16) CHARACTER SET utf8 NOT NULL,
+`sex` varchar(2) CHARACTER SET utf8 NULL DEFAULT NULL,
+`oldpassword` varchar(32) NULL,
+`nickName` varchar(30) CHARACTER SET utf8 NULL DEFAULT NULL,
+`userPic` varchar(50) CHARACTER SET utf8 NULL DEFAULT NULL,
+`phone` varchar(15) CHARACTER SET utf8 NOT NULL,
+`email` varchar(30) CHARACTER SET utf8 NULL DEFAULT NULL,
+`address` varchar(50) CHARACTER SET utf8 NULL DEFAULT NULL,
+`userDetailId` int(11) NULL DEFAULT NULL,
+`password` varchar(32) NULL,
+`status` int(4) NULL,
+PRIMARY KEY (`id`) 
+)
+ENGINE=InnoDB
+DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci
+AUTO_INCREMENT=1;
+
+CREATE TABLE `userrole` (
+`id` int(32) NOT NULL AUTO_INCREMENT,
+`userId` int(32) NOT NULL,
+`roleId` int(16) NOT NULL,
+PRIMARY KEY (`id`) 
+)
+ENGINE=InnoDB
+DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci
+AUTO_INCREMENT=1;
+
+CREATE TABLE `customer_link` (
+`id` int(32) NOT NULL AUTO_INCREMENT,
+`sex` tinyint(1) NULL,
+`name` varchar(255) NULL,
+`position` varchar(255) NULL,
+`phone` varchar(255) NULL COMMENT '手机',
+`phone2` varchar(255) NULL COMMENT '工作电话',`birthdate` varchar(255) NULL COMMENT '出生日期',
+`content` varchar(255) NULL COMMENT '备注',
+`customer_id` int(32) NULL,
+PRIMARY KEY (`id`) 
+);
+
+CREATE TABLE `contact` (
+`id` int(32) NOT NULL AUTO_INCREMENT,
+`contactor` int(32) NULL COMMENT '交往人',
+`creator` varchar(255) NULL COMMENT '创建人',
+`createdate` varchar(255) NULL,
+`customer_id` int(32) NULL COMMENT '所属客户',
+`phone` varchar(255) NULL COMMENT '联系电话',
+`content` varchar(255) NULL COMMENT '内容',
+`remark` varchar(255) NULL COMMENT '备注',
+`attach_id` int(32) NULL,
+PRIMARY KEY (`id`) 
+)
+;
+
+CREATE TABLE `customer_care` (
+`id` int(32) NOT NULL,
+`customer_id` int(32) NOT NULL COMMENT '关怀客户',
+`date` datetime NULL COMMENT '关怀日期',
+`phone` varchar(255) NULL COMMENT '联系人电话',
+`phone2` varchar(255) NULL COMMENT '联系人手机',
+`creator` int(32) NULL,
+`creatdate` varchar(255) NULL COMMENT '创建日期',
+`content` varchar(255) NULL COMMENT '内容',
+`remark` varchar(255) NULL COMMENT '备注',
+PRIMARY KEY (`id`) 
+);
+
+CREATE TABLE `custom_chance` (
+`id` int(32) NOT NULL,
+`code` varchar(255) NULL COMMENT '机会编号',
+`name` varchar(255) NULL COMMENT '机会名称',
+`type` int(32) NULL COMMENT '机会类型',
+`creator` int NULL COMMENT '创建人',
+`createdate` varchar(255) NULL COMMENT '创建日期',
+`attach_id` int(32) NULL COMMENT '附件',
+`chance_stage` int(32) NULL COMMENT '机会阶段',
+`possibility` varchar(255) NULL COMMENT '成交可能性',
+PRIMARY KEY (`id`) 
+);
+
+CREATE TABLE `bjd` (
+`id` int(32) NOT NULL AUTO_INCREMENT,
+`sskh` int(32) NULL COMMENT '所属客户',
+`bjr` int(32) NULL COMMENT '报价人',
+`yxrq` varchar(255) NULL COMMENT '有效日期',
+`bjrq` varchar(255) NULL COMMENT '报价日期',
+`phone` varchar(255) NULL COMMENT '联系电话',
+`creator` varchar(255) NULL COMMENT '创建人',
+`custom_chance_id` int(32) NULL COMMENT '销售机会',
+`createdate` varchar(255) NULL COMMENT '创建日期',
+`discount` int(4) NULL COMMENT '菜单折扣',
+`totle_count` int(16) NULL COMMENT '数量合计',
+`totle_rate` float NULL COMMENT '税率合计',
+`totle_pre_price_rate` float NULL COMMENT '含税单价合计',
+`totle_price_rate` float NULL COMMENT '税金合计',
+`totle_price` float NULL COMMENT '货款合计',
+`totle_discount_price` float NULL COMMENT '折扣后合计',
+PRIMARY KEY (`id`) 
+);
+
+CREATE TABLE `bjd_list` (
+`id` int(32) NOT NULL AUTO_INCREMENT,
+`goods_id` int(32) NULL COMMENT '商品',
+`bjd_id` int(32) NULL,
+`count` int(16) NULL COMMENT '数量',
+`rate` int(4) NULL COMMENT '税率',
+`per_price_rate` float NULL COMMENT '含税单价',
+`digest` varchar(255) NULL COMMENT '摘要',
+`price_rate` float NULL COMMENT '税金',
+`price` float NULL COMMENT '货款',
+`totle_price` float NULL COMMENT '合计',
+PRIMARY KEY (`id`) 
+);
+
+CREATE TABLE `goods` (
+`id` int(32) NOT NULL,
+`name` varchar(255) NULL COMMENT '产品名称',
+`code` varchar(255) NULL COMMENT '产品编码',
+`picture` varchar(255) NULL COMMENT '商品图片',
+`model` varchar(255) NULL COMMENT '规格型号',
+`unit` int(32) NULL COMMENT '计量单位',
+`kcsl` int(16) NULL COMMENT '库存数量',
+`kykc` int(16) NULL COMMENT '可用库存',
+`price` float NULL COMMENT '参考出售价',
+`status` tinyint(1) NULL COMMENT '商品状态',
+PRIMARY KEY (`id`) 
+);
+
+CREATE TABLE `dic_all` (
+`id` int(32) NOT NULL AUTO_INCREMENT,
+`type` varchar(255) NULL COMMENT '数据字典类别',
+`name` varchar(255) NULL COMMENT '名称',
+`status` tinyint(1) NULL COMMENT '状态',
+PRIMARY KEY (`id`) 
+);
+
+CREATE TABLE `attach` (
+`id` int(32) NOT NULL AUTO_INCREMENT,
+`name` varchar(255) NULL COMMENT '附件名称',
+`type` int(32) NULL COMMENT '附件类型',
+`path` varchar(255) NULL COMMENT '附件类型',
+PRIMARY KEY (`id`) 
+);
+
+CREATE TABLE `menu` (
+`id` int(32) NOT NULL AUTO_INCREMENT,
+`context` text NULL COMMENT '菜单内容',
+`level` int(8) NULL COMMENT '菜单级别',
+PRIMARY KEY (`id`) 
+);
+
+
+ALTER TABLE `userrole` ADD FOREIGN KEY (`userId`) REFERENCES `user` (`id`);
+ALTER TABLE `userrole` ADD FOREIGN KEY (`roleId`) REFERENCES `role` (`id`);
+ALTER TABLE `roleauthority` ADD FOREIGN KEY (`roleId`) REFERENCES `role` (`id`);
+ALTER TABLE `roleauthority` ADD FOREIGN KEY (`authorityId`) REFERENCES `authority` (`id`);
+ALTER TABLE `customer` ADD FOREIGN KEY (`customer_type`) REFERENCES `dic_all` (`id`);
+ALTER TABLE `customer_link` ADD FOREIGN KEY (`customer_id`) REFERENCES `customer` (`id`);
+ALTER TABLE `contact` ADD FOREIGN KEY (`contactor`) REFERENCES `user` (`id`);
+ALTER TABLE `customer_care` ADD FOREIGN KEY (`customer_id`) REFERENCES `customer` (`id`);
+ALTER TABLE `customer_care` ADD FOREIGN KEY (`creator`) REFERENCES `user` (`id`);
+ALTER TABLE `custom_chance` ADD FOREIGN KEY (`type`) REFERENCES `dic_all` (`id`);
+ALTER TABLE `custom_chance` ADD FOREIGN KEY (`creator`) REFERENCES `user` (`id`);
+ALTER TABLE `custom_chance` ADD FOREIGN KEY (`chance_stage`) REFERENCES `dic_all` (`id`);
+ALTER TABLE `attach` ADD FOREIGN KEY (`type`) REFERENCES `dic_all` (`id`);
+ALTER TABLE `custom_chance` ADD FOREIGN KEY (`attach_id`) REFERENCES `attach` (`id`);
+ALTER TABLE `bjd` ADD FOREIGN KEY (`sskh`) REFERENCES `customer` (`id`);
+ALTER TABLE `bjd` ADD FOREIGN KEY (`bjr`) REFERENCES `user` (`id`);
+ALTER TABLE `bjd` ADD FOREIGN KEY (`custom_chance_id`) REFERENCES `custom_chance` (`id`);
+ALTER TABLE `bjd_list` ADD FOREIGN KEY (`goods_id`) REFERENCES `goods` (`id`);
+ALTER TABLE `bjd_list` ADD FOREIGN KEY (`bjd_id`) REFERENCES `bjd` (`id`);
+ALTER TABLE `user` ADD FOREIGN KEY (`workposition`) REFERENCES `dic_all` (`id`);
+ALTER TABLE `authority` ADD FOREIGN KEY (`menu_id`) REFERENCES `menu` (`id`);
+

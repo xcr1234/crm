@@ -1,8 +1,4 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
-<%
-String path = request.getContextPath();
-String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
-%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="p" uri="http://oraclewdp.com/page" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -27,7 +23,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <script type="text/javascript" src="${pageContext.servletContext.contextPath}/js/excel/tableexport-3.2.min.js"></script>
     <script type="text/javascript" src="${pageContext.servletContext.contextPath}/js/DateUtil.js"></script>
 <script type="text/javascript">
-$(function(){
+$(document).ready(function(){
+
 $.fn.tableExport.xlsx = {
     defaultClass: "xlsx",
     buttonContent: "确认导出",
@@ -35,11 +32,12 @@ $.fn.tableExport.xlsx = {
     fileExtension: ".xlsx"
 };
 $("#export").click(function(){
+alert("123");
  var tableName="项目机会表"; //初始化表名
- var column=[0,9,10];  //初始化忽略的列，从0开始。
+ var column=[0,10];  //初始化忽略的列，从0开始。
  var date=new Date();
  var time=formatDate(date, "yyyy-MM-dd");
- var fileName=tableName+"-第"+${page.pageCount}+'页-'+time;
+ var fileName=tableName+"-第"+${page.current}+'页-'+time;
 	$("table").tableExport({
 	    headings: true, 
 	    footers: true, 
@@ -123,13 +121,13 @@ input[type=checkbox]{
     </div>
     
     <div class="rightinfo">
-    <form id="form1" action="<%=basePath%>xmjh.do?method=query" method="post">
+    <form id="form1" action="${pageContext.servletContext.contextPath}/xmjh.do?method=query" method="post">
     <div class="tools">
     
     	<ul class="toolbar">
-        <li class="click" onclick="location.href='<%=basePath%>xmjh.do?method=add'"><span><img src="images/t01.png" /></span>新建销售机会</li>
+        <li class="click" onclick="location.href='${pageContext.servletContext.contextPath}/xmjh.do?method=add'"><span><img src="images/t01.png" /></span>新建销售机会</li>
         <li class="click"  onclick="document.getElementById('form1').submit()"><span><img src="images/ico06.png"/></span>查询</li>
-         <li id="export"><span><img src="${pageContext.servletContext.contextPath}/images/lc04.png" width="25px" height="25px"/></span>导出报表</li>     
+        <li id="export"><span><img src="${pageContext.servletContext.contextPath}/images/lc04.png" width="25px" height="25px"/></span>导出报表</li>     
         </ul>
     </div>
     
@@ -168,8 +166,8 @@ input[type=checkbox]{
           <td>${item.possibility}</td>
           <td>${item.attach.name}</td>
 
-          <td><a href="<%=basePath%>xmjh.do?method=detail&id=${item.id}">查看</a>&nbsp;<a href="javascript:;">编辑</a>&nbsp;
-			  <a href="<%=basePath%>xmjh.do?method=delete&id=${item.id}" onclick="return confirm('是否确认要删除？')">删除</a>&nbsp;</td>
+          <td><a href="${pageContext.servletContext.contextPath}/xmjh.do?method=detail&id=${item.id}">查看</a>&nbsp;<a href="javascript:;">编辑</a>&nbsp;
+			  <a href="${pageContext.servletContext.contextPath}/xmjh.do?method=delete&id=${item.id}" onclick="return confirm('是否确认要删除？')">删除</a>&nbsp;</td>
         </tr>
 		</c:forEach>
         </tbody>

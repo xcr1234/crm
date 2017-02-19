@@ -223,7 +223,7 @@
                     <td><input name="bjrq" type="text" class="dfinput"  onClick="WdatePicker()"/><i></i></td>
                     <td class="td_left">创建人:</td>
                     <td>
-                        <input name="creator" type="text" class="dfinput"/><i></i>
+                        <input name="creator" type="text" class="dfinput" value="${sessionScope.userRole.user.nickName}" readonly="readonly"/><i></i>
                     </td>
                     <td class="td_left">联系电话:</td>
                     <td><input type="text" name="phone" class="dfinput"></td>

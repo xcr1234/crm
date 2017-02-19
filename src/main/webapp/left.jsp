@@ -79,40 +79,97 @@ $(function(){
         <li>
             <div class="header">
             <cite></cite>
-            <a href="${pageContext.servletContext.contextPath}/khxxgl.do?method=listKhxx&userId=${sessionScope.userRole.user.id}" target="rightFrame">客户信息管理</a>
+            <a href="${pageContext.servletContext.contextPath}/khxxgl.do?method=listKhxx&userRoleId=${sessionScope.userRole.id}" target="rightFrame">客户信息管理</a>
             <i></i>
             </div>                      
         </li>       
-        <li class="active"><cite></cite><a href="${pageContext.servletContext.contextPath}/page/crm/jwjlgl.jsp" target="rightFrame">交往记录管理</a><i></i></li>
-        <li><cite></cite><a href="${pageContext.servletContext.contextPath}/ggkhc.do?method=chart" target="rightFrame">客户分析图</a><i></i></li>
-        <li><cite></cite><a href="${pageContext.servletContext.contextPath}/page/crm/khsrcx.jsp" target="rightFrame">客户生日查询</a><i></i></li>
-        <li><cite></cite><a href="${pageContext.servletContext.contextPath}/page/crm/khgh.jsp" target="rightFrame">客户关怀</a><i></i></li>
-        <li><cite></cite><a href="${pageContext.servletContext.contextPath}/page/crm/khzy.jsp" target="rightFrame">客户转移</a><i></i></li>    
-        </ul>    
-    </dd>
-        
-    
+        <li>
+             <div class="header">
+              <cite></cite>
+              <a href="${pageContext.servletContext.contextPath}/jwjlgl.do?method=listJwjl&userRoleId=${sessionScope.userRole.id}" target="rightFrame">交往记录管理</a>
+              <i></i>
+              </div>
+        </li>
+        <li>
+             <div class="header">
+             <cite></cite>
+             <a href="${pageContext.servletContext.contextPath}/ggkhc.do?method=chart" target="rightFrame">客户分析图</a>
+             <i></i>
+             </div>
+        </li>
+        <li>
+             <div class="header">
+             <cite></cite>
+             <a href="${pageContext.servletContext.contextPath}/khsrxc.do?method=kxByWeek&userRoleId=${sessionScope.userRole.id}" target="rightFrame">客户生日查询</a>
+             <i></i>
+             </div>
+        </li>
+        <li>
+           <div class="header">
+             <cite></cite>
+             <a href="${pageContext.servletContext.contextPath}/khgh.do?method=listKhgh&userRoleId=${sessionScope.userRole.id}" target="rightFrame">客户关怀</a>
+             <i></i>
+             </div>
+        </li>
+        <%-- <li>
+            <div class="header">
+             <cite></cite>
+             <a href="${pageContext.servletContext.contextPath}/page/crm/khzy.jsp" target="rightFrame">客户转移</a>
+             <i></i>
+             </div>
+        </li>     --%>
+       </ul>    
+    </dd>   
     <dd>
     <div class="title">
     <span><img src="images/leftico02.png" /></span>销售计划管理
     </div>
     <ul class="menuson">
-        <li><cite></cite><a href="${pageContext.servletContext.contextPath}/xmjh.do?method=listXmjh" target="rightFrame">项目机会</a><i></i></li>
-        <li><cite></cite><a href="${pageContext.servletContext.contextPath}/xmjh.do?method=chart" target="rightFrame">机会分析图</a><i></i></li>
-        <li><cite></cite><a href="${pageContext.servletContext.contextPath}/xmjh.do?method=listXsbjd" target="rightFrame">销售标价表</a><i></i></li>
+        <li>
+          <div class="header">
+           <cite></cite>
+           <a href="${pageContext.servletContext.contextPath}/xmjh.do?method=listXmjh" target="rightFrame">项目机会</a>
+           <i></i>
+           </div>
+        </li>
+        <li>
+         <div class="header">
+        <cite></cite>
+        <a href="${pageContext.servletContext.contextPath}/xmjh.do?method=chart" target="rightFrame">机会分析图</a>
+        <i></i>
+        </div>
+        </li>
+        <li>
+        <div class="header">
+           <cite></cite>
+           <a href="${pageContext.servletContext.contextPath}/xmjh.do?method=listXsbjd" target="rightFrame">销售标价表</a>
+           <i></i>
+           </div>
+         </li>
         </ul>     
     </dd>    
     <dd><div class="title"><span><img src="images/leftico03.png" /></span>产品管理</div>
       <ul class="menuson">
-        <li><cite></cite><a href="${pageContext.servletContext.contextPath}/cpxxgl.do?method=listGoods" target="rightFrame">产品信息管理</a><i></i></li>
-       
+        <li>
+        <div class="header">
+           <cite></cite>
+           <a href="${pageContext.servletContext.contextPath}/cpxxgl.do?method=listGoods" target="rightFrame">产品信息管理</a>
+           <i></i>
+           </div>
+          </li>
         </ul>    
     </dd>  
     
     <c:if test="${sessionScope.userRole.role.name ne '业务员'}">
     <dd><div class="title"><span><img src="images/leftico04.png" /></span>用户管理</div>
     <ul class="menuson">
-        <li><cite></cite><a href="${pageContext.servletContext.contextPath}/yhgl.do?method=listUsers&userId=${sessionScope.userRole.user.id}" target="rightFrame">账号管理</a><i></i></li>
+        <li>
+        <div class="header">
+           <cite></cite>
+           <a href="${pageContext.servletContext.contextPath}/yhgl.do?method=listUsers&userId=${sessionScope.userRole.user.id}" target="rightFrame">账号管理</a>
+           <i></i>
+           </div>
+        </li>
         </ul> 
     </dd>   
     </c:if>
